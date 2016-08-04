@@ -1,15 +1,52 @@
-# Counter Example
+# Project Name
 
-A simple example showing different ways to use the `@select` decorator and
-the action creator service pattern.
+> Pithy project description
 
-## Running this Example
+## Team
 
-There are two ways to run this example:
+  - __Product Owner__: teamMember
+  - __Scrum Master__: teamMember
+  - __Development Team Members__: teamMember, teamMember
 
-1. `npm start`: this will run the example against the published npm version of
-ng2-redux on port 8080. Use this if you just want to play around with the
-example.
-2. `npm run dev`: exactly the same as (1) except we link to the local ng2-redux
-source code in `../../`. Use this if you want to test modifications to ng2-redux
-itself.
+## Table of Contents
+
+1. [Usage](#Usage)
+1. [Requirements](#requirements)
+1. [Development](#development)
+    1. [Installing Dependencies](#installing-dependencies)
+    1. [Tasks](#tasks)
+1. [Team](#team)
+1. [Contributing](#contributing)
+
+## Usage
+
+> Some usage instructions
+
+## Requirements
+
+- Node 0.10.x
+- Redis 2.6.x
+- Postgresql 9.1.x
+- etc
+- etc
+
+## Development
+
+### Installing Dependencies
+
+From within the root directory:
+
+```sh
+sudo npm install -g bower
+npm install
+bower install
+```
+
+### Roadmap
+
+View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
