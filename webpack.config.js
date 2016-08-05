@@ -8,7 +8,7 @@ module.exports = {
     __dirname + '/src/client/index.ts'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname + '/src/dist'),
     filename: 'bundle.js',
     publicPath: '/static/'
   },
