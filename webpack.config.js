@@ -4,8 +4,8 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './vendor.ts',
-    './index'
+    __dirname + '/src/client/vendor.ts',
+    __dirname + '/src/client/index.ts'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
