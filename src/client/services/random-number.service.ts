@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class RandomNumberService {
-  pick() {
-    return Math.floor(Math.random() * 100);
+  pick(length) {
+   // console.log("length", length);
+    return Math.floor(Math.random() * length);
   }
 }

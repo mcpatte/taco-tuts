@@ -4,11 +4,12 @@ import { Observable } from 'rxjs/Rx';
 import { SearchActions } from '../actions/search.actions';
 import { IAppState } from '../store';
 import { DictionaryService } from '../services/dictionary.service';
+import { RandomNumberService } from '../services/random-number.service';
 import { HTTP_PROVIDERS } from '@angular/http';
 
 @Component({
   selector: 'search',
-  providers: [ HTTP_PROVIDERS, SearchActions, DictionaryService ],
+  providers: [ HTTP_PROVIDERS, SearchActions, DictionaryService, RandomNumberService ],
   template: `
   <input
     id='search-input'
@@ -20,6 +21,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
   <p>Number of characters (from async pipe): {{ numChars$ | async }}</p>
   <p>You entered: {{ search$ | async }}<p>
   <button (click)="searchDictionary()"> Search dictionary </button>
+  <button (click)="randomWord()"> Random Word </button>
   `
 })
 export class Search {
@@ -34,7 +36,8 @@ export class Search {
   constructor(
     private actions: SearchActions,
     private ngRedux: NgRedux<IAppState>,
-    private dictionaryService: DictionaryService) { }
+    private dictionaryService: DictionaryService,
+    private randomNumberService: RandomNumberService) { }
 
   ngOnInit() {
     // Exercise the flow where a state change results in a new action.
@@ -64,5 +67,19 @@ export class Search {
         data => console.log('hi', data),
         error => console.log('error', error)
       );
+  }
+
+  randomWord () {
+    console.log("Getting random word");
+    let index = this.randomNumberService.pick(1700);
+    this.dictionaryService.getDictionary()
+    .subscribe(
+      dictionary => {
+        console.log(index, dictionary[index])
+        console.log(dictionary.length)
+      },
+      error => console.log('error', error)
+    );
+    
   }
 }

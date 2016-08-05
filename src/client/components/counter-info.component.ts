@@ -9,16 +9,17 @@ interface ICoord {
 }
 
 @Component({
-  selector: 'counter-info',
+  selector: 'counter-info-and-stuff',
   template: `
   <ul>
     <li>{{ funcCounter$ | async }}</li>
     <li>{{ stringKey$ | async }}</li>
     <li>{{ counterX2$ | async }}</li>
     <li>{{ foo?.x }} - {{ foo?.y }}</li>
-  <ul>
+  </ul>
   `
 })
+
 export class CounterInfo {
 
   @select(state => state.counter) funcCounter$: Observable<number>;
