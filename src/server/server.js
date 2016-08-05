@@ -1,18 +1,16 @@
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('../client/webpack.dev.config');
+//require the modules that we need
+var express = require('express');
+var http = require('http');
+var bodyParser = require('body-parser');
 
-new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
-  historyApiFallback: true,
-  stats: {
-    colors: true
-  }
-})
-.listen(3000, 'localhost', function (err) {
-  if (err) { console.log(err); }
+//initialize the app as an express app
+var app = express();
 
-  console.log('Listening at localhost:3000');
-});
+app.use(bodyParser.json());
 
-asdf
+app.use(express.static(__dirname + '/../dist'));
+
+app.listen(3000);
+console.log("So many tacos here on 3000");
+
+module.exports = app;
