@@ -1,15 +1,48 @@
-# Counter Example
+# Taco Tuts
 
-A simple example showing different ways to use the `@select` decorator and
-the action creator service pattern.
+> A tutor network app that gives tutors a platform to run their own business.
 
-## Running this Example
+## Team
 
-There are two ways to run this example:
+  - __Product Owner__: Nick Fireman
+  - __Scrum Master__: Emily Jones
+  - __Development Team Members__: Kyle Linhardt, Chase Patterson
 
-1. `npm start`: this will run the example against the published npm version of
-ng2-redux on port 8080. Use this if you just want to play around with the
-example.
-2. `npm run dev`: exactly the same as (1) except we link to the local ng2-redux
-source code in `../../`. Use this if you want to test modifications to ng2-redux
-itself.
+## Table of Contents
+
+1. [Usage](#Usage)
+1. [Requirements](#requirements)
+1. [Development](#development)
+    1. [Installing Dependencies](#installing-dependencies)
+    1. [Tasks](#tasks)
+1. [Team](#team)
+1. [Contributing](#contributing)
+
+## Usage
+
+> Some usage instructions
+
+## Requirements
+
+- Node 6.2.x
+- PostgreSQL
+
+## Development
+
+### Getting started
+
+From within the root directory:
+
+```sh
+npm install
+npm start
+```
+
+### Roadmap
+
+View the project roadmap [here](https://github.com/microwave-taco/taco-tuts/issues)
+
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.

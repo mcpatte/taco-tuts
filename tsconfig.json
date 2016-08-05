@@ -14,8 +14,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "typings/main",
-    "typings/main.d.ts"
-    
+    "src/client/typings/main",
+    "src/client/typings/main.d.ts"
   ]
 }
