@@ -1,28 +1,14 @@
 {
-  "name": "counter-redux",
+  "name": "taco-tuts",
   "version": "0.0.0",
-  "description": "Counter example for ng2-redux",
+  "description": "tuts for your taco",
   "main": "server.js",
   "scripts": {
     "postinstall": "typings install",
     "start": "webpack-dev-server -d --colors --content-base src/client --inline --progress --no-info --config webpack.config.js",
     "lint": "tslint -e node_modules/**/*.ts src/client/**/*.ts || exit 0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wbuchwalter/ng2-redux.git"
-  },
-  "keywords": [
-    "angular",
-    "redux",
-    "ng2-redux",
-    "webpack"
-  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wbuchwalter/ng2-redux/issues"
-  },
-  "homepage": "https://github.com/wbuchwalter/ng2-redux#readme",
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
     "@angular/compiler": "2.0.0-rc.4",
