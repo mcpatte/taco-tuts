@@ -41,7 +41,7 @@ export class CounterActions {
   randomize(): void {
     this.ngRedux.dispatch({
       type: CounterActions.RANDOMIZE_COUNTER,
-      payload: this.randomNumberService.pick()
+      payload: this.randomNumberService.pick(length)
     });
   }
 }
