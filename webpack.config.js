@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -10,10 +11,13 @@ module.exports = {
   output: {
     path: path.join(__dirname + '/src/dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: [
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new CopyWebpackPlugin([
+      { from: __dirname + '/src/client/index.html' }
+    ])
   ],
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
@@ -22,7 +26,8 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.ts$/,  loader: 'ts-loader', exclude: /node_modules/ },
-      { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ }
+      { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
+      { test: /\.html$/, loader: 'file', exclude: /node_modules/ }
     ]
   },
   noParse: [

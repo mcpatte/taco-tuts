@@ -4,10 +4,10 @@
   "description": "tuts for your taco",
   "main": "server.js",
   "scripts": {
-    "postinstall": "typings install",
+    "postinstall": "typings install && webpack",
     "start": "node src/server/server.js",
-    "dev": "webpack-dev-server -d --colors --content-base src/client --inline --progress --no-info --config webpack.config.js",
-    "lint": "tslint -e node_modules/**/*.ts src/client/**/*.ts || exit 0"
+    "dev": "webpack-dev-server -d --colors --content-base src/dist --inline --progress --no-info --config webpack.config.js",
+    "lint": "tslint -e node_modules/**/*.ts -e src/client/typings/**/*.ts src/client/**/*.ts || exit 0"
   },
   "license": "MIT",
   "dependencies": {
@@ -20,6 +20,7 @@
     "@angular/router": "3.0.0-alpha.7",
     "angular2-jwt": "0.1.16",
     "body-parser": "^1.15.2",
+    "copy-webpack-plugin": "^3.0.1",
     "core-js": "^2.3.0",
     "express": "^4.14.0",
     "http": "0.0.0",
