@@ -3,7 +3,7 @@ export class User {
     public id: number,
     public username: string,
     public password: string,
-    public subjects: array,
+    public subjects: string,
     public teacher: boolean,
     public student: boolean
   ) {  }
