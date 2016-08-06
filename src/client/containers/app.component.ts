@@ -17,10 +17,12 @@ import { Auth } from '../services/auth.service';
   pipes: [ AsyncPipe ],
   providers: [ DevToolsExtension, ConfigureStoreService, Auth ],
   template: `
-  <h3>Here is the home page</h3>
-  <h4>Welcome to taco tuts</h4>
-  <menu-bar></menu-bar>
-  <router-outlet></router-outlet>
+  <div class='container-fluid'>
+    <h3>Here is the home page</h3>
+    <h4>Welcome to taco tuts</h4>
+    <menu-bar></menu-bar>
+    <router-outlet></router-outlet>
+  </div>
   `
 })
 
