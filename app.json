@@ -1,0 +1,23 @@
+{
+  "name": "taco-tuts",
+  "description": "",
+  "scripts": {},
+  "env": {
+    "AUTH_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
