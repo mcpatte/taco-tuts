@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState, rootReducer, enhancers } from '../store/index';
+import { User } from './user';
+import { UserFormComponent } from './user-form.component';
 
 @Component({
   selector: 'sign-up',
-  directives: [],
-  providers: [],
+  providers: [ ],
   template: `
-    <h3>So you wanna sign up, eh?</h3>
-  
-  `
+    <user-form></user-form>
+  `,
+  directives: [ UserFormComponent ]
 })
 
 export class SignUpComponent {
