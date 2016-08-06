@@ -1,20 +1,25 @@
-//Should have myDashboard, search
 import { Component } from '@angular/core';
-import { NgRedux, select } from 'ng2-redux';
-import { IAppState, rootReducer, enhancers } from '../store/index';
+import { NgRedux } from 'ng2-redux';
+import { IAppState } from '../store/index';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Login } from '../components/login.component';
+import { StudentDashboard } from '../components/studentDashboard.component';
+import { TeacherDashboard } from '../components/teacherDashboard.component';
+import { AdvancedSearch } from '../components/advancedSearch.component';
 
 @Component({
   selector: 'menu-bar',
-  providers: [ ],
+  directives: [ Login, StudentDashboard, TeacherDashboard, AdvancedSearch, ROUTER_DIRECTIVES ],
   template: `
-  <h3>OMG I AM THE MENUBAR!</h3>
+  <nav>
+    <a routerLink="/login" routerLinkActive="active">Login</a>
+    <a routerLink="/student-dash" routerLinkActive="active">Student Dashboard</a>
+    <a routerLink="/teacher-dash" routerLinkActive="active">Teacher Dashboard</a>
+    <a routerLink="/advanced-search" routerLinkActive="active">Advanced Search</a>
+  </nav>
   `
 })
-export class MenuBar {
-  // Selected observables to test async pipe model.
-  
-  // Members to test subscribe model.
-
+export class MenuBarComponent {
   constructor(
     private ngRedux: NgRedux<IAppState>
     ) { }
