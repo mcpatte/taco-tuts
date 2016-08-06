@@ -23,5 +23,10 @@ import { User }    from './user';
   `
 })
 export class UserFormComponent {
-
+  subjects = ['Chemistry', 'Math', 'Javascript'];
+  model = new User(18, 'HarryP', '123', this.subjects[0], true, false);
+  submitted = false;
+  onSubmit() { this.submitted = true; }
+  // TODO: Remove this when we're done
+  get diagnostic() { return JSON.stringify(this.model); }
 }
