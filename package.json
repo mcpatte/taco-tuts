@@ -7,7 +7,7 @@
     "postinstall": "typings install",
     "start": "node src/server/server.js",
     "dev": "webpack-dev-server -d --colors --content-base src/dist --inline --progress --no-info --config webpack.config.js",
-    "lint": "tslint -e node_modules/**/*.ts src/client/**/*.ts || exit 0"
+    "lint": "tslint -e node_modules/**/*.ts -e src/client/typings/**/*.ts src/client/**/*.ts || exit 0"
   },
   "license": "MIT",
   "dependencies": {
