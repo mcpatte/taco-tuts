@@ -5,6 +5,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var db = require('./queries');
+var path = require('path');
 //initialize the app as an express app
 var app = express();
 var PORT = process.env.PORT || 3000;
