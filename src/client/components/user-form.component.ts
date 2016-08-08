@@ -20,6 +20,10 @@ import { IAppState } from '../store';
             <input [(ngModel)] = "model.username" type="text" class="form-control" required>
           </div>
           <div class="form-group">
+            <label for="name">Name</label>
+            <input [(ngModel)] = "model.name" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
             <label for="email">Email</label>
             <input [(ngModel)] = "model.email" type="text" class="form-control" required>
           </div>
@@ -70,13 +74,19 @@ export class UserFormComponent {
   }
 
   create(dataObj) {
-    this.newUserService.createUser(dataObj);
+    this.newUserService.createUser(dataObj)
+    .subscribe(
+      response => {
+        console.log(response)
+      },
+      error => console.log('error', error)
+    );
   }
  
   onSubmit() { this.submitted = true; }
 
   subjects = ['Chemistry', 'Math', 'Javascript'];
-  model = new User('', '', '', '', '', '');
+  model = new User('', '', '', '', '', false, '');
   submitted = false;
   
   // TODO: Remove this when we're done
