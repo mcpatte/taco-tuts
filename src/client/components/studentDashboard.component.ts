@@ -8,11 +8,10 @@
 import { Component } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
 import { IAppState, rootReducer, enhancers } from '../store/index';
-
+import { Auth } from '../services/auth.service';
 
 @Component({
   selector: 'student-dashboard',
-  providers: [ ],
   template: `
   <h3>OMG I AM THE STUDENT DASHBOARD!</h3>
     
@@ -24,6 +23,7 @@ export class StudentDashboard {
   // Members to test subscribe model.
 
   constructor(
+    private auth: Auth,
     private ngRedux: NgRedux<IAppState>) { }
 
 

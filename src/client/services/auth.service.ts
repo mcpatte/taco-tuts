@@ -7,11 +7,14 @@ declare var Auth0Lock: any;
 @Injectable()
 export class Auth {
   // Configure Auth0
-  lock = new Auth0Lock('1fAOoxggMklnQahSLp7O9dYpEZryuprR', 'kylelinhardt.auth0.com', {});
+  lock = new Auth0Lock('1fAOoxggMklnQahSLp7O9dYpEZryuprR', 'kylelinhardt.auth0.com', {
+    loginUrl: '/'
+  });
 
   constructor() {
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
+      console.log(authResult);
       localStorage.setItem('id_token', authResult.idToken);
     });
   }

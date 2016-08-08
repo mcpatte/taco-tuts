@@ -13,8 +13,7 @@ const routes: RouterConfig = [
   { path: 'student-dash', component: StudentDashboard },
   { path: 'teacher-dash', component: TeacherDashboard },
   { path: 'advanced-search', component: AdvancedSearch },
-  { path: '**', component: Login },
-  { path: '#', redirectTo: '' }
+  { path: '**', redirectTo: '' }
 
 ];
 
