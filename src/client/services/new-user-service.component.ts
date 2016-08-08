@@ -1,6 +1,6 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { User }           from '../components/user';
+import { User }           from '../components/sign-up/user';
 import { Observable }     from 'rxjs/Observable';
 
 
