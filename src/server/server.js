@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 
 app.get('/api/users', db.getAllUsers);
 app.get('/api/users/:id', db.getSingleUser);
+app.get('/api/subject', db.getAllSubjects);
 app.post('/api/users', db.createUser);
 app.post('/api/subject', db.createSubject);
-app.get('/api/subject', db.getAllSubjects);
 app.post('/api/learning', db.learningSubject);
 app.post('/api/teaching', db.teachingSubject);
 app.put('/api/users/:id', db.updateUser);

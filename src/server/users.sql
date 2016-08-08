@@ -5,10 +5,12 @@ CREATE DATABASE tacobase;
 
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
+  authID TEXT,
   username VARCHAR,
   name VARCHAR,
   email VARCHAR,
-  teacher BOOLEAN
+  teacher BOOLEAN,
+  isAvailible BOOLEAN
 );
 
 CREATE TABLE subjects (
