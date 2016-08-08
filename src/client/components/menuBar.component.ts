@@ -14,11 +14,10 @@ import { Auth } from '../services/auth.service';
   providers: [Auth],
   template: `
   <nav>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
     <a routerLink="/student-dash" routerLinkActive="active">Student Dashboard</a>
     <a routerLink="/teacher-dash" routerLinkActive="active">Teacher Dashboard</a>
     <a routerLink="/advanced-search" routerLinkActive="active">Advanced Search</a>
-    <a routerLink="#" routerLinkActive="active" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</a>
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!auth.authenticated()">Log In</a>
     <a routerLink="#" routerLinkActive="active" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</a>
   </nav>
   `
