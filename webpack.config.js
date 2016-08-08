@@ -2,21 +2,25 @@ var path = require('path');
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
+var srcDir = path.join(__dirname, 'src');
+var clientDir = path.join(srcDir, 'client');
+var outputDir = path.join(srcDir, 'dist');
+
 module.exports = {
   devtool: 'source-map',
   entry: [
-    __dirname + '/src/client/vendor.ts',
-    __dirname + '/src/client/index.ts'
+    path.join(clientDir, 'vendor.ts'),
+    path.join(clientDir, 'index.ts')
   ],
   output: {
-    path: path.join(__dirname + '/src/dist'),
+    path: outputDir,
     filename: 'bundle.js',
     publicPath: '/'
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
-      { from: __dirname + '/src/client/index.html' }
+      { from: path.join(clientDir, 'index.html') }
     ])
   ],
   resolve: {
@@ -27,7 +31,7 @@ module.exports = {
     loaders: [
       { test: /\.ts$/,  loader: 'ts-loader', exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
-      { test: /\.html$/, loader: 'file', exclude: /node_modules/ }
+      { test: /\.html$/, loader: 'html' }
     ]
   },
   noParse: [
