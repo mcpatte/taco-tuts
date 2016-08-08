@@ -11,44 +11,7 @@ import { Router,
 @Component({
   selector: 'user-form',
   providers: [ NewUserService ],
-  template: `
-  <div class="container">
-        <h1>Create An Account</h1>
-        <form>
-        {{diagnostic}}
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input [(ngModel)] = "model.username" type="text" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input [(ngModel)] = "model.name" type="text" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input [(ngModel)] = "model.email" type="text" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="student">Student</label>
-            <input (click)="showStudentSubjects()" [(ngModel)]="model.student" type="checkbox" class="form-control" required />
-            <label *ngIf="isStudentSelected" for="subject">What subject do you want to learn?</label>
-              <select *ngIf="isStudentSelected"[(ngModel)] = "model.learningSubjects" class="form-control" required>
-                <option  *ngFor="let s of subjects" [value]="s">{{s}}</option>
-              </select>
-          </div>
-          <div class="form-group">
-            <label for="teacher">Teacher</label>
-            <input (click)="showTeacherSubjects()" [(ngModel)]="model.teacher" type="checkbox" class="form-control" />
-            <label for="subject" *ngIf="isTeacherSelected" >What subject do you teach?</label>
-              <select *ngIf="isTeacherSelected" [(ngModel)] = "model.teachingSubjects" class="form-control" required>
-              <option *ngFor="let s of subjects" [value]="s">{{s}}</option>
-              </select>
-          </div>
-          <button (click)="create(model)" type="submit" class="btn btn-default">Create My Account</button>
-        </form>
-    </div>
-
-  `
+  template: require('./user-form.component.html')  
 })
 export class UserFormComponent {
 
@@ -74,7 +37,7 @@ export class UserFormComponent {
       this.model.teachingSubjects = ''; 
     }
   }
-
+  
   create(dataObj) {
     this.newUserService.createUser(dataObj)
     .subscribe(
@@ -83,7 +46,7 @@ export class UserFormComponent {
       },
       error => console.log('error', error)
     );
-    this.router.navigate(['/student-dash']);
+    //this.router.navigate(['/student-dash']);
   }
  
   onSubmit() { this.submitted = true; }
