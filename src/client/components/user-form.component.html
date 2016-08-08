@@ -1,14 +1,31 @@
-<div class="container">
-  <h1>New User Form</h1>
-  <form>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" required>
+  <div class="container">
+        <h1>Create An Account</h1>
+        <form>
+        {{diagnostic}}
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input [(ngModel)] = "model.username" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input [(ngModel)] = "model.email" type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="student">Student</label>
+            <input (click)="showStudentSubjects()" [(ngModel)]="model.student" type="checkbox" class="form-control" required />
+            <label *ngIf="isStudentSelected" for="subject">What subject do you want to learn?</label>
+              <select *ngIf="isStudentSelected"[(ngModel)] = "model.learningSubjects" class="form-control" required>
+                <option  *ngFor="let s of subjects" [value]="s">{{s}}</option>
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="teacher">Teacher</label>
+            <input (click)="showTeacherSubjects()" [(ngModel)]="model.teacher" type="checkbox" class="form-control" />
+            <label for="subject" *ngIf="isTeacherSelected" >What subject do you teach?</label>
+              <select *ngIf="isTeacherSelected" [(ngModel)] = "model.teachingSubjects" class="form-control" required>
+              <option *ngFor="let s of subjects" [value]="s">{{s}}</option>
+              </select>
+          </div>
+          <button (click)="create(model)" type="submit" class="btn btn-default">Create My Account</button>
+        </form>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="text" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-</div>
