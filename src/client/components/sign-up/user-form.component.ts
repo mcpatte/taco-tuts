@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { NgForm }    from '@angular/common';
 import { User }    from './user';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { NewUserService } from '../services/new-user-service.component';
-import { IAppState } from '../store';
-
-//import {MdCheckbox} from './checkbox';
+import { NewUserService } from '../../services/new-user-service.component';
+import { IAppState } from '../../store';
+import { Router,
+         ActivatedRouteSnapshot,
+         RouterStateSnapshot }    from '@angular/router';
 
 @Component({
   selector: 'user-form',
@@ -52,7 +53,8 @@ import { IAppState } from '../store';
 export class UserFormComponent {
 
   constructor(
-    private newUserService: NewUserService
+    private newUserService: NewUserService,
+    private router: Router
   ) { }
 
   isStudentSelected: boolean = false;
@@ -81,6 +83,7 @@ export class UserFormComponent {
       },
       error => console.log('error', error)
     );
+    this.router.navigate(['/student-dash']);
   }
  
   onSubmit() { this.submitted = true; }
