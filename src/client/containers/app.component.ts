@@ -18,7 +18,6 @@ import { Auth } from '../services/auth.service';
   providers: [ DevToolsExtension, ConfigureStoreService, Auth ],
   template: `
   <div class='container-fluid'>
-    <h3>Here is the home page</h3>
     <h4>Welcome to taco tuts</h4>
     <menu-bar></menu-bar>
     <router-outlet></router-outlet>
