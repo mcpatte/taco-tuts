@@ -31,7 +31,7 @@ module.exports = {
     loaders: [
       { test: /\.ts$/,  loader: 'ts-loader', exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
-      { test: /\.html$/, loader: 'file', exclude: /node_modules/ }
+      { test: /\.html$/, loader: 'html' }
     ]
   },
   noParse: [
