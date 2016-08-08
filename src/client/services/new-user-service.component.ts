@@ -10,8 +10,8 @@ export class NewUserService {
   constructor (private http: Http) {}
   createUserUrl : string = '/api/users';
     
-  createUser = function(userData: Object) {
-    return this.http.get(this.createUserUrl)
+  createUser(userData: Object) {
+    return this.http.post(this.createUserUrl, userData)
   }
   private extractData(res: Response) {
     let body = res.json();
