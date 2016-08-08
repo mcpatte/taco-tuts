@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import { NgForm }    from '@angular/common';
 import { User }    from './user';
 import { HTTP_PROVIDERS } from '@angular/http';
+import { NewUserService } from '../services/new-user-service.component';
+import { IAppState } from '../store';
+
 //import {MdCheckbox} from './checkbox';
 
 @Component({
   selector: 'user-form',
+  providers: [ NewUserService ],
   template: `
-      <div class="container">
+  <div class="container">
         <h1>Create An Account</h1>
         <form>
         {{diagnostic}}
@@ -29,20 +33,24 @@ import { HTTP_PROVIDERS } from '@angular/http';
           </div>
           <div class="form-group">
             <label for="teacher">Teacher</label>
-            <input (click)="showTeacherSubjects()" [(ngModel)]="model.teacher" type="checkbox" class="form-control" required />
+            <input (click)="showTeacherSubjects()" [(ngModel)]="model.teacher" type="checkbox" class="form-control" />
             <label for="subject" *ngIf="isTeacherSelected" >What subject do you teach?</label>
               <select *ngIf="isTeacherSelected" [(ngModel)] = "model.teachingSubjects" class="form-control" required>
               <option *ngFor="let s of subjects" [value]="s">{{s}}</option>
               </select>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button (click)="create(model)" type="submit" class="btn btn-default">Create My Account</button>
         </form>
     </div>
 
   `
 })
 export class UserFormComponent {
-  
+
+  constructor(
+    private newUserService: NewUserService
+  ) { }
+
   isStudentSelected: boolean = false;
 
   showStudentSubjects() {
@@ -60,13 +68,18 @@ export class UserFormComponent {
       this.model.teachingSubjects = ''; 
     }
   }
+
+  create(dataObj) {
+    this.newUserService.createUser(dataObj);
+  }
  
   onSubmit() { this.submitted = true; }
 
   subjects = ['Chemistry', 'Math', 'Javascript'];
-  model = new User( 'HarryP', 'harryP@hogwarts.net', false, 'none', false, 'none');
+  model = new User('', '', '', '', '', '');
   submitted = false;
   
   // TODO: Remove this when we're done
   get diagnostic() { return JSON.stringify(this.model); }
 }
+
