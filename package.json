@@ -50,6 +50,7 @@
     "babel-loader": "^5.1.4",
     "codelyzer": "0.0.26",
     "cross-env": "^1.0.7",
+    "karma-webpack": "^1.7.0",
     "node-libs-browser": "^0.5.2",
     "ts-loader": "^0.8.1",
     "tslint": "^3.14.0",
