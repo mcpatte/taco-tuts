@@ -13,15 +13,4 @@ export class NewUserService {
   createUser(userData: Object) {
     return this.http.post(this.createUserUrl, userData)
   }
-  private extractData(res: Response) {
-    let body = res.json();
-    console.log('in extract data', body.data);
-    return body.data || { };
-  }
-  private handleError (error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
 }
