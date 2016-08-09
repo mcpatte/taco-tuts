@@ -10,13 +10,13 @@ import { App } from '../containers/app.component';
 
 
 const routes: RouterConfig = [
-  { path: '', component: StudentDashboard },
   { path: 'login',  component: Login },
   { path: 'sign-up',  component: SignUpComponent },
   { path: 'student-dash', component: StudentDashboard },
   { path: 'teacher-dash', component: TeacherDashboard },
   { path: 'advanced-search', component: AdvancedSearch },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '/student-dash' }
+  // { path: '', component: StudentDashboard },
 
 ];
 
