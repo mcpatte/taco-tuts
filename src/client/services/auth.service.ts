@@ -12,7 +12,7 @@ export class Auth {
     domain: 'kylelinhardt.auth0.com',
     clientID: '1fAOoxggMklnQahSLp7O9dYpEZryuprR',
     callbackOnLocationHash: true,
-    callbackURL: 'http://localhost:3000/'
+    callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/'
   });
 
   constructor(private router: Router) {
@@ -27,16 +27,15 @@ export class Auth {
     }
   }
 
-  public signUp(username, password, color) {
-    console.log(color);
+  public signUp(model, callback) {
     this.auth0.signup({
       connection: 'Username-Password-Authentication',
       responseType: 'code',
-      email: username,
-      password: password,
-      user_metadata: {"color": color}
-    }, function(err) {
-      if (err) alert("something went wrong: " + err.message);
+      username: model.email,
+      password: model.password
+    }, function(err, response) {
+      if (err) return alert("something went wrong: " + err.message);
+      callback(response);
     });
   };
 
