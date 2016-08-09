@@ -3,18 +3,19 @@ import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store/index';
 import { Auth } from '../services/auth.service';
 
+
 @Component({
   selector: 'student-dashboard',
   template: `
   <h3>OMG I AM THE STUDENT DASHBOARD!</h3>
   `
 })
+
 export class StudentDashboardComponent {
   constructor(
     private auth: Auth,
-    private ngRedux: NgRedux<IAppState>) { }
-
-
+    private ngRedux: NgRedux<IAppState>
+    ) {}
 }
 
 
