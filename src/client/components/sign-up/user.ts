@@ -8,4 +8,8 @@ export class User {
   validatePasswords(): boolean {
     return this.password === this.passwordConfirm;
   }
+  validateEmail(): boolean {
+     var valid = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+    return valid.test(this.email);
+  }
 }
