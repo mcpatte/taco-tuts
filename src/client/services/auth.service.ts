@@ -34,7 +34,7 @@ export class Auth {
       username: model.email,
       password: model.password
     }, function(err, response) {
-      if (err) return alert("something went wrong: " + err.message);
+      if (err) return alert('something went wrong: ' + err.message);
       callback(response);
     });
   };
@@ -46,7 +46,7 @@ export class Auth {
       email: username,
       password: password,
     }, function(err) {
-      if (err) alert("something went wrong: " + err.message);
+      if (err) alert('something went wrong: ' + err.message);
     });
   };
 
@@ -54,7 +54,7 @@ export class Auth {
     this.auth0.login({
       connection: 'google-oauth2'
     }, function(err) {
-      if (err) alert("something went wrong: " + err.message);
+      if (err) alert('something went wrong: ' + err.message);
     });
   };
 
