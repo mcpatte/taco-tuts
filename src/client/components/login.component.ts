@@ -1,16 +1,14 @@
 //Should have username and password fields
 import { Component } from '@angular/core';
-import { NgRedux, select } from 'ng2-redux';
-import { IAppState, rootReducer, enhancers } from '../store/index';
+import { NgRedux } from 'ng2-redux';
+import { IAppState, } from '../store/index';
 import { Auth } from '../services/auth.service';
 import { Router,
-         ROUTER_DIRECTIVES,
-         ActivatedRouteSnapshot,
-         RouterStateSnapshot }    from '@angular/router';
+         ROUTER_DIRECTIVES }    from '@angular/router';
 
 
 @Component({
-  selector: 'login',
+  selector: 'log-in',
   directives: [ ROUTER_DIRECTIVES ],
   styles: [`
     a {
@@ -42,7 +40,7 @@ import { Router,
       </div>
   `
 })
-export class Login {
+export class LoginComponent {
 
   constructor(
     private auth: Auth,
@@ -50,8 +48,7 @@ export class Login {
     private ngRedux: NgRedux<IAppState>
     ) { }
 
-    goToSignup(){
+    goToSignup() {
       this.router.navigate(['/sign-up']);
     }
 }
-
