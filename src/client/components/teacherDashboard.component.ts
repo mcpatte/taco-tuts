@@ -20,12 +20,12 @@ import { IAppState, rootReducer, enhancers } from '../store/index';
   providers: [ ],
   template: `
   <h3>OMG I AM THE TEACHER DASHBOARD!</h3>
-    
+
   `
 })
 export class TeacherDashboard {
   // Selected observables to test async pipe model.
-  
+
   // Members to test subscribe model.
 
   constructor(
@@ -33,3 +33,8 @@ export class TeacherDashboard {
 
 
 }
+
+
+ // <label for="subject" *ngIf="isTeacherSelected" >
+ //   What subject do you teach?</label>
+ //  <span tags ngControl='model.teachingSubjects' model='model.teachingSubjects' ng-change="model.teachingSubjects = " *ngIf="isTeacherSelected" ></span>
