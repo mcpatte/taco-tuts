@@ -4,7 +4,7 @@
   "scripts": {},
   "env": {
     "NPM_CONFIG_PRODUCTION": {
-      "value": false
+      "value": "false"
     }
   },
   "formation": {
