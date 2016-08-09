@@ -13,6 +13,11 @@ import { Auth } from '../../services/auth.service';
   selector: 'user-form',
   providers: [ NewUserService ],
   template: require('./user-form.component.html'),
+  styles: [`
+    .error {
+      color: #FF0000;
+    }
+  `],
   directives: []
 })
 export class UserFormComponent {
@@ -45,6 +50,7 @@ export class UserFormComponent {
 
   model = new User('', '', '');
   submitted = false;
-  validPasswords = true;
+  validPasswords = false;
+  validEmail = false;
 
 }
