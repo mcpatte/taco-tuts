@@ -16,7 +16,6 @@ const routes: RouterConfig = [
   { path: 'teacher-dash', component: TeacherDashboard },
   { path: 'advanced-search', component: AdvancedSearch },
   { path: '**', redirectTo: '/student-dash' }
-  // { path: '', component: StudentDashboard },
 
 ];
 
