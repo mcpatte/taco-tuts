@@ -3,9 +3,7 @@
   "description": "",
   "scripts": {},
   "env": {
-    "AUTH_SECRET": {
-      "required": true
-    }
+
   },
   "formation": {
     "web": {
