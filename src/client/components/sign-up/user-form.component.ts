@@ -28,7 +28,7 @@ export class UserFormComponent {
     .subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['/student-dash'])
+        this.router.navigate(['/login'])
 
       },
       error => console.log('error', error)
@@ -37,8 +37,7 @@ export class UserFormComponent {
 
   signUp(model) {
     this.auth.signUp(model, (response) => {
-      response.status === 200 ? this.create(model) : console.log("Auth0 failed", response);
-
+      response.accessToken ? this.create(model) : console.log("Auth0 failed", response);
     });
   }
 
