@@ -10,9 +10,9 @@ import { UserService } from '../services/home.service';
   providers: [UserService],
   template: `
   <h3>OMG I AM THE HOME!!</h3>
-  <h1>Users: ({{users.isAvailble}})</h1>
-    <ul>
-      <li *ngFor="let user of users">
+  <h1>Users:</h1>
+    <ul *ngFor="let user of users">
+      <li  *ngIf="user.isavailible === true">
         {{user.username}}
       </li>
     </ul>

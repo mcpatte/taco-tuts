@@ -130,6 +130,22 @@ function teachingSubject(req, res, next){
     });
 };
 
+function getSubjectForTeacher(req, res, next){
+  var userID = parseInt(req.params.id);
+  db.any('select users.name, teaching.subjectID, subjects.name from users inner join teaching on users.id = teaching.userID inner join subjects on teaching.subjectID = subjects.id WHERE users.id = $1', [userID])
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ALL subjects'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 function removeUser(req, res, next){
   var userID = parseInt(req.params.id);
     db.result('delete from users where id = $1', [userID])
@@ -154,5 +170,6 @@ module.exports = {
   learningSubject: learningSubject,
   teachingSubject: teachingSubject,
   updateUser: updateUser,
+  getSubjectForTeacher: getSubjectForTeacher,
   removeUser: removeUser
 };
