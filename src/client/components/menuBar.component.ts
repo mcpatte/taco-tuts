@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store/index';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Login } from '../components/login.component';
+import { LoginComponent } from '../components/login.component';
 import { SignUpComponent } from '../components/sign-up/signUp.component';
-import { StudentDashboard } from '../components/studentDashboard.component';
-import { TeacherDashboard } from '../components/teacherDashboard.component';
-import { AdvancedSearch } from '../components/advancedSearch.component';
+import { StudentDashboardComponent } from '../components/studentDashboard.component';
+import { TeacherDashboardComponent } from '../components/teacherDashboard.component';
+import { AdvancedSearchComponent } from '../components/advancedSearch.component';
 import { Auth } from '../services/auth.service';
 
 @Component({
   selector: 'menu-bar',
-  directives: [ Login, SignUpComponent, StudentDashboard, TeacherDashboard, AdvancedSearch, ROUTER_DIRECTIVES ],
+  directives: [ LoginComponent, SignUpComponent, StudentDashboardComponent, TeacherDashboardComponent, AdvancedSearchComponent, ROUTER_DIRECTIVES ],
   template: `
   <nav>
     <a routerLink="/student-dash" routerLinkActive="active">Student Dashboard</a>
