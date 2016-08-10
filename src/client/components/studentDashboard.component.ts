@@ -40,7 +40,6 @@ export class StudentDashboardComponent {
      }
     
     getSubjectByStudent() {
-      console.log("user id from state", this.studentID)
       this.studentDashboardService.findSubjectsByUser(this.studentID)
         .subscribe(
           data => this.subjects = data
@@ -48,7 +47,6 @@ export class StudentDashboardComponent {
     }
 
     deleteStudentSubject(subjectid, index) {
-      console.log("index", index);
       this.subjects.splice(index, 1);
       this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid)
     }
