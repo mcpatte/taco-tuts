@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
-import { IAppState } from '../store/index';
+import { IAppState } from '../../store/index';
 
 @Component({
   selector: 'teacher-dashboard',
   providers: [ ],
-  template: `
-  <h3>OMG I AM THE TEACHER DASHBOARD!</h3>
-  `
+  template: require('./teacher-dashboard.template.html')
 })
 export class TeacherDashboardComponent {
   constructor(
-    private ngRedux: NgRedux<IAppState>) { }
+    private ngRedux: NgRedux<IAppState>
+  ) { }
 }
 /*
  <label for="subject" *ngIf="isTeacherSelected" >
