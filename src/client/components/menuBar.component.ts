@@ -2,24 +2,12 @@ import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store/index';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { LoginComponent } from '../components/login.component';
-import { SignUpComponent } from '../components/sign-up/signUp.component';
-import { StudentDashboardComponent } from '../components/studentDashboard.component';
-import { TeacherDashboardComponent } from '../components/teacherDashboard.component';
-import { AdvancedSearchComponent } from '../components/advancedSearch.component';
 import { Auth } from '../services/auth.service';
 import { HomeComponent } from '../components/home.component';
 
 @Component({
   selector: 'menu-bar',
-  directives: [ LoginComponent,
-                SignUpComponent,
-                StudentDashboardComponent,
-                TeacherDashboardComponent,
-                AdvancedSearchComponent,
-                ROUTER_DIRECTIVES,
-                HomeComponent
-              ],
+  directives: [ ROUTER_DIRECTIVES ],
   template: `
   <nav>
     <a routerLink="/home" routerLinkActive="active">Home</a>
