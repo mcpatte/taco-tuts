@@ -43,7 +43,7 @@ function getSingleUser(req, res, next){
 };
 
 function createUser(req, res, next){
-    db.none('insert into users(email)' + 'values(${email})', req.body)
+    db.none('insert into users(email authid)' + 'values(${email}, ${authid})', req.body)
     .then(function () {
       res.status(200)
         .json({
@@ -192,7 +192,6 @@ function removeUser(req, res, next){
     });
 };
 
-<<<<<<< 53364468664ada5cd2d38455aa50ad5cb6c7ef4c
 function setAvailability(req, res, next) {
   var authID = req.params.authID;
   var availability = req.body.availability;
@@ -215,7 +214,7 @@ function setAvailability(req, res, next) {
       });
   });
 }
-=======
+
 function findSubjectsByUser(req, res, next){
     var userID = parseInt(req.params.id);
     db.any('select users.name, learning.subjectID, subjects.name from users inner join learning on users.id = learning.userID inner join subjects on learning.subjectID = subjects.id WHERE users.id = $1', [userID])
@@ -247,7 +246,7 @@ function removeSubjectByUser(req, res, next){
       return next(err);
     });
 };
->>>>>>> (feat)search subjects in student dashboard
+
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -262,11 +261,8 @@ module.exports = {
   getTeachersForSubject: getTeachersForSubject,
   getTeaching: getTeaching,
   removeUser: removeUser,
-<<<<<<< 53364468664ada5cd2d38455aa50ad5cb6c7ef4c
   setAvailability: setAvailability,
-};
-=======
   findSubjectsByUser: findSubjectsByUser,
   removeSubjectByUser: removeSubjectByUser
 };
->>>>>>> (feat)search subjects in student dashboard
+

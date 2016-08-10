@@ -13,6 +13,9 @@ import { Observable } from 'rxjs/Observable'
   styles: [`
     .subject {
       background-color: lightblue;
+      width: 40%;
+      margin: 5px;
+      padding: 5px;
     }
   `],
   template: require('./studentDashboard.component.html')
@@ -22,24 +25,19 @@ export class StudentDashboardComponent {
   subjects = [];
   studentID = ''
 
-@select() userID$: Observable<string>;
+
+@select(['login', 'userID']) userID$: Observable<string>;
   userID: string;
 
+  
   constructor(
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private studentDashboardService: StudentDashboardService) {
       this.userID$.subscribe(
-        userID => this.studentID = userID 
+        userID => this.studentID = userID
       )
      }
-
-    // getSubjects() {
-    // this.studentDashboardService.getSubjects()  
-    //   .subscribe(
-    //     data => this.subjects = data
-    //   )
-    //  }
     
     getSubjectByStudent() {
       console.log("user id from state", this.studentID)
@@ -49,33 +47,10 @@ export class StudentDashboardComponent {
         )
     }
 
-    deleteStudentSubject(id) {
-      console.log('delete')
-      this.studentDashboardService.deleteStudentSubject(this.studentID, id)
+    deleteStudentSubject(subjectid, index) {
+      console.log("index", index);
+      this.subjects.splice(index, 1);
+      this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid)
     }
     
-
-
-     showDate(date) {
-       console.log(date);
-     }
-
 }
-
-
-
-  /*
-    <input (click)="showStudentSubjects()" [(ngModel)]="model.student" type="checkbox" class="form-control" required />
-            <label *ngIf="isStudentSelected" for="subject">What subject(s) do you want to learn?</label>
-             <span tags (ngModelChange)="updateLearning($event)" *ngIf="isStudentSelected"></span>
-
-          <div class="form-group">
-            <label for="student">Student</label>
-            <input [(ngModel)]="model.student" type="checkbox" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="teacher">Teacher</label>
-            <input [(ngModel)]="model.teacher" type="checkbox" class="form-control" />
-          </div>
-
-             */
