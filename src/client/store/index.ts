@@ -16,7 +16,7 @@ export interface IAppState {
 
 export const rootReducer = combineReducers<IAppState>({
   search: searchReducer,
-  login: loginReducer
+  login: loginReducer,
   teacherDashboard: teacherDashboardReducer
 });
 
