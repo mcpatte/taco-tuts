@@ -25,6 +25,9 @@ app.post('/api/teaching', db.teachingSubject);
 app.put('/api/users/:id', db.updateUser);
 app.delete('/api/users/:id', db.removeUser);
 app.post('/api/available/:authID', db.setAvailability);
+app.get('/api/learning/:id', db.findSubjectsByUser);
+app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
+
 
 app.use(express.static(__dirname + '/../dist'));
 

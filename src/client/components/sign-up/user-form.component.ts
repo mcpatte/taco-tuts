@@ -42,6 +42,7 @@ export class UserFormComponent {
 
   signUp(model) {
     this.auth.signUp(model, (response) => {
+      model.authid = response.idTokenPayload.sub;
       response.accessToken ? this.create(model) : console.log("Auth0 failed", response);
     });
   }
