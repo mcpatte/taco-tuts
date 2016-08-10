@@ -147,14 +147,14 @@ function getSubjectForTeacher(req, res, next){
 }
 
 function getTeachersForSubject(req, res, next){
-  var userID = parseInt(req.params.id);
-  db.any('select users.name, teaching.userID, subjects.name from users inner join teaching on users.id = teaching.userID inner join subjects on teaching.subjectID = subjects.id WHERE subject.id = $1', [userID])
+  var subjectID = parseInt(req.params.id);
+  db.any('select teaching.userID, users.name from teaching JOIN users ON users.id = teaching.userID WHERE teaching.subjectID = $1', [subjectID])
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved ALL teachers'
+          message: 'Retrieved ALL subjects'
         });
     })
     .catch(function (err) {
