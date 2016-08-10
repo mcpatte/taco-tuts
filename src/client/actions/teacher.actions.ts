@@ -1,12 +1,12 @@
 import { NgRedux } from 'ng2-redux';
 import { Injectable } from '@angular/core';
 
-export const TEACHER_DASHBOARD_ACTIONS = {
+export const TEACHER_ACTIONS = {
   TOGGLE_AVAILABILITY: 'TOGGLE_AVAILABILITY'
 };
 
 @Injectable()
-export class TeacherDashboardActions {
+export class TeacherActions {
   constructor(private ngRedux: NgRedux<any>) {}
 
   toggleAvailabilityDispatch() {
@@ -15,7 +15,7 @@ export class TeacherDashboardActions {
 
   toggleAvailability() {
     return {
-      type: TEACHER_DASHBOARD_ACTIONS.TOGGLE_AVAILABILITY,
+      type: TEACHER_ACTIONS.TOGGLE_AVAILABILITY,
     };
   }
 }

@@ -2,22 +2,22 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store/index';
-import { TeacherDashboardActions } from '../../actions';
+import { TeacherActions } from '../../actions';
 
 @Component({
   selector: 'teacher-dashboard',
-  providers: [ TeacherDashboardActions ],
+  providers: [ TeacherActions ],
   template: require('./teacher-dashboard.template.html')
 })
 export class TeacherDashboardComponent {
   @select([
-    'teacherDashboard',
+    'teacher',
     'available'
   ]) available$: Observable<boolean>;
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private actions: TeacherDashboardActions
+    private actions: TeacherActions
   ) { }
 }
 /*

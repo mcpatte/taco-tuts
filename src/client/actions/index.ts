@@ -1,4 +1,4 @@
 export {
-  TeacherDashboardActions,
-  TEACHER_DASHBOARD_ACTIONS
-} from './teacher-dashboard.actions';
+  TeacherActions,
+  TEACHER_ACTIONS
+} from './teacher.actions';

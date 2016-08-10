@@ -2,22 +2,19 @@ import { combineReducers } from 'redux';
 const persistState = require('redux-localstorage');
 import { ISearchState, searchReducer } from './search.reducer';
 import { ILoginState, loginReducer } from './login.reducer';
-import {
-  ITeacherDashboardState,
-  teacherDashboardReducer
-} from './teacher-dashboard.reducer.ts';
+import { ITeacherState, teacherReducer } from './teacher.reducer.ts';
 
 export interface IAppState {
   counter?: number;
   search?: ISearchState;
   userID?: ILoginState;
-  teacherDashboard?: ITeacherDashboardState
+  teacher?: ITeacherState
 };
 
 export const rootReducer = combineReducers<IAppState>({
   search: searchReducer,
   login: loginReducer,
-  teacherDashboard: teacherDashboardReducer
+  teacher: teacherReducer
 });
 
 export const enhancers = [
