@@ -1,23 +1,19 @@
 import { RouterConfig, provideRouter } from '@angular/router';
-import { MenuBarComponent } from './menuBar.component'
-import { AdvancedSearch } from './advancedSearch.component';
-import { StudentDashboard } from './studentDashboard.component';
-import { Login } from './login.component';
-import { TeacherDashboard } from './teacherDashboard.component';
-import { App } from '../containers/app.component';
-
-
+import { AdvancedSearchComponent } from './advancedSearch.component';
+import { StudentDashboardComponent } from './studentDashboard.component';
+import { LoginComponent } from './login.component';
+import { SignUpComponent } from './sign-up/signUp.component';
+import { TeacherDashboardComponent } from './teacherDashboard.component';
 
 const routes: RouterConfig = [
-  { path: '', component: StudentDashboard },
-  { path: 'login',  component: Login },
-  { path: 'student-dash', component: StudentDashboard },
-  { path: 'teacher-dash', component: TeacherDashboard },
-  { path: 'advanced-search', component: AdvancedSearch },
-  { path: '**', redirectTo: '' }
+  { path: 'login',  component: LoginComponent },
+  { path: 'sign-up',  component: SignUpComponent },
+  { path: 'student-dash', component: StudentDashboardComponent },
+  { path: 'teacher-dash', component: TeacherDashboardComponent },
+  { path: 'advanced-search', component: AdvancedSearchComponent },
+  { path: '**', redirectTo: '/student-dash' }
 
 ];
-
 
 export const appRouterProviders = [
     provideRouter(routes)

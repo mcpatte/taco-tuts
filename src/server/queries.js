@@ -42,7 +42,7 @@ function getSingleUser(req, res, next){
 };
 
 function createUser(req, res, next){
-    db.none('insert into users(username, name, email, teacher)' + 'values(${username}, ${name}, ${email}, ${teacher})', req.body)
+    db.none('insert into users(email)' + 'values(${email})', req.body)
     .then(function () {
       res.status(200)
         .json({
