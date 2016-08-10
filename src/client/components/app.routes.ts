@@ -4,7 +4,7 @@ import { StudentDashboardComponent } from './studentDashboard.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './sign-up/signUp.component';
 import { TeacherDashboardComponent } from './teacherDashboard.component';
-import { Home } from './home.component';
+import { HomeComponent } from './home.component';
 
 const routes: RouterConfig = [
   { path: 'login',  component: LoginComponent },
@@ -12,7 +12,7 @@ const routes: RouterConfig = [
   { path: 'student-dash', component: StudentDashboardComponent },
   { path: 'teacher-dash', component: TeacherDashboardComponent },
   { path: 'advanced-search', component: AdvancedSearchComponent },
-  { path: 'home', component: Home },
+  { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/student-dash' }
 ];
 

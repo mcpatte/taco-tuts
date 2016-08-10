@@ -8,7 +8,7 @@ import { StudentDashboardComponent } from '../components/studentDashboard.compon
 import { TeacherDashboardComponent } from '../components/teacherDashboard.component';
 import { AdvancedSearchComponent } from '../components/advancedSearch.component';
 import { Auth } from '../services/auth.service';
-import { Home } from '../components/home.component';
+import { HomeComponent } from '../components/home.component';
 
 @Component({
   selector: 'menu-bar',
@@ -18,7 +18,7 @@ import { Home } from '../components/home.component';
                 TeacherDashboardComponent,
                 AdvancedSearchComponent,
                 ROUTER_DIRECTIVES,
-                Home
+                HomeComponent
               ],
   template: `
   <nav>

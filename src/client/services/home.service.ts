@@ -12,6 +12,18 @@ export class UserService {
                     .catch(this.handleError);
   }
 
+  getSubjects (): Observable<any> {
+    return this.http.get('/api/subject')
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  getTeaching (subjectID): Observable<any> {
+    return this.http.get('/api/subject/' + subjectID)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body.data || { };

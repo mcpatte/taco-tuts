@@ -162,6 +162,21 @@ function getTeachersForSubject(req, res, next){
     });
 }
 
+function getTeaching(req, res, next) {
+  db.any('select * from teaching')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved ALL subjects'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 function removeUser(req, res, next){
   var userID = parseInt(req.params.id);
     db.result('delete from users where id = $1', [userID])
@@ -188,5 +203,6 @@ module.exports = {
   updateUser: updateUser,
   getSubjectForTeacher: getSubjectForTeacher,
   getTeachersForSubject: getTeachersForSubject,
+  getTeaching: getTeaching,
   removeUser: removeUser
 };

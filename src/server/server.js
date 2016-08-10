@@ -16,6 +16,7 @@ app.get('/api/users', db.getAllUsers);
 app.get('/api/users/:id', db.getSingleUser);
 app.get('/api/subject', db.getAllSubjects);
 app.get('/api/teaching/:id', db.getSubjectForTeacher);
+app.get('/api/teaching', db.getTeaching);
 app.get('/api/subject/:id', db.getTeachersForSubject);
 app.post('/api/users', db.createUser);
 app.post('/api/subject', db.createSubject);
