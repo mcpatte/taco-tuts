@@ -13,8 +13,6 @@ export class StudentDashboardComponent {
   constructor(
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>) { }
-
-
 }
 
 

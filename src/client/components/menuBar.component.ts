@@ -8,14 +8,21 @@ import { StudentDashboardComponent } from '../components/studentDashboard.compon
 import { TeacherDashboardComponent } from '../components/teacherDashboard.component';
 import { AdvancedSearchComponent } from '../components/advancedSearch.component';
 import { Auth } from '../services/auth.service';
+import { HomeComponent } from '../components/home.component';
 
 @Component({
   selector: 'menu-bar',
-  directives: [
-    LoginComponent, SignUpComponent, StudentDashboardComponent,
-    TeacherDashboardComponent, AdvancedSearchComponent, ROUTER_DIRECTIVES ],
+  directives: [ LoginComponent,
+                SignUpComponent,
+                StudentDashboardComponent,
+                TeacherDashboardComponent,
+                AdvancedSearchComponent,
+                ROUTER_DIRECTIVES,
+                HomeComponent
+              ],
   template: `
   <nav>
+    <a routerLink="/home" routerLinkActive="active">Home</a>
     <a routerLink="/student-dash" routerLinkActive="active">Student Dashboard</a>
     <a routerLink="/teacher-dash" routerLinkActive="active">Teacher Dashboard</a>
     <a routerLink="/advanced-search" routerLinkActive="active">Advanced Search</a>
