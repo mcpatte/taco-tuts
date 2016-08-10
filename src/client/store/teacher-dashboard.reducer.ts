@@ -1,4 +1,4 @@
-import { TEACHER_DASHBOARD_ACTIONS } from '../actions/teacher-dashboard.actions';
+import { TEACHER_DASHBOARD_ACTIONS } from '../actions';
 
 const { SET_AVAILABILITY } = TEACHER_DASHBOARD_ACTIONS;
 
