@@ -1,1 +1,6 @@
-<h3>OMG I AM THE TEACHER DASHBOARD!</h3>
+<h3>
+  OMG I AM THE TEACHER DASHBOARD!
+  <button (click)="actions.toggleAvailabilityDispatch()">
+    {{ available$ | async }}
+  </button>
+</h3>
