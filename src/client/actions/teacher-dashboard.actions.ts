@@ -2,21 +2,20 @@ import { NgRedux } from 'ng2-redux';
 import { Injectable } from '@angular/core';
 
 export const TEACHER_DASHBOARD_ACTIONS = {
-  SET_AVAILABILITY: 'SET_AVAILABILITY'
+  TOGGLE_AVAILABILITY: 'TOGGLE_AVAILABILITY'
 };
 
 @Injectable()
 export class TeacherDashboardActions {
   constructor(private ngRedux: NgRedux<any>) {}
 
-  setAvailabilityDispatch(value: boolean) {
-    this.ngRedux.dispatch(this.setAvailability(value));
+  toggleAvailabilityDispatch() {
+    this.ngRedux.dispatch(this.toggleAvailability());
   }
 
-  setAvailability(value: boolean) {
+  toggleAvailability() {
     return {
-      type: TEACHER_DASHBOARD_ACTIONS.SET_AVAILABILITY,
-      value
+      type: TEACHER_DASHBOARD_ACTIONS.TOGGLE_AVAILABILITY,
     };
   }
 }

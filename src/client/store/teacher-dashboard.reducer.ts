@@ -1,6 +1,6 @@
 import { TEACHER_DASHBOARD_ACTIONS } from '../actions';
 
-const { SET_AVAILABILITY } = TEACHER_DASHBOARD_ACTIONS;
+const { TOGGLE_AVAILABILITY } = TEACHER_DASHBOARD_ACTIONS;
 
 export interface ITeacherDashboardState {
   available: boolean;
@@ -15,9 +15,9 @@ export function teacherDashboardReducer(
   action
 ): ITeacherDashboardState {
   switch (action.type) {
-    case SET_AVAILABILITY:
+    case TOGGLE_AVAILABILITY:
       return Object.assign({}, state, {
-        available: action.value
+        available: !state.available
       });
 
     default:
