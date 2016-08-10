@@ -2,17 +2,55 @@ import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store/index';
 import { Auth } from '../services/auth.service';
+import { Http, Headers, Response } from '@angular/http';
+import { StudentDashboardService } from '../services/studentDashboard.service.ts';
+
 
 @Component({
   selector: 'student-dashboard',
-  template: `
-  <h3>OMG I AM THE STUDENT DASHBOARD!</h3>
-  `
+  providers: [StudentDashboardService],
+  styles: [`
+    .subject {
+      background-color: lightblue;
+    }
+  `],
+  template: require('./studentDashboard.component.html')
 })
 export class StudentDashboardComponent {
+  date2 = '2016-08-09';
+  subjects = [];
+  studentID: number
+
   constructor(
     private auth: Auth,
-    private ngRedux: NgRedux<IAppState>) { }
+    private ngRedux: NgRedux<IAppState>,
+    private studentDashboardService: StudentDashboardService) { }
+
+    // getSubjects() {
+    // this.studentDashboardService.getSubjects()  
+    //   .subscribe(
+    //     data => this.subjects = data
+    //   )
+    //  }
+    
+    getSubjectByStudent() {
+      this.studentDashboardService.findSubjectsByUser(this.studentID)
+        .subscribe(
+          data => this.subjects = data
+        )
+    }
+
+    deleteStudentSubject(id) {
+      console.log('delete')
+      this.studentDashboardService.deleteStudentSubject(this.studentID, id)
+    }
+    
+
+
+     showDate(date) {
+       console.log(date);
+     }
+
 }
 
 

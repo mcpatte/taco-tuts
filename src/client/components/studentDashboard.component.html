@@ -1,0 +1,29 @@
+<h1>Student Dashboard</h1>
+
+
+<input type="number" [(ngModel)]="studentID">
+
+<button type="submit" class="btn btn-default btn-primary" (click)="getSubjectByStudent()">List subjects</button>
+
+
+
+
+
+    <div class="subject" *ngFor="let subject of subjects">
+        <h3>Subject</h3>
+        <h3>{{ subject.name }}</h3>
+        <h3>{{ subject.id }}</h3>
+        <div>
+            <button (click)="deleteStudentSubject(subject.subjectid)">Delete</button>
+        </div>
+    </div>
+  
+
+
+<form>
+    <input type="date" [(ngModel)]="date2" (ngModelChange)="showDate($event)"/>
+</form>
+
+
+<h1> DATE {{ date2 }}</h1>
+<h1>Student ID {{ studentID }}</h1>

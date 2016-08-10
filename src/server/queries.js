@@ -192,6 +192,7 @@ function removeUser(req, res, next){
     });
 };
 
+<<<<<<< 53364468664ada5cd2d38455aa50ad5cb6c7ef4c
 function setAvailability(req, res, next) {
   var authID = req.params.authID;
   var availability = req.body.availability;
@@ -214,6 +215,39 @@ function setAvailability(req, res, next) {
       });
   });
 }
+=======
+function findSubjectsByUser(req, res, next){
+    var userID = parseInt(req.params.id);
+    db.any('select users.name, learning.subjectID, subjects.name from users inner join learning on users.id = learning.userID inner join subjects on learning.subjectID = subjects.id WHERE users.id = $1', [userID])
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Designed subject for the user profile with postgreSQL that resulted in the teacher knowing %50 more about that subject within 2 weeks'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
+
+function removeSubjectByUser(req, res, next){
+  var userID = parseInt(req.params.userID);
+  var subjectID = parseInt(req.params.subjectID);
+    db.result('delete from learning where userID = $1 and subjectID = $2' , [userID, subjectID])
+    .then(function (result) {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Removed ${result.rowCount} row's`
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
+>>>>>>> (feat)search subjects in student dashboard
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -228,5 +262,11 @@ module.exports = {
   getTeachersForSubject: getTeachersForSubject,
   getTeaching: getTeaching,
   removeUser: removeUser,
+<<<<<<< 53364468664ada5cd2d38455aa50ad5cb6c7ef4c
   setAvailability: setAvailability,
 };
+=======
+  findSubjectsByUser: findSubjectsByUser,
+  removeSubjectByUser: removeSubjectByUser
+};
+>>>>>>> (feat)search subjects in student dashboard
