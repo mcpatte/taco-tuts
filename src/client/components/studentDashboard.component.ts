@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
+import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../store/index';
 import { Auth } from '../services/auth.service';
 import { Http, Headers, Response } from '@angular/http';
 import { StudentDashboardService } from '../services/studentDashboard.service.ts';
+import { Observable } from 'rxjs/Observable'
 
 
 @Component({
@@ -19,12 +20,19 @@ import { StudentDashboardService } from '../services/studentDashboard.service.ts
 export class StudentDashboardComponent {
   date2 = '2016-08-09';
   subjects = [];
-  studentID: number
+  studentID = ''
+
+@select() userID$: Observable<string>;
+  userID: string;
 
   constructor(
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
-    private studentDashboardService: StudentDashboardService) { }
+    private studentDashboardService: StudentDashboardService) {
+      this.userID$.subscribe(
+        userID => this.studentID = userID 
+      )
+     }
 
     // getSubjects() {
     // this.studentDashboardService.getSubjects()  
@@ -34,6 +42,7 @@ export class StudentDashboardComponent {
     //  }
     
     getSubjectByStudent() {
+      console.log("user id from state", this.studentID)
       this.studentDashboardService.findSubjectsByUser(this.studentID)
         .subscribe(
           data => this.subjects = data
