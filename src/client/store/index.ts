@@ -7,9 +7,9 @@ import { ITeacherState, teacherReducer } from './teacher.reducer.ts';
 export interface IAppState {
   counter?: number;
   search?: ISearchState;
-  userID?: ILoginState;
-  teacher?: ITeacherState;
   userData?: ILoginState;
+  login?: ILoginState;
+  teacher?: ITeacherState;
 };
 
 export const rootReducer = combineReducers<IAppState>({
