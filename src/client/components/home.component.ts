@@ -9,16 +9,20 @@ import { UserService } from '../services/home.service';
   selector: 'home',
   providers: [UserService],
   template: `
-  <h3>OMG I AM THE HOME!!</h3>
-  <h1>Subjects:</h1>
-    <ul *ngFor="let subject of subjects">
-      <li (click)="getTeaching(subject.id)">
-      {{subject.name}}
-      </li>
-    </ul>
+  <h3>Filter teachers by subject</h3>
+  <table>
+    <tr>
+    Subjects:
+        <td *ngFor="let subject of subjects">
+          <button (click)="getTeaching(subject.id)">
+            {{subject.name}}
+          </button>
+        </td>
+    </tr>
+  </table>
     <div>
       <ul *ngFor="let user of users">
-        <li>
+        <li *ngIf="user.isavailible === true && user.teacher === true">
           {{user.name}}
         </li>
       </ul>
@@ -41,6 +45,7 @@ export class HomeComponent implements OnInit {
     ) {}
   ngOnInit() {
     this.getSubjects();
+    this.getUsers();
   };
 
   getUsers() {
