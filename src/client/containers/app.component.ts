@@ -10,6 +10,7 @@ import { MenuBarComponent } from '../components/menuBar.component';
 import { IAppState } from '../store/index';
 import { ConfigureStoreService } from '../services/configure-store.service.ts';
 import { Auth } from '../services/auth.service';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app',
@@ -33,7 +34,8 @@ export class AppComponent {
     public router: Router,
     private ngRedux: NgRedux<IAppState>,
     private devTool: DevToolsExtension,
-    private configureStore: ConfigureStoreService
+    private configureStore: ConfigureStoreService,
+    private socket: SocketService
   ) {
     configureStore.configure(ngRedux);
   }
