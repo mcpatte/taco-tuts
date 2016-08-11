@@ -148,7 +148,7 @@ function getSubjectForTeacher(req, res, next){
 
 function getTeachersForSubject(req, res, next){
   var subjectID = parseInt(req.params.id);
-  db.any('select teaching.userID, users.name from teaching JOIN users ON users.id = teaching.userID WHERE teaching.subjectID = $1', [subjectID])
+  db.any('select teaching.userID, users.name, users.isAvailible, users.teacher from teaching JOIN users ON users.id = teaching.userID WHERE teaching.subjectID = $1', [subjectID])
     .then(function (data) {
       res.status(200)
         .json({
@@ -185,6 +185,21 @@ function removeUser(req, res, next){
         .json({
           status: 'success',
           message: `Removed ${result.rowCount} row's`
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
+
+function removeSubject(req, res, next){
+  var subjectID = parseInt(req.params.id);
+    db.result('delete from subjects where id = $1', [subjectID])
+    .then(function (result) {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Removed subject!`
         });
     })
     .catch(function (err) {
@@ -264,6 +279,7 @@ module.exports = {
   removeUser: removeUser,
   setAvailability: setAvailability,
   findSubjectsByUser: findSubjectsByUser,
-  removeSubjectByUser: removeSubjectByUser
+  removeSubjectByUser: removeSubjectByUser,
+  removeSubject: removeSubject
 };
 
