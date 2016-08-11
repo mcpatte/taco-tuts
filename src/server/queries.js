@@ -249,12 +249,13 @@ function findSubjectsByUser(req, res, next){
 function removeSubjectByUser(req, res, next){
   var userID = req.params.userID;
   var subjectID = parseInt(req.params.subjectID);
-    db.result('DELETE FROM learning AS l USING users AS u WHERE l.userID = u.id AND u.authID = $1 AND l.subjectID = $2' , [userID, subjectID])
-
+  console.log('from queries', userID, subjectID)
+    db.result('DELETE FROM learning AS l USING users AS u WHERE l.userID = u.id AND u.authid = $1 AND l.subjectID = $2' , [userID, subjectID])
     .then(function (result) {
       res.status(200)
         .json({
           status: 'success',
+          data: result,
           message: `Removed ${result.rowCount} row's`
         });
     })

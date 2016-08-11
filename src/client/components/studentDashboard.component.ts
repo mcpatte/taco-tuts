@@ -54,7 +54,10 @@ export class StudentDashboardComponent {
 
     deleteStudentSubject(subjectid, index) {
       this.subjects.splice(index, 1);
-      this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid);
+      this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid)
+        .subscribe(
+          response => console.log(response)
+        );
     }
 
 
