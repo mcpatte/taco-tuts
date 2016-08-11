@@ -11,7 +11,8 @@ export const SESSION_ACTIONS = {
 export class SessionActions {
   constructor(private ngRedux: NgRedux<any>) {}
 
-  addMessageDispatch(message, from) {
+  addMessageDispatch(messageObj) {
+    const { message, from } = messageObj;
     this.ngRedux.dispatch(this.addMessage(message, from));
   }
 

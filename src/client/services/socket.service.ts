@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
 export class SocketService {
   private socket = null;
   private listeners = {};
+
+  // TODO: rename session events to all have `session-` prefix
   private events: string[] = [
     'request-session',
-    'start-session'
+    'start-session',
+    'session-message'
   ];
 
   constructor(
@@ -40,6 +43,10 @@ export class SocketService {
       this.sessionActions.setSessionIDDispatch(data.sessionID);
       this.router.navigate(['/session']);
     });
+
+    this.onSessionMessage((message) => {
+      this.sessionActions.addMessageDispatch(message);
+    });
   }
 
   getListener(event) {
@@ -57,7 +64,8 @@ export class SocketService {
   }
 
   sendSessionMessage(sessionID, message, from) {
-    this.socket.emit('session-message', { sessionID, message, from });
+    const messageObj = { message, from };
+    this.socket.emit('session-message', { sessionID, message: messageObj });
   }
 
   onRequestedSession(callback) {
@@ -66,5 +74,9 @@ export class SocketService {
 
   onStartedSession(callback) {
     this.listeners['start-session'].subscribe(callback);
+  }
+
+  onSessionMessage(callback) {
+    this.listeners['session-message'].subscribe(callback);
   }
 }

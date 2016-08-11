@@ -4,6 +4,8 @@ import { SessionWidgetsComponent } from '../session-widgets/session-widgets.comp
 import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store';
 import { IMessageState } from '../../store/session.reducer';
+import { SessionActions } from '../../actions';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'session',
@@ -15,14 +17,33 @@ export class SessionComponent {
   @select(['session', 'messages']) messages$: Observable<IMessageState[]>;
 
   constructor(
-    private ngRedux: NgRedux<IAppState>
+    private ngRedux: NgRedux<IAppState>,
+    private actions: SessionActions,
+    private socket: SocketService
   ) { }
 
-  isTeacher() {
-    return this.ngRedux.getState().session.role === 'teacher';
+  getRole() {
+    return this.ngRedux.getState().session.role;
   }
 
-  onKeypress(event) {
-    console.log(event);
+  getSessionID() {
+    return this.ngRedux.getState().session.sessionID;
+  }
+
+  isTeacher() {
+    return this.getRole() === 'teacher';
+  }
+
+  onKeypress(e) {
+    if (e.charCode === 13) {
+      // use role as the `from` message property as placeholder
+      this.socket.sendSessionMessage(
+        this.getSessionID(),
+        e.target.value,
+        this.getRole()
+      );
+
+      e.target.value = '';
+    }
   }
 }
