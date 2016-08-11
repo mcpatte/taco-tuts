@@ -11,6 +11,8 @@ import { IAppState } from '../store/index';
 import { ConfigureStoreService } from '../services/configure-store.service.ts';
 import { Auth } from '../services/auth.service';
 import { SocketService } from '../services/socket.service';
+import { TeacherSocketService } from '../services/teacher-socket.service';
+import { TeacherActions } from '../actions';
 
 @Component({
   selector: 'app',
@@ -18,7 +20,14 @@ import { SocketService } from '../services/socket.service';
     SearchBarComponent, StudentDashboardComponent, MenuBarComponent,
     LoginComponent, AdvancedSearchComponent, ROUTER_DIRECTIVES ],
   pipes: [ AsyncPipe ],
-  providers: [ DevToolsExtension, ConfigureStoreService, Auth, SocketService ],
+  providers: [
+    DevToolsExtension,
+    ConfigureStoreService,
+    Auth,
+    SocketService,
+    TeacherSocketService,
+    TeacherActions
+  ],
   template: `
   <div class='container-fluid'>
     <h4>Welcome to taco tuts</h4>
@@ -35,10 +44,12 @@ export class AppComponent {
     private ngRedux: NgRedux<IAppState>,
     private devTool: DevToolsExtension,
     private configureStore: ConfigureStoreService,
-    private socket: SocketService
+    private socket: SocketService,
+    private teacherSocket: TeacherSocketService
   ) {
     configureStore.configure(ngRedux);
 
     socket.connect('auth0|57ab5d3a10d863e85429247a');
+    teacherSocket.init();
   }
 }
