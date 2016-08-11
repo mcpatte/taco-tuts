@@ -27,6 +27,16 @@ export class SocketService {
     this.events.forEach((event) => {
       this.listeners[event] = this.getListener(event);
     });
+
+    // need to move this somewhere better, preferably separating
+    // it into a student handler and a teacher handler
+    this.onStartedSession((data) => {
+      if (data.role === 'student') {
+        console.log('i am the student', data);
+      } else if (data.role === 'teacher') {
+        console.log('i am the teacher', data);
+      }
+    });
   }
 
   getListener(event) {

@@ -16,10 +16,6 @@ export class TeacherSocketService {
     this.socket.onRequestedSession((session) => {
       this.actions.addSessionRequestDispatch(session);
     });
-
-    this.socket.onStartedSession((data) => {
-      console.log('on started session', data)
-    });
   }
 
   acceptSession(session) {
