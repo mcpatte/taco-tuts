@@ -6,8 +6,8 @@ import * as io from 'socket.io-client';
 export class SocketService {
   private socket = null;
 
-  constructor() {
-    this.socket = io();
+  connect(userID) {
+    this.socket = io(undefined, { query: `userID=${userID}` });
     this.socket.on('message', data => console.log('socket data', data));
   }
 }
