@@ -31,6 +31,7 @@ function getSingleUser(req, res, next){
   console.log('in getSingleUser', authID);
     db.any('select * from users where authID = $1', [authID])
     .then(function (data) {
+      console.log("data from db", data);
       res.status(200)
         .json({
           status: 'success',
@@ -273,7 +274,8 @@ function setAuthID(req, res, next) {
     res.status(200)
       .json({
         status: 'success',
-        message: `Set AuthID of ${email} to ${authID}`
+        message: `Set AuthID of ${email} to ${authID}`,
+        data: authID
       });
   })
   .catch(function(err) {
@@ -303,6 +305,5 @@ module.exports = {
   removeSubjectByUser: removeSubjectByUser,
   removeSubject: removeSubject,
   setAuthID: setAuthID
-
 };
 
