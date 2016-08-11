@@ -13,9 +13,10 @@ export class SocketService {
 
   constructor() {
     setTimeout(() => {
-      const id = 'auth0|57ab5d3a10d863e85429247a';
+      const studentID = 'auth0|57abfb4610d863e854292680';
+      const teacherID = 'auth0|57abe1ef10d863e854292661';
       this.onRequestedSession(data => console.log('woop', data))
-      this.requestSession(id, { name: 'harambe', userID: id });
+      this.requestSession(teacherID, { name: 'harambe', userID: studentID });
     }, 1000);
   }
 

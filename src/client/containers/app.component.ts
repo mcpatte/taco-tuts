@@ -49,7 +49,16 @@ export class AppComponent {
   ) {
     configureStore.configure(ngRedux);
 
-    socket.connect('auth0|57ab5d3a10d863e85429247a');
+    ////// vvvvvv this is just placeholder stuff
+    const userID = localStorage.getItem('authID');
+
+    ngRedux.dispatch({
+      type: 'SET_USER_ID',
+      userID
+    });
+
+    socket.connect(userID);
     teacherSocket.init();
+    ///// ^^^^^^ this is just placeholder stuff
   }
 }
