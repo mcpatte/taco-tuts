@@ -1,7 +1,4 @@
-DROP DATABASE IF EXISTS tacobase;
-CREATE DATABASE tacobase;
 
-\c tacobase;
 
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
