@@ -10,6 +10,9 @@ import { MenuBarComponent } from '../components/menuBar.component';
 import { IAppState } from '../store/index';
 import { ConfigureStoreService } from '../services/configure-store.service.ts';
 import { Auth } from '../services/auth.service';
+import { SocketService } from '../services/socket.service';
+import { TeacherSocketService } from '../services/teacher-socket.service';
+import { TeacherActions } from '../actions';
 
 @Component({
   selector: 'app',
@@ -17,7 +20,14 @@ import { Auth } from '../services/auth.service';
     SearchBarComponent, StudentDashboardComponent, MenuBarComponent,
     LoginComponent, AdvancedSearchComponent, ROUTER_DIRECTIVES ],
   pipes: [ AsyncPipe ],
-  providers: [ DevToolsExtension, ConfigureStoreService, Auth ],
+  providers: [
+    DevToolsExtension,
+    ConfigureStoreService,
+    Auth,
+    SocketService,
+    TeacherSocketService,
+    TeacherActions
+  ],
   template: `
   <div class='container-fluid'>
     <h4>Welcome to taco tuts</h4>
@@ -33,8 +43,22 @@ export class AppComponent {
     public router: Router,
     private ngRedux: NgRedux<IAppState>,
     private devTool: DevToolsExtension,
-    private configureStore: ConfigureStoreService
+    private configureStore: ConfigureStoreService,
+    private socket: SocketService,
+    private teacherSocket: TeacherSocketService
   ) {
     configureStore.configure(ngRedux);
+
+    ////// vvvvvv this is just placeholder stuff
+    const userID = localStorage.getItem('authID');
+
+    ngRedux.dispatch({
+      type: 'SET_USER_ID',
+      userID
+    });
+
+    socket.connect(userID);
+    teacherSocket.init();
+    ///// ^^^^^^ this is just placeholder stuff
   }
 }

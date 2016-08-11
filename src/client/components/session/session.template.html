@@ -1,0 +1,14 @@
+<div>
+  your role: {{ role$ | async }}
+  <session-widgets *ngIf="isTeacher()"></session-widgets>
+  <br><br>
+  <div>
+    <input (keypress)="onKeypress($event)">
+  </div>
+  <br><br>
+  <div>
+    <div *ngFor="let message of messages$ | async">
+      <div> {{ message.from }}: {{ message.message }} </div>
+    </div>
+  </div>
+</div>

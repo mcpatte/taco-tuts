@@ -51,6 +51,7 @@ export class Auth {
       password: password,
     }, function(err, response) {
       if (err) alert('something went wrong: ' + err.message);
+      localStorage.setItem('authID', response.idTokenPayload.sub);
       callback(response);
     });
   };
