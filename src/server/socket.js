@@ -18,10 +18,10 @@ function initSocket(io) {
       const { teacherID, studentID } = data;
       const teachers = [connections[teacherID]];
       const students = [connections[studentID]];
-      const channel = Math.random().toString(36).substring(4, 9);
+      const sessionID = Math.random().toString(36).substring(4, 9);
 
-      connections[teacherID].emit('start-session', { channel, role: 'teacher' });
-      connections[studentID].emit('start-session', { channel, role: 'student' });
+      connections[teacherID].emit('start-session', { sessionID, role: 'teacher' });
+      connections[studentID].emit('start-session', { sessionID, role: 'student' });
     });
   });
 }

@@ -8,11 +8,13 @@ export interface IMessageState {
 export interface ISessionState {
   messages: IMessageState[];
   role: string;
+  sessionID: string;
 }
 
 const INIT_STATE: ISessionState = {
   messages: [],
-  role: ''
+  role: '',
+  sessionID: ''
 };
 
 export function sessionReducer(
@@ -34,6 +36,11 @@ export function sessionReducer(
       case SESSION_ACTIONS.SET_ROLE:
         return Object.assign({}, state, {
           role: action.role
+        });
+
+      case SESSION_ACTIONS.SET_SESSION_ID:
+        return Object.assign({}, state, {
+          sessionID: action.sessionID
         });
 
       default:

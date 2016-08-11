@@ -37,6 +37,7 @@ export class SocketService {
     // it into a student handler and a teacher handler
     this.onStartedSession((data) => {
       this.sessionActions.setRoleDispatch(data.role);
+      this.sessionActions.setSessionIDDispatch(data.sessionID);
       this.router.navigate(['/session']);
     });
   }
@@ -53,6 +54,10 @@ export class SocketService {
 
   acceptSession(teacherID, studentID) {
     this.socket.emit('accept-session', { teacherID, studentID });
+  }
+
+  sendSessionMessage(sessionID, message, from) {
+    this.socket.emit('session-message', { sessionID, message, from });
   }
 
   onRequestedSession(callback) {
