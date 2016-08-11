@@ -21,8 +21,8 @@ export class SocketService {
     private router: Router
   ) {
     setTimeout(() => {
-      const studentID = 'auth0|57abfb4610d863e854292680';
-      const teacherID = 'auth0|57abe1ef10d863e854292661';
+      const studentID = 'auth0|57acab1d645d9d914448d2ee';
+      const teacherID = 'auth0|57acae2010d863e8542927e8';
       this.onRequestedSession(data => console.log('woop', data))
       this.requestSession(teacherID, { name: 'harambe', userID: studentID });
     }, 1000);
