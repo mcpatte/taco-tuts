@@ -5,7 +5,14 @@ function initSocket(io) {
     const userID = socket.handshake.query.userID;
     connections = Object.assign(connections, { [userID]: socket });
 
-    socket.emit('message', { hi: 'mom' });
+    socket.on('request-session', function(data) {
+      const { teacherID, student } = data;
+      const teacherSocket = connections[teacherID];
+
+      if (teacherSocket) {
+        teacherSocket.emit('request-session', { student });
+      }
+    });
   });
 }
 
