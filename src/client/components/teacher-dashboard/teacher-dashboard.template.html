@@ -8,6 +8,11 @@
   <div>
     <ul *ngFor="let session of sessions$ | async">
       <li> {{ session.student.name }} </li>
+      <button
+        (click)="teacherSocket.acceptSession(session)"
+      >
+        start session
+      </button>
     </ul>
   </div>
 </h3>
