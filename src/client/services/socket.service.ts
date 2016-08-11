@@ -7,7 +7,8 @@ export class SocketService {
   private socket = null;
   private listeners = {};
   private events: string[] = [
-    'request-session'
+    'request-session',
+    'start-session'
   ];
 
   constructor() {
@@ -37,7 +38,15 @@ export class SocketService {
     this.socket.emit('request-session', { teacherID, student });
   }
 
+  acceptSession(teacherID, studentID) {
+    this.socket.emit('accept-session', { teacherID, studentID });
+  }
+
   onRequestedSession(callback) {
     this.listeners['request-session'].subscribe(callback);
+  }
+
+  onStartedSession(callback) {
+    this.listeners['start-session'].subscribe(callback);
   }
 }

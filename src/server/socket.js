@@ -13,6 +13,16 @@ function initSocket(io) {
         teacherSocket.emit('request-session', { student });
       }
     });
+
+    socket.on('accept-session', function(data) {
+      const { teacherID, studentID } = data;
+      const sockets = [connections[teacherID], connections[studentID]];
+      const channel = Math.random().toString(36).substring(4, 9);
+
+      sockets.forEach((socket) => {
+        socket.emit('start-session', { channel });
+      });
+    });
   });
 }
 
