@@ -1,4 +1,7 @@
+const Session = require('./session');
+
 let connections = {};
+let sessions = {};
 
 function initSocket(io) {
   io.on('connection', function(socket) {
@@ -16,12 +19,20 @@ function initSocket(io) {
 
     socket.on('accept-session', function(data) {
       const { teacherID, studentID } = data;
-      const teachers = [connections[teacherID]];
-      const students = [connections[studentID]];
       const sessionID = Math.random().toString(36).substring(4, 9);
+      const teacher = connections[teacherID];
+      const student = connections[studentID];
 
-      connections[teacherID].emit('start-session', { sessionID, role: 'teacher' });
-      connections[studentID].emit('start-session', { sessionID, role: 'student' });
+      const session = new Session(teacher, student, sessionID);
+
+      sessions[sessionID] = session;
+      session.start();
+    });
+
+    socket.on('session-message', function(data) {
+      const { sessionID, message } = data;
+      const session = sessions[sessionID];
+      session.emitMessage(message);
     });
   });
 }
