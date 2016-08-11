@@ -3,13 +3,13 @@ import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store/index';
 import { Auth } from '../services/auth.service';
 import { HomeService } from '../services/home.service';
-//import { UserService } from '../services/user.service';
+import { UserService } from '../services/user.service';
 import { LoginActions } from '../actions/login.actions';
 
 
 @Component({
   selector: 'home',
-  providers: [ HomeService, LoginActions ],
+  providers: [ HomeService, LoginActions, UserService],
   template: `
   <h3>Filter teachers by subject</h3>
   <table>
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
-   // private userService: UserService,
+    private userService: UserService,
     private loginActions: LoginActions
     ) {}
   ngOnInit() {
@@ -55,18 +55,18 @@ export class HomeComponent implements OnInit {
       //do google data collections
       let userId = localStorage.getItem('authID');
       //this.loginActions.setAuthDispatch(userID);  
-      // this.userService.getUserData(userId)
-      //   .subscribe(
-      //     (response) => console.log('response from google getUserService', response)
-      //   );
+      this.userService.getUserData(userId)
+        .subscribe(
+          (response) => console.log('response from google getUserService', response)
+        );
     } else {
       let userID: string = this.ngRedux.getState()['login']['userID'];
-      // this.userService.getUserData(userID)
-      //   .subscribe(
-      //     (userData) => {
-      //       this.loginActions.setDataDispatch(userData[0]);
-      //     }
-      //   );
+      this.userService.getUserData(userID)
+        .subscribe(
+          (userData) => {
+            this.loginActions.setDataDispatch(userData[0]);
+          }
+        );
     }
   };
 
