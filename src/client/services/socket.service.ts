@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
+import { SessionActions } from '../actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SocketService {
@@ -11,7 +13,10 @@ export class SocketService {
     'start-session'
   ];
 
-  constructor() {
+  constructor(
+    private sessionActions: SessionActions,
+    private router: Router
+  ) {
     setTimeout(() => {
       const studentID = 'auth0|57abfb4610d863e854292680';
       const teacherID = 'auth0|57abe1ef10d863e854292661';
@@ -31,11 +36,8 @@ export class SocketService {
     // need to move this somewhere better, preferably separating
     // it into a student handler and a teacher handler
     this.onStartedSession((data) => {
-      if (data.role === 'student') {
-        console.log('i am the student', data);
-      } else if (data.role === 'teacher') {
-        console.log('i am the teacher', data);
-      }
+      this.sessionActions.setRoleDispatch(data.role);
+      this.router.navigate(['/session']);
     });
   }
 
