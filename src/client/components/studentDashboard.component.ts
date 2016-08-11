@@ -25,6 +25,7 @@ export class StudentDashboardComponent {
   studentID = '';
 
 
+
 @select(['login', 'userID']) userID$: Observable<string>;
   userID: string;
 
@@ -36,6 +37,13 @@ export class StudentDashboardComponent {
         userID => this.studentID = userID
       );
      }
+
+
+    ngOnInit() {
+    this.getSubjectByStudent();
+    this.getState();
+  };
+    
 
     getSubjectByStudent() {
       this.studentDashboardService.findSubjectsByUser(this.studentID)
@@ -49,4 +57,8 @@ export class StudentDashboardComponent {
       this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid);
     }
 
+
+    getState(){
+     console.log(this.ngRedux.getState())
+    }    
 }
