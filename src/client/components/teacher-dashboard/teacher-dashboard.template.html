@@ -1,6 +1,13 @@
 <h3>
-  OMG I AM THE TEACHER DASHBOARD!
-  <button (click)="actions.toggleAvailabilityDispatch()">
-    {{ available$ | async }}
-  </button>
+  <div>Teacher dashboard</div>
+  <div>
+    <button (click)="actions.toggleAvailabilityDispatch()">
+      available: {{ available$ | async }}
+    </button>
+  </div>
+  <div>
+    <ul *ngFor="let session of sessions$ | async">
+      <li> {{ session.student.name }} </li>
+    </ul>
+  </div>
 </h3>

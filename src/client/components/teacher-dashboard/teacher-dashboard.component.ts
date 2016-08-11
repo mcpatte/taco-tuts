@@ -15,6 +15,11 @@ export class TeacherDashboardComponent {
     'available'
   ]) available$: Observable<boolean>;
 
+  @select([
+    'teacher',
+    'sessions'
+  ]) sessions$: Observable<any[]>;
+
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private actions: TeacherActions
