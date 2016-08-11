@@ -18,7 +18,7 @@ import { SocketService } from '../services/socket.service';
     SearchBarComponent, StudentDashboardComponent, MenuBarComponent,
     LoginComponent, AdvancedSearchComponent, ROUTER_DIRECTIVES ],
   pipes: [ AsyncPipe ],
-  providers: [ DevToolsExtension, ConfigureStoreService, Auth ],
+  providers: [ DevToolsExtension, ConfigureStoreService, Auth, SocketService ],
   template: `
   <div class='container-fluid'>
     <h4>Welcome to taco tuts</h4>
@@ -38,5 +38,7 @@ export class AppComponent {
     private socket: SocketService
   ) {
     configureStore.configure(ngRedux);
+
+    socket.connect('auth0|57ab5d3a10d863e85429247a');
   }
 }

@@ -7,12 +7,10 @@ import { Http, HTTP_PROVIDERS } from '@angular/http';
 import { provideRouter } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { appRouterProviders } from './components/app.routes';
-import { SocketService } from './services/socket.service';
 
 bootstrap(AppComponent, [
   appRouterProviders,
   HTTP_PROVIDERS,
   NgRedux,
-  AUTH_PROVIDERS,
-  SocketService
+  AUTH_PROVIDERS
 ]);
