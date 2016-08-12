@@ -26,25 +26,27 @@ Session.prototype.emitMessage = function(message) {
 
 Session.prototype.emitToTeachers = function(event, data) {
   this.teachers.forEach(function(teacher) {
-    teacher.emit(event, {
-      role: 'teacher',
-      data: data
-    });
-  });
+    teacher.emit(event, this.wrapData('teacher', data));
+  }.bind(this));
 };
 
 Session.prototype.emitToStudents = function(event, data) {
   this.students.forEach(function(student) {
-    student.emit(event, {
-      role: 'student',
-      data: data
-    });
-  });
+    student.emit(event, this.wrapData('student', data));
+  }.bind(this));
 };
 
 Session.prototype.emitToAll = function(event, data) {
   this.emitToTeachers(event, data);
   this.emitToStudents(event, data);
+};
+
+Session.prototype.wrapData = function(role, data) {
+  return {
+    role,
+    data,
+    id: this.id
+  };
 };
 
 module.exports = Session;
