@@ -1,3 +1,5 @@
+-- to run this file and update the remote database run: heroku pg:psql --app taco-tuts-staging < sampledata.sql
+
 DROP TABLE IF EXISTS teaching;
 DROP TABLE IF EXISTS learning;
 DROP TABLE IF EXISTS users CASCADE;
@@ -29,7 +31,7 @@ CREATE TABLE teaching (
 );
 
 INSERT INTO users (email, authid, username, name, teacher, isavailible)
-  VALUES ('deathwatcher@crazy.com', 'auth9', 'crazy person', 'Luna Lovegood', false, false);
+  VALUES ('hbp@hotwarts.com', 'auth1', 'halfbloodprince', 'Severus Snape', true, true);
   
 INSERT INTO users (email, authid, username, name, teacher, isavailible)
   VALUES ('hp@hogwarts.com', 'auth8', 'chosen one', 'Harry Potter', false, false);
@@ -38,7 +40,7 @@ INSERT INTO users (email, authid, username, name, teacher, isavailible)
   VALUES ('hagrid@gmail.com', 'auth7', 'Hagrid', 'Hagrid', true, true);
 
 INSERT INTO users (email, authid, username, name, teacher, isavailible)
-  VALUES ('mmoody', 'auth5', 'crazyeyes', 'Mad-Eye Moody', true, false);
+  VALUES ('mmoody', 'auth5', 'crazyeyes', 'Mad-Eye Moody', true, true);
 
 INSERT INTO users (email, authid, username, name, teacher, isavailible)
   VALUES ('rweasly@yahoo.com', 'auth4', 'Ronald', 'Ron', false, false);
@@ -50,7 +52,7 @@ INSERT INTO users (email, authid, username, name, teacher, isavailible)
   VALUES ('ddoor@gmail.com', 'auth3', 'Headmaster', 'Dumbledoor', true, true);
 
 INSERT INTO users (email, authid, username, name, teacher, isavailible)
-  VALUES ('hbp@hotwarts.com', 'auth1', 'halfbloodprince', 'Severus Snape', true, true);
+  VALUES ('deathwatcher@crazy.com', 'auth9', 'crazy person', 'Luna Lovegood', false, false);
 
 INSERT INTO subjects (name)
   VALUES ('Potions');
@@ -77,13 +79,13 @@ INSERT INTO teaching (userID, subjectID)
   VALUES (5, 2);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (6, 3);
+  VALUES (6, 2);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (4, 3);
+  VALUES (3, 3);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (2, 4);
+  VALUES (7, 4);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (2, 5);
+  VALUES (7, 5);
