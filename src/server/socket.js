@@ -1,4 +1,4 @@
-const Session = require('./session');
+const Session = require('./socket/session');
 
 let connections = {};
 let sessions = {};
@@ -26,12 +26,12 @@ function onSessionRequest(data) {
 function onSessionAccept(data) {
   const { teacherID, studentID } = data;
   const sessionID = Math.random().toString(36).substring(4, 9);
-  const teacher = connections[teacherID];
-  const student = connections[studentID];
-
-  const session = new Session(teacher, student, sessionID);
+  const session = new Session(sessionID);
 
   sessions[sessionID] = session;
+
+  session.addTeacher(connections[teacherID]);
+  session.addStudent(connections[studentID]);
   session.start();
 }
 
