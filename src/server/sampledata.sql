@@ -1,9 +1,9 @@
---to run this file and update your local db run: psql -f users.sql
+-- to run this file and update the remote database run: heroku pg:psql --app taco-tuts-staging < sampledata.sql
 
-DROP DATABASE IF EXISTS tacobase;
-CREATE DATABASE tacobase;
-
-\c tacobase;
+DROP TABLE IF EXISTS teaching;
+DROP TABLE IF EXISTS learning;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS subjects CASCADE;
 
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
