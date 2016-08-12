@@ -13,7 +13,7 @@ export class Auth {
     domain: 'kylelinhardt.auth0.com',
     clientID: '1fAOoxggMklnQahSLp7O9dYpEZryuprR',
     callbackOnLocationHash: true,
-    callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/'
+    callbackURL: process.env.AUTH0_CALLBACK_URL || window.location.origin
   });
 
   constructor(
