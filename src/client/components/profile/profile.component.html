@@ -1,0 +1,47 @@
+<button class="btn btn-default"
+        (click)="profileFormOpen = !profileFormOpen"
+        >Update Profile</button>
+
+<div *ngIf="profileFormOpen === true" class="container">
+    <h1>Update Profile</h1>
+    <form> 
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input 
+                [(ngModel)] = "userData.name"
+                type="text"
+                class="form-control"
+            >
+        </div>
+           <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+                [(ngModel)] = "userData.username"
+                type="text"
+                class="form-control"
+            >
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input 
+                [(ngModel)] = "userData.email"
+                type="text"
+                class="form-control"
+            >
+        </div>
+        <div class="form-group">
+            <label for="teacher">I am a teacher </label>
+            <input 
+                [(ngModel)] = "userData.teacher"
+                type="checkbox" 
+                name="vehicle" 
+                value="true">
+        </div>
+
+        <button 
+                type="submit" 
+                class="btn btn-default"
+                (click)="updateUser(userData); profileFormOpen=false"
+                >Update Profile</button>
+    </form>
+</div>

@@ -4,7 +4,7 @@ import { AsyncPipe } from '@angular/common';
 import { NgRedux, DevToolsExtension } from 'ng2-redux';
 import { AdvancedSearchComponent } from '../components/advancedSearch.component';
 import { SearchBarComponent } from '../components/searchBar.component';
-import { StudentDashboardComponent } from '../components/studentDashboard.component';
+import { StudentDashboardComponent } from '../components/student-dashboard/studentDashboard.component';
 import { LoginComponent } from '../components/login.component';
 import { MenuBarComponent } from '../components/menuBar.component';
 import { IAppState } from '../store/index';

@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
-import { IAppState } from '../store/index';
-import { Auth } from '../services/auth.service';
-import { StudentDashboardService } from '../services/studentDashboard.service.ts';
+import { IAppState } from '../../store/index';
+import { Auth } from '../../services/auth.service';
+import { StudentDashboardService } from '../../services/studentDashboard.service.ts';
 import { Observable } from 'rxjs/Observable';
+import { ProfileComponent } from '../profile/profile.component'; 
 
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
+  directives: [ProfileComponent],
   styles: [`
     .subject {
       background-color: lightblue;
@@ -22,7 +24,8 @@ import { Observable } from 'rxjs/Observable';
 export class StudentDashboardComponent {
   date2 = '2016-08-09';
   subjects = [];
-  studentID = '';
+  studentID: string;
+
 
 
 @select(['login', 'userID']) userID$: Observable<string>;
@@ -37,6 +40,13 @@ export class StudentDashboardComponent {
       );
      }
 
+
+    ngOnInit() {
+    this.getSubjectByStudent();
+    this.getState();
+    };
+    
+
     getSubjectByStudent() {
       this.studentDashboardService.findSubjectsByUser(this.studentID)
         .subscribe(
@@ -46,7 +56,14 @@ export class StudentDashboardComponent {
 
     deleteStudentSubject(subjectid, index) {
       this.subjects.splice(index, 1);
-      this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid);
+      this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid)
+        .subscribe(
+          response => console.log(response)
+        );
     }
 
+
+    getState(){
+     console.log(this.ngRedux.getState())
+    }    
 }
