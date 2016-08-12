@@ -59,8 +59,8 @@ function createUser(req, res, next){
 };
 
 function updateUser(req, res, next){
-  var userID = parseInt(req.params.id);
-    db.none('update users set username=$1, name=$2, email=$3, teacher=$4 where id=$5', [req.body.username, req.body.name, req.body.email, req.body.teacher, userID], req.body)
+  var authID = req.params.authID;
+    db.none('update users set username=coalesce($1, username), name=coalesce($2, name), email=coalesce($3, email), teacher=coalesce($4, teacher) where authID=$5', [req.body.username, req.body.name, req.body.email, req.body.teacher, authID], req.body)
     .then(function () {
       res.status(200)
         .json({
