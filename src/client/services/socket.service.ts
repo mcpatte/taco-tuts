@@ -23,14 +23,13 @@ export class SocketService {
     setTimeout(() => {
       const studentID = 'auth0|57acab1d645d9d914448d2ee';
       const teacherID = 'auth0|57acae2010d863e8542927e8';
-      this.onRequestedSession(data => console.log('woop', data));
+      this.onRequestedSession(({ data }) => console.log('woop', data))
       this.requestSession(teacherID, { name: 'harambe', userID: studentID });
     }, 1000);
   }
 
   connect(userID) {
     this.socket = io(undefined, { query: `userID=${userID}` });
-    this.socket.on('message', data => console.log('socket data', data));
 
     this.events.forEach((event) => {
       this.listeners[event] = this.getListener(event);
@@ -38,14 +37,14 @@ export class SocketService {
 
     // need to move this somewhere better, preferably separating
     // it into a student handler and a teacher handler
-    this.onStartedSession((data) => {
-      this.sessionActions.setRoleDispatch(data.role);
+    this.onStartedSession(({ role, data }) => {
+      this.sessionActions.setRoleDispatch(role);
       this.sessionActions.setSessionIDDispatch(data.sessionID);
       this.router.navigate(['/session']);
     });
 
-    this.onSessionMessage((message) => {
-      this.sessionActions.addMessageDispatch(message);
+    this.onSessionMessage(({ role, data }) => {
+      this.sessionActions.addMessageDispatch(data);
     });
   }
 
