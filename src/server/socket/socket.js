@@ -1,12 +1,13 @@
-const Session = require('./socket/session');
+var ConnectionManager = require('./connection-manager');
+var Session = require('./session');
 
-let connections = {};
+var connectionManager = new ConnectionManager();
 let sessions = {};
 
 function initSocket(io) {
   io.on('connection', function(socket) {
     const userID = socket.handshake.query.userID;
-    connections = Object.assign(connections, { [userID]: socket });
+    connectionManager.add(userID, socket);
 
     socket.on('request-session', onSessionRequest);
     socket.on('accept-session', onSessionAccept);
@@ -16,7 +17,7 @@ function initSocket(io) {
 
 function onSessionRequest(data) {
   const { teacherID, student } = data;
-  const teacherSocket = connections[teacherID];
+  const teacherSocket = connectionManager.get(teacherID);
 
   if (teacherSocket) {
     teacherSocket.emit('request-session', { student });
@@ -30,8 +31,8 @@ function onSessionAccept(data) {
 
   sessions[sessionID] = session;
 
-  session.addTeacher(connections[teacherID]);
-  session.addStudent(connections[studentID]);
+  session.addTeacher(connectionManager.get(teacherID));
+  session.addStudent(connectionManager.get(studentID));
   session.start();
 }
 

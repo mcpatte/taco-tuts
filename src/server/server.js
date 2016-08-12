@@ -10,7 +10,7 @@ var app = express();
 var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
-require('./socket')(io);
+require('./socket/socket')(io);
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../dist'));
