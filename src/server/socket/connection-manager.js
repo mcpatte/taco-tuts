@@ -7,7 +7,6 @@ function ConnectionManager() {
 
   _.each(ConnectionManager.prototype, function(method, name) {
     this[name] = method.bind(this);
-    console.log({ thus: this, method, name })
   }.bind(this));
 }
 
@@ -24,7 +23,7 @@ ConnectionManager.prototype.onSessionRequest = function(data) {
   var teacherSocket = this.getConnection(teacherID);
 
   if (teacherSocket) {
-    teacherSocket.emit('request-session', { student });
+    teacherSocket.emit('request-session', { role: 'teacher', data: { student } });
   }
 };
 

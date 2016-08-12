@@ -6,7 +6,6 @@ import { HomeService } from '../services/home.service';
 import { UserService } from '../services/user.service';
 import { LoginActions } from '../actions/login.actions';
 
-
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService],
@@ -26,20 +25,22 @@ import { LoginActions } from '../actions/login.actions';
       <ul *ngFor="let user of users">
         <li *ngIf="user.isavailible === true && user.teacher === true">
           {{user.name}}
+          <button (click)="requestSession(user)">
+            request session
+          </button>
         </li>
       </ul>
     </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
-  
+
   `
 })
 export class HomeComponent implements OnInit {
-  // Selected observables to test async pipe model. 
+  // Selected observables to test async pipe model.
   // Members to test subscribe model.
   private users = [];
   private subjects = [];
   private errorMessage: string;
-
   constructor(
     private userService: UserService,
     private auth: Auth,
@@ -51,7 +52,6 @@ export class HomeComponent implements OnInit {
     this.getSubjects();
     this.getUsers();
   };
-
   getUsers() {
     this.homeService.getUsers()
       .subscribe(
@@ -59,7 +59,6 @@ export class HomeComponent implements OnInit {
         error =>  this.errorMessage = <any>error
       );
   }
-
   getSubjects() {
     this.homeService.getSubjects()
       .subscribe(
@@ -67,7 +66,6 @@ export class HomeComponent implements OnInit {
         error =>  this.errorMessage = <any>error
       );
   }
-
   getTeaching(subjectID) {
     console.log(subjectID);
     this.homeService.getTeaching(subjectID)
@@ -78,5 +76,16 @@ export class HomeComponent implements OnInit {
         },
         error =>  this.errorMessage = <any>error
       );
+  }
+  requestSession(teacher) {
+    // need to put logged in user's data here
+    const teacherID = teacher.authid;
+
+    const student = {
+      userID: this.ngRedux.getState().login.userID,
+      name: 'harambe'
+    };
+
+    this.socket.requestSession(teacherID, student);
   }
 }

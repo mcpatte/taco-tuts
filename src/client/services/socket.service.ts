@@ -19,14 +19,7 @@ export class SocketService {
   constructor(
     private sessionActions: SessionActions,
     private router: Router
-  ) {
-    setTimeout(() => {
-      const studentID = 'auth0|57acab1d645d9d914448d2ee';
-      const teacherID = 'auth0|57acae2010d863e8542927e8';
-      this.onRequestedSession(({ data }) => console.log('woop', data))
-      this.requestSession(teacherID, { name: 'harambe', userID: studentID });
-    }, 1000);
-  }
+  ) { }
 
   connect(userID) {
     this.socket = io(undefined, { query: `userID=${userID}` });
@@ -46,6 +39,8 @@ export class SocketService {
     this.onSessionMessage(({ role, data }) => {
       this.sessionActions.addMessageDispatch(data);
     });
+
+    this.onRequestedSession((obj) => console.log('woop', obj))
   }
 
   getListener(event) {
