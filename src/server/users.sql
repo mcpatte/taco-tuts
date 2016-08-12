@@ -11,13 +11,33 @@ CREATE TABLE users (
   username VARCHAR,
   name VARCHAR,
   email VARCHAR,
-  teacher BOOLEAN,
-  isAvailible BOOLEAN
+  teacherID integer references teachers(id) ON DELETE CASCADE
+  teacher BOOLEAN
+);
+
+CREATE TABLE teachers (
+  ID SERIAL PRIMARY KEY,
+  isAvailible BOOLEAN,
+  favorite BOOLEAN,
+  rating INT
+);
+
+CREATE TABLE sessions (
+  ID SERIAL PRIMARY KEY,
+  start TIMESTAMP, --YYYY-MM-DD HH:MM:SS
+  end TIMESTAMP,
+  subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
 CREATE TABLE subjects (
   ID SERIAL PRIMARY KEY,
   name VARCHAR
+);
+
+CREATE TABLE sessionsToUsers (
+  userID integer references users(id) ON DELETE CASCADE,
+  sessionID integer references sessions(id) ON DELETE CASCADE,
+  isTeacher BOOLEAN
 );
 
 CREATE TABLE learning (
