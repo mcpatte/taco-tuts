@@ -8,8 +8,8 @@ function initSocket(io) {
 
     connectionManager.addConnection(userID, socket);
 
-    socket.on('request-session', connectionManager.onSessionRequest);
-    socket.on('accept-session', connectionManager.onSessionAccept);
+    socket.on('session-request', connectionManager.onSessionRequest);
+    socket.on('session-accept', connectionManager.onSessionAccept);
     socket.on('session-message', connectionManager.onSessionMessage);
   });
 }

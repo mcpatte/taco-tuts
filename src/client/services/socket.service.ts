@@ -11,8 +11,8 @@ export class SocketService {
 
   // TODO: rename session events to all have `session-` prefix
   private events: string[] = [
-    'request-session',
-    'start-session',
+    'session-request',
+    'session-start',
     'session-message'
   ];
 
@@ -50,11 +50,11 @@ export class SocketService {
   }
 
   requestSession(teacherID, student) {
-    this.socket.emit('request-session', { teacherID, student });
+    this.socket.emit('session-request', { teacherID, student });
   }
 
   acceptSession(teacherID, studentID) {
-    this.socket.emit('accept-session', { teacherID, studentID });
+    this.socket.emit('session-accept', { teacherID, studentID });
   }
 
   sendSessionMessage(sessionID, message, from) {
@@ -63,11 +63,11 @@ export class SocketService {
   }
 
   onRequestedSession(callback) {
-    this.listeners['request-session'].subscribe(callback);
+    this.listeners['session-request'].subscribe(callback);
   }
 
   onStartedSession(callback) {
-    this.listeners['start-session'].subscribe(callback);
+    this.listeners['session-start'].subscribe(callback);
   }
 
   onSessionMessage(callback) {

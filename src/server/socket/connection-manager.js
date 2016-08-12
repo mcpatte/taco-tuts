@@ -23,7 +23,10 @@ ConnectionManager.prototype.onSessionRequest = function(data) {
   var teacherSocket = this.getConnection(teacherID);
 
   if (teacherSocket) {
-    teacherSocket.emit('request-session', { role: 'teacher', data: { student } });
+    teacherSocket.emit('session-request', {
+      role: 'teacher',
+      data: { student }
+    });
   }
 };
 

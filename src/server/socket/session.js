@@ -16,7 +16,7 @@ Session.prototype.addTeacher = function(teacher) {
 
 Session.prototype.start = function() {
   const data = { sessionID: this.id };
-  this.emitToAll('start-session', data);
+  this.emitToAll('session-start', data);
 };
 
 Session.prototype.emitMessage = function(message) {

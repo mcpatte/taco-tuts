@@ -13,8 +13,8 @@ export class TeacherSocketService {
   ) { }
 
   init() {
-    this.socket.onRequestedSession((session) => {
-      this.actions.addSessionRequestDispatch(session);
+    this.socket.onRequestedSession(({ data }) => {
+      this.actions.addSessionRequestDispatch(data);
     });
   }
 
