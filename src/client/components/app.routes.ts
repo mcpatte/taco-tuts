@@ -1,6 +1,6 @@
 import { RouterConfig, provideRouter } from '@angular/router';
 import { AdvancedSearchComponent } from './advancedSearch.component';
-import { StudentDashboardComponent } from './studentDashboard.component';
+import { StudentDashboardComponent } from './student-dashboard/studentDashboard.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './sign-up/signUp.component';
 import { HomeComponent } from './home.component';
