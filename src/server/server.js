@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
-var db = require('./queries');
+var db = require('./queries/exports');
 var path = require('path');
 
 var PORT = process.env.PORT || 3000;
