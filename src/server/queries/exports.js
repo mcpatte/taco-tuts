@@ -15,6 +15,7 @@ module.exports = {
   createSubject: subjects.createSubject,
   getAllSubjects: subjects.getAllSubjects,
   removeSubject: subjects.removeSubject,
+  getLearning: learning.getLearning,
   learningSubject: learning.learningSubject,
   findSubjectsByUser: learning.findSubjectsByUser,
   removeSubjectByUser: learning.removeSubjectByUser,
