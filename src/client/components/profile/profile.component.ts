@@ -1,40 +1,57 @@
-import { Component } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
-import { IAppState } from '../../store/index';
-import { ProfileService } from '../../services/profile.service';
+import { Component }        from '@angular/core';
+import { NgRedux }          from 'ng2-redux';
+import { IAppState }        from '../../store/index';
+import { ProfileService }   from '../../services/profile.service';
+import { Auth }             from '../../services/auth.service';
+import { LoginActions }     from '../../actions/login.actions';
+import { UserService }      from '../../services/user.service';
+
 
 @Component({
   selector: 'profile',
-  providers: [ ProfileService ],
+  providers: [ ProfileService, UserService ],
   template: require('./profile.component.html')
 })
 
 
 export class ProfileComponent {
   private authID: string;
-  private userData = {}; 
   private profileFormOpen: boolean = false;
+  private userData: Object = {teacher: false};
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private profileService: ProfileService) { }
+    private profileService: ProfileService,
+    private auth: Auth,
+    private loginActions: LoginActions,
+    private userService: UserService) { }
 
     ngOnInit() {
-        this.getState();
+        this.authID = this.getID();
+        this.isTeacher()
     };
 
-    updateUser(userData){
-        console.log("authID", this.authID, userData)
-        this.profileService.updateUser(userData, this.authID)
-            .subscribe(
-                response => console.log(response)
-            )
+    getID() {
+        let currState = this.ngRedux.getState();
+        return currState.login['userData'].authid;
     }
 
+    isTeacher() {
+        console.log('isTeacher?', this.auth.isTeacher())
+        return this.auth.isTeacher();
+    }
 
-    getState(){
-    this.authID = this.ngRedux.getState().login.userID
-    }    
-
-
+    updateUser(userData: Object){
+        this.profileService.updateUser(userData, this.getID())
+        .subscribe(
+            response => {
+                this.userService.getUserData(this.getID())
+                .subscribe (
+                    response => {
+                        this.loginActions.setDataDispatch(response[0]);
+                    }
+                );
+            }
+        )
+    }
 }
