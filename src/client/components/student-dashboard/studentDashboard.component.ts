@@ -5,12 +5,12 @@ import { Auth } from '../../services/auth.service';
 import { StudentDashboardService } from '../../services/studentDashboard.service.ts';
 import { Observable } from 'rxjs/Observable';
 import { ProfileComponent } from '../profile/profile.component'; 
-
+import { AppointmentComponent } from '../appointments/appointment.component';
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
-  directives: [ProfileComponent],
+  directives: [ProfileComponent, AppointmentComponent],
   styles: [`
     .subject {
       background-color: lightblue;
@@ -66,4 +66,5 @@ export class StudentDashboardComponent {
     getState(){
      console.log(this.ngRedux.getState())
     }    
+
 }
