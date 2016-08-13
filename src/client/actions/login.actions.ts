@@ -10,7 +10,7 @@ export const LOGIN_ACTIONS = {
 @Injectable()
 export class LoginActions {
 
-  private userUrl: string = '/api/users/';
+  userUrl: string = '/api/users/';
 
   constructor(
     private ngRedux: NgRedux<any>,
@@ -28,15 +28,15 @@ export class LoginActions {
     this.setAuthState(authID);
   }
 
-  private setAuthID(authID: string, data: Object) {
+  setAuthID(authID: string, data: Object) {
     return this.http.post(this.userUrl + authID, data);
   }
 
-  private setAuthState(authID: string) {
+  setAuthState(authID: string) {
    this.ngRedux.dispatch(this.setAuth(authID));
   }
 
-  private setAuth(authID: string) {
+  setAuth(authID: string) {
     return {
       type: LOGIN_ACTIONS.SET_USER_ID,
       userID: authID
@@ -47,7 +47,7 @@ export class LoginActions {
       this.ngRedux.dispatch(this.setUserData(userData));
     }
 
-  private setUserData(userData: Object) {
+  setUserData(userData: Object) {
     return {
       type: LOGIN_ACTIONS.SET_USER_DATA,
       userData: userData
