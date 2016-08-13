@@ -1,16 +1,8 @@
-var promise = require('bluebird');
-
-var options = {
-  // Initialization Options
-  promiseLib: promise
-};
-
 var pgp = require('pg-promise')(options);
 var connectionString = process.env.DATABASE_URL ||
   'postgres://localhost:5432/tacobase2';
 var db = pgp(connectionString);
 
-// add query functions
 function getAllUsers(req, res, next) {
   db.any('select * from users')
     .then(function (data) {
@@ -308,4 +300,3 @@ module.exports = {
   removeSubject: removeSubject,
   setAuthID: setAuthID
 };
-

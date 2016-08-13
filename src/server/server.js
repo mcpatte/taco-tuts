@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
-var db = require('./queries');
+var db = require('./queries/exports');
 var path = require('path');
 
 var PORT = process.env.PORT || 3000;
@@ -23,6 +23,7 @@ app.get('/api/users/:authID', db.getSingleUser);
 app.get('/api/subject', db.getAllSubjects);
 app.get('/api/teaching/:id', db.getSubjectForTeacher);
 app.get('/api/teaching', db.getTeaching);
+app.get('/api/learning', db.getLearning);
 app.get('/api/subject/:id', db.getTeachersForSubject);
 app.post('/api/users', db.createUser);
 app.post('/api/subject', db.createSubject);
