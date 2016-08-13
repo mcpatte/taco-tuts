@@ -152,7 +152,7 @@ This monster of a function checks if the user exists
   }
 
   public getUserFromDB(authID: string){
-    console.log('xxxxxxxxxxxx    getUserFromDB called')
+    console.log('xxxxxxxxxxxx  getUserFromDB called')
     return this.http.get(this.createUser + authID)
       .map(this.extractData)
       .catch(this.handleError)
