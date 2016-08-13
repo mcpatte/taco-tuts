@@ -36,17 +36,9 @@ function getTeachersForSubject(req, res, next){
 
 function removeSubject(req, res, next){
   var subjectID = parseInt(req.params.id);
-    db.result('delete from subjects where id = $1', [subjectID])
-    .then(function (result) {
-      res.status(200)
-        .json({
-          status: 'success',
-          message: `Removed subject!`
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
+  db.result('delete from subjects where id = $1', [subjectID])
+    .then(postData(res, `Sucessfully destroyed ${req.body.name} `))
+    .catch(catchError(next));
 };
 
 module.exports = {
