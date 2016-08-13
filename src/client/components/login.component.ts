@@ -7,12 +7,13 @@ import { Auth } from '../services/auth.service';
 import { Router,
          ROUTER_DIRECTIVES }    from '@angular/router';
 import { LoginActions } from '../actions/login.actions';
+import { UserService }    from '../services/user.service';
 
 
 @Component({
   selector: 'log-in',
   directives: [ ROUTER_DIRECTIVES ],
-  providers: [ LoginActions ],
+  providers: [ LoginActions, UserService ],
   styles: [`
     a {
       color: white;
@@ -53,24 +54,26 @@ export class LoginComponent {
     private auth: Auth,
     private router: Router,
     private ngRedux: NgRedux<IAppState>,
-    private loginActions: LoginActions
+    private loginActions: LoginActions,
+    private userService: UserService
 
     ) { }
 
   login(username, password) {
     let email = username;
-    this.auth.login(username, password, function(response){
-      if (response.idTokenPayload.sub) {
-        let userID = response.idTokenPayload.sub;
+    this.auth.login(username, password, function(result){
+        localStorage.setItem('id_token', result.idToken);
+        localStorage.setItem('authID', result.idTokenPayload.sub);
+        let userID = result.idTokenPayload.sub;
         //will set auth to state
         this.loginActions.setAuthDispatch(userID, email);
         this.goToHome();
-      }
     }.bind(this));
   }
 
-  googleLogin (username) {
-    this.auth.googleLogin();
+  googleLogin () {
+    this.auth.googleLogin()
+    //this.userService.getUserData()
   }
 
   goToSignup() {
