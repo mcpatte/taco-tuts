@@ -48,41 +48,9 @@ export class HomeComponent implements OnInit {
     private loginActions: LoginActions
     ) {}
   ngOnInit() {
-    console.log("Home initializing")
     this.getSubjects();
     this.getUsers();
-    setTimeout(function(){
-      this.getProfile();
-    }.bind(this), 2000)
-
-
   };
-
-  getProfile() {
-      console.log("local storage", JSON.stringify(localStorage.getItem('userData')))
-      // if (JSON.parse(localStorage.getItem('profile')).user_id.indexOf('google')){
-      //   console.log("HEEELLOOOOO???------------------------");
-      //   console.log("SO ya logged in with google, eh?");
-      //   //this.auth.
-      //   let userID = JSON.parse(localStorage.getItem('profile')).user_id;
-      //   console.log("I have this userID?", JSON.parse(localStorage.getItem('profile')).user_id);
-      //   console.log("I am sending this user id: " + userID + " Into getUserData");
-      //   return this.userService.getUserData(userID)
-      //     .subscribe(
-      //       response => console.log("userdata", response)
-      //     )
-      // } else {
-      let userID: string = this.ngRedux.getState()['login']['userID'];
-      this.userService.getUserData(userID)
-        .subscribe(
-          (userData) => {
-            console.log("user data", userData)
-            this.loginActions.setDataDispatch(userData[0]);
-          }
-        );
-   // }
-  }
-  
 
   getUsers() {
     this.homeService.getUsers()

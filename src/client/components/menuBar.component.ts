@@ -31,7 +31,6 @@ export class MenuBarComponent {
 
     logout () {
       localStorage.clear();
-      console.log("localStorage", localStorage.getItem('profile'))
       this.auth.logout();
       this.logoutActions.setLogoutDispatch();
     }
