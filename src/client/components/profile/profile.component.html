@@ -30,13 +30,20 @@
             >
         </div>
         <div class="form-group">
-            <label for="teacher">I am a teacher </label>
+            <label for="teacher">I am a teacher</label>
             <input 
+                *ngIf = "!isTeacher()"
                 [(ngModel)] = "userData.teacher"
                 type="checkbox" 
                 name="vehicle" 
                 value="true">
         </div>
+        <button 
+            *ngIf="isTeacher()"
+            type="submit" 
+            class="btn btn-default"
+            (click)="updateUser({teacher: false}); profileFormOpen=false"
+            >Stop Teaching</button>
 
         <button 
                 type="submit" 
