@@ -27,7 +27,7 @@ function getSingleUser(req, res, next){
   var authID = req.params.authID;
   console.log('in getSingleUser', authID);
     db.any('select * from users where authID = $1', [authID])
-    .then(respondWithData(res, "Retrieved single user"))
+    .then(respondWithData(res, `Retrieved single user`))
     .catch(catchError(next))
 };
 
