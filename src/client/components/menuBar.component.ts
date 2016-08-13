@@ -13,11 +13,11 @@ import { LogoutActions }      from '../actions/logout.actions';
   template: `
   <nav>
     <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a routerLink="/student-dash" routerLinkActive="active">Student Dashboard</a>
-    <a routerLink="/teacher-dash" routerLinkActive="active">Teacher Dashboard</a>
-    <a routerLink="/advanced-search" routerLinkActive="active">Advanced Search</a>
-    <a routerLink="/login" routerLinkActive="active">Log In</a>
-    <a routerLink="#" routerLinkActive="active" (click)="logout()">Log Out</a>
+    <a routerLink="/student-dash" routerLinkActive="active" *ngIf="isAuthenticated()">Student Dashboard</a>
+    <a routerLink="/teacher-dash" routerLinkActive="active" *ngIf="isTeacher()">Teacher Dashboard</a>
+    <a routerLink="/advanced-search" routerLinkActive="active" >Advanced Search</a>
+    <a routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()">Log In</a>
+    <a routerLink="#" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated()">Log Out</a>
   </nav>
   `
 })
@@ -28,6 +28,18 @@ export class MenuBarComponent {
     private logoutActions: LogoutActions
 
     ) { }
+
+    isAuthenticated() {
+      //will return true if user is logged in
+      return this.auth.isAuthenticated();
+    }
+
+    isTeacher() {
+      if (this.ngRedux.getState()['login']['userData'] !== undefined) {
+        return this.auth.isTeacher();
+      }
+      return false;
+    }
 
     logout () {
       localStorage.clear();
