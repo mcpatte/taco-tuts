@@ -33,6 +33,7 @@ app.post('/api/subject', db.createSubject);
 app.post('/api/learning', db.learningSubject);
 app.post('/api/teaching', db.teachingSubject);
 app.post('/api/users/:authID', db.setAuthID);
+app.post('/api/teachers/:authID', db.insertTeacher);
 app.put('/api/users/:authID', db.updateUser);
 app.delete('/api/users/:authID', db.removeUser);
 app.delete('/api/subject/:id', db.removeSubject);

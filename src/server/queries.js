@@ -52,6 +52,21 @@ function createUser(req, res, next){
     });
 };
 
+function insertTeacher(req, res, next){
+  var userID = parseInt(req.params.id);
+    db.result('INSERT INTO teachers { DEFAULT VALUES } [ RETURNING * | output_expression [ AS teacher_id')
+    .then(function (result) {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Added teacher ${teacher_id} `
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
+
 function updateUser(req, res, next){
   var authID = req.params.authID;
     db.none('update users set username=coalesce($1, username), name=coalesce($2, name), email=coalesce($3, email), teacher=coalesce($4, teacher) where authID=$5', [req.body.username, req.body.name, req.body.email, req.body.teacher, authID], req.body)
@@ -298,5 +313,6 @@ module.exports = {
   findSubjectsByUser: findSubjectsByUser,
   removeSubjectByUser: removeSubjectByUser,
   removeSubject: removeSubject,
-  setAuthID: setAuthID
+  setAuthID: setAuthID,
+  insertTeacher: insertTeacher
 };
