@@ -46,10 +46,7 @@ export class Auth {
           //format the profile for use in the DB
           let userProfile = {
             //username: profile
-            username: profile.nickname,
-            name : profile.name,
             email : profile.email,
-            teacher: false,
             authid: profile.user_id
           };
           //set profile checks if the user is in the db
@@ -91,12 +88,10 @@ export class Auth {
                 );
           } else {
            // If they do exist on the db
-            console.log('user was found, not inserted', response);
             this.http.put('/api/users/' + authID, profile)
               .subscribe(
                 response => {
                   return this.fetchDBProfile(authID);
-
                 }
               );
             this.loginActions.setDataDispatch(response[0]);
@@ -162,8 +157,16 @@ export class Auth {
   };
 
   public isAuthenticated() {
-    // Check if there is an authentication key on state
-    return this.ngRedux.getState().login.length>0;
+    return !!this.ngRedux.getState()['login']['userData'];
+  };
+
+  public isTeacher() {
+    let currState = this.ngRedux.getState()['login']['userData'];
+    let teacher = false;
+    if (currState !== null ) {
+      teacher = currState.teacher;
+    }
+    return !!teacher;
   };
 
   public logout() {

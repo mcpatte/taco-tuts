@@ -8,4 +8,4 @@ export {
   SESSION_ACTIONS,
 } from './session.actions';
 
-export * from './login.actions'
+export * from './login.actions';

@@ -1,6 +1,6 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable }     from 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
@@ -15,7 +15,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
-   public setUserData(authID: string, userProfile : Object) {
+  public setUserData(authID: string, userProfile : Object) {
     console.log('setUserData in UserService', arguments);
     return this.http.put(this.updateUser + authID, userProfile)
       .map(this.extractData)
