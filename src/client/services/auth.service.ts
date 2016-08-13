@@ -3,9 +3,9 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { Router }          from '@angular/router';
 import { NgRedux }         from 'ng2-redux';
 import { AUTH_VARS }       from '../auth0.variables.ts';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { LoginActions } from '../actions/login.actions';
+import { Http, Response }  from '@angular/http';
+import { Observable }      from 'rxjs/Rx';
+import { LoginActions }    from '../actions/login.actions';
 
 
 // Avoid name not found warnings
@@ -19,7 +19,7 @@ const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || AUTH_VARS.AUTH0_DOMAIN;
 export class Auth {
   // Configure Auth0
   auth0 = new Auth0({
-    domain: AUTH_VARS.AUTH0_DOMAIN,
+    domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
     callbackOnLocationHash: true,
     callbackURL: process.env.AUTH0_CALLBACK_URL || window.location.origin

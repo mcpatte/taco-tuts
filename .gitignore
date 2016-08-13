@@ -2,4 +2,3 @@ node_modules
 src/client/typings
 src/dist
 *.log
-src/client/auth0.variables.ts
