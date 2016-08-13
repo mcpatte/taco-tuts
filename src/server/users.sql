@@ -1,5 +1,4 @@
---to run this file and update your local db run: psql -f users.sql
-
+-- --to run this file and update your local db run: psql -f users.sql
 DROP DATABASE IF EXISTS tacobase2;
 CREATE DATABASE tacobase2;
 

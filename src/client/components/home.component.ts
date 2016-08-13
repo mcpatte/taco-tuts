@@ -41,33 +41,15 @@ export class HomeComponent implements OnInit {
   private errorMessage: string;
 
   constructor(
+    private userService: UserService,
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
-    private userService: UserService,
     private loginActions: LoginActions
     ) {}
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
-
-    if (localStorage.getItem('authID') !== null) {
-      //do google data collections
-      let userId = localStorage.getItem('authID');
-      //this.loginActions.setAuthDispatch(userID);  
-      this.userService.getUserData(userId)
-        .subscribe(
-          (response) => console.log('response from google getUserService', response)
-        );
-    } else {
-      let userID: string = this.ngRedux.getState()['login']['userID'];
-      this.userService.getUserData(userID)
-        .subscribe(
-          (userData) => {
-            this.loginActions.setDataDispatch(userData[0]);
-          }
-        );
-    }
   };
 
   getUsers() {

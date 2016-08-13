@@ -30,6 +30,7 @@ export class MenuBarComponent {
     ) { }
 
     logout () {
+      localStorage.clear();
       this.auth.logout();
       this.logoutActions.setLogoutDispatch();
     }

@@ -25,7 +25,7 @@ export class StudentDashboardService {
   deleteStudentSubject(studentID, subjectID) {
     var deleteUrl = '/api/learning/' + studentID + '/' + subjectID;
     console.log(deleteUrl);
-    return this.http.delete(deleteUrl)  
+    return this.http.delete(deleteUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }

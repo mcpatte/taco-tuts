@@ -7,7 +7,7 @@ var options = {
 
 var pgp = require('pg-promise')(options);
 var connectionString = process.env.DATABASE_URL ||
-  'postgres://localhost:5432/tacobase';
+  'postgres://localhost:5432/tacobase2';
 var db = pgp(connectionString);
 
 // add query functions
@@ -27,6 +27,7 @@ function getAllUsers(req, res, next) {
 }
 
 function getSingleUser(req, res, next){
+  console.log("req params", req.params, req.body)
   var authID = req.params.authID;
   console.log('in getSingleUser', authID);
     db.any('select * from users where authID = $1', [authID])
@@ -45,6 +46,7 @@ function getSingleUser(req, res, next){
 };
 
 function createUser(req, res, next){
+  console.log("In create user", req.body);
     db.none('insert into users(email, authid)' + 'values(${email}, ${authid})', req.body)
     .then(function () {
       res.status(200)
@@ -266,7 +268,6 @@ function removeSubjectByUser(req, res, next){
 
 function setAuthID(req, res, next) {
   var authID = req.params.authID;
-  console.log("SetAuthID Info ", email, authID);
   var email = req.body.email;
   db.result(
     'update users set authID = $1 where email = $2',

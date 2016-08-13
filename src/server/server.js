@@ -14,7 +14,10 @@ require('./socket')(io);
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../dist'));
-
+app.use(function(req, res, next){
+  console.log("--------------------------" + req.url + ' method ' + req.method);
+  next();
+})
 app.get('/api/users', db.getAllUsers);
 app.get('/api/users/:authID', db.getSingleUser);
 app.get('/api/subject', db.getAllSubjects);

@@ -5,5 +5,7 @@ export {
 
 export {
   SessionActions,
-  SESSION_ACTIONS
+  SESSION_ACTIONS,
 } from './session.actions';
+
+export * from './login.actions'
