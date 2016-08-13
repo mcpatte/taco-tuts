@@ -27,6 +27,7 @@ function getAllUsers(req, res, next) {
 }
 
 function getSingleUser(req, res, next){
+  console.log("req params", req.params, req.body)
   var authID = req.params.authID;
   console.log('in getSingleUser', authID);
     db.any('select * from users where authID = $1', [authID])
@@ -45,6 +46,7 @@ function getSingleUser(req, res, next){
 };
 
 function createUser(req, res, next){
+  console.log("In create user", req.body);
     db.none('insert into users(email, authid)' + 'values(${email}, ${authid})', req.body)
     .then(function () {
       res.status(200)
@@ -61,6 +63,7 @@ function createUser(req, res, next){
 function updateUser(req, res, next){
   var authID = req.params.authID;
     db.none('update users set username=coalesce($1, username), name=coalesce($2, name), email=coalesce($3, email), teacher=coalesce($4, teacher) where authID=$5', [req.body.username, req.body.name, req.body.email, req.body.teacher, authID], req.body)
+  console.log("IN update user", req.body)
     .then(function () {
       res.status(200)
         .json({
@@ -266,8 +269,10 @@ function removeSubjectByUser(req, res, next){
 
 function setAuthID(req, res, next) {
   var authID = req.params.authID;
-  console.log("SetAuthID Info ", email, authID);
+  console.log("req params", req.params)
+  console.log("SetAuthID Info ", req.params.email, authID);
   var email = req.body.email;
+  console.log("email", email)
   db.result(
     'update users set authID = $1 where email = $2',
     [authID, email]
