@@ -8,11 +8,13 @@ import { provideRouter } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { appRouterProviders } from './components/app.routes';
 import { SessionActions } from './actions';
+import { LoginActions } from './actions';
 
 bootstrap(AppComponent, [
   appRouterProviders,
   HTTP_PROVIDERS,
   NgRedux,
   AUTH_PROVIDERS,
-  SessionActions
+  SessionActions,
+  LoginActions
 ]);

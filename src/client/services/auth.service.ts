@@ -4,60 +4,45 @@ import { Router }          from '@angular/router';
 import { NgRedux }         from 'ng2-redux';
 import { AUTH_VARS }       from '../auth0.variables.ts';
 import { Http, Response } from '@angular/http';
-import  { UserService } from './user.service'
 import { Observable } from 'rxjs/Rx';
+import { LoginActions } from '../actions/login.actions';
 
 
 // Avoid name not found warnings
 declare var Auth0: any;
 declare var Auth0Lock: any;
 
+const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID || AUTH_VARS.AUTH0_CLIENT_ID;
+const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || AUTH_VARS.AUTH0_DOMAIN;
+
 @Injectable()
 export class Auth {
   // Configure Auth0
   auth0 = new Auth0({
     domain: AUTH_VARS.AUTH0_DOMAIN,
-    clientID: AUTH_VARS.AUTH0_CLIENT_ID,
+    clientID: AUTH0_CLIENT_ID,
     callbackOnLocationHash: true,
     callbackURL: process.env.AUTH0_CALLBACK_URL || window.location.origin
   });
 
-/***********  WE NEED TO MAKE THIS A CONFIG VAR ******************/
+  // Configure Auth0Lock
   lock = new Auth0Lock(
-    AUTH_VARS.AUTH0_CLIENT_ID,
-    AUTH_VARS.AUTH0_DOMAIN
+    AUTH0_CLIENT_ID,
+    AUTH0_DOMAIN
   );
-
-  createUser = '/api/users/';
 
   constructor(
     private router: Router,
     private ngRedux: NgRedux<any>,
-    private http: Http
+    private http: Http,
+    private loginActions: LoginActions
   ) {
-
-
-    /****** Constructor **********
-     * result is from auth0. contains tokens.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
       var result = this.auth0.parseHash(window.location.hash);
       if (result && result.idToken) {
-        console.log('---------- AUTH O RESULT -----------', result);
         // this is the user's specific id
         let id_token = result.idToken;
-        //set it to local storage for future use?
-        localStorage.setItem('userData', result);
-        console.log("constructor calling fetchAuth0Profile");
         //fetch auth0 profile calls auth0, returns a profile object
         this.fetchAuth0Profile(id_token, function(profile){
-          console.log("Profile after fetchAuth0Profile, line 60 auth.service", profile)
           //format the profile for use in the DB
           let userProfile = {
             //username: profile
@@ -66,18 +51,10 @@ export class Auth {
             email : profile.email,
             teacher: false,
             authid: profile.user_id
-          }
+          };
           //set profile checks if the user is in the db
           this.setProfile(userProfile.authid, userProfile);
-          this.getUserFromDB(userProfile.authid)
-            .subscribe(
-              response => {
-                if (response.length > 0){
-
-                }
-              }
-            )
-        }.bind(this))
+        }.bind(this));
         this.goToHome();
       } else if (result && result.error) {
         alert('error: ' + result.error);
@@ -85,81 +62,58 @@ export class Auth {
   }
 
   public fetchAuth0Profile (id_token: string, callback: Function) {
-    console.log("fetchAuth0Profile called")
     return this.lock.getProfile(id_token, function(error, profile) {
       if (error) {
         alert(error);
       }
-      callback(profile)
-      console.log("fetchAuth0Profile result", profile)
+      callback(profile);
     });
   }
 
-//********** BE AFRAID ***************//
-/*
-This monster of a function checks if the user exists
-  if they do not, then it sets the auth id
-  then it takes that auth id and updates the user profile
-  with data received from the google login
-
-  TODO: 
-
-  -Refactor out individual pieces
-  -Only set authID on sign up 
-  -Only update user profile info on sign up
-
-  -figure out why the fuck I can't see this shit in the DB
-  -figure out how the fuck I can get this data outside of auth service 
-   so I can set the user profile to state
-
-*/
-
   public setProfile (authID: string, profile: Object) {
-    console.log("setprofile called with authid: ", authID, ' and profile ', profile)
     // gets the user if they exist in the db---------->
-    return this.getUserFromDB('/api/users/' + authID)
+     this.getUserFromDB(authID)
       .subscribe (
-        user => {
-          console.log("here's the response from the first function in set profile");
+        response => {
           //this response will be 0 if they do not exist
-          if (user.length>0){
-            console.log("User not found, inserting")
-            console.log("set profile called, doing post request", profile);
-            //If they do not exist, create the user
-            //a post request to /api/users/ will return a single profile
-            return this.http.post('/api/users', profile)
-              .map(this.extractData)
-              .subscribe(
-                authID => {
-                  //this will then update the profile based on the info we got from google
-                  return this.http.put('/api/users/' + authID, profile)
-                  .subscribe(
-                    response => {
-                      console.log("response from update user", response)
-                      return this.fetchDBProfile(authID)
-                      
-                    }
-                  )
-                }
-              )
+          if (response.length === 0) {
+              //this will then update the profile based on the info we got from google
+              this.http.post('/api/users', profile)
+                .subscribe (
+                  response => {
+                    this.http.put('/api/users/' + authID, profile)
+                      .subscribe(
+                        response => {
+                          this.loginActions.setDataDispatch(profile);
+                        }
+                      );
+                  }
+                );
           } else {
-            // If they do exist on the db
-            console.log('user was found, not inserted', user);
-            return user;
+           // If they do exist on the db
+            console.log('user was found, not inserted', response);
+            this.http.put('/api/users/' + authID, profile)
+              .subscribe(
+                response => {
+                  return this.fetchDBProfile(authID);
+
+                }
+              );
+            this.loginActions.setDataDispatch(response[0]);
+            return response.data;
           }
         }
-      )
+      );
   }
 
-  public getUserFromDB(authID: string){
-    console.log('xxxxxxxxxxxx  getUserFromDB called')
-    return this.http.get(this.createUser + authID)
+  public getUserFromDB(authID: string) {
+    return this.http.get('/api/users/' + authID)
       .map(this.extractData)
-      .catch(this.handleError)
+      .catch(this.handleError);
   }
 
   public fetchDBProfile(authID: string) {
-    return this.http.get(this.createUser + authID)
+    return this.http.get('/api/users/' + authID)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -201,8 +155,7 @@ This monster of a function checks if the user exists
     return this.router.navigate(['/home']);
   }
 
-// Listening for the authenticated event
-
+  // Listening for the authenticated event
   public authenticated() {
     // Check if there's an unexpired JWT
     return tokenNotExpired();
@@ -231,36 +184,3 @@ This monster of a function checks if the user exists
     return Observable.throw(errMsg);
   }
 }
-
-
-
-
-
-// @Injectable()
-// export class Auth {
-//   // Configure Auth0
-//   lock = new Auth0Lock('1fAOoxggMklnQahSLp7O9dYpEZryuprR', 'kylelinhardt.auth0.com', {});
-
-//   constructor() {
-//     // Add callback for lock `authenticated` event
-//     this.lock.on('authenticated', (authResult) => {
-//       localStorage.setItem('id_token', authResult.idToken);
-//     });
-//   }
-
-//   public login() {
-//     // Call the show method to display the widget.
-//     this.lock.show();
-//   };
-
-//   public authenticated() {
-//     // Check if there's an unexpired JWT
-//     // It searches for an item in localStorage with key == 'id_token'
-//     return tokenNotExpired();
-//   };
-
-//   public logout() {
-//     // Remove token from localStorage
-//     localStorage.removeItem('id_token');
-//   };
-// }
