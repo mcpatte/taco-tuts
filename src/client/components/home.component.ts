@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
     private homeService: HomeService,
     private userService: UserService,
     private loginActions: LoginActions
-    ) {}
+  ) {}
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
@@ -74,24 +74,27 @@ export class HomeComponent implements OnInit {
     this.homeService.getUsers()
       .subscribe(
         data => this.users = data,
-        error =>  this.errorMessage = <any>error);
+        error =>  this.errorMessage = <any>error
+      );
   }
 
   getSubjects() {
     this.homeService.getSubjects()
       .subscribe(
         data => this.subjects = data,
-        error =>  this.errorMessage = <any>error);
+        error =>  this.errorMessage = <any>error
+      );
   }
 
   getTeaching(subjectID) {
     console.log(subjectID);
     this.homeService.getTeaching(subjectID)
-        .subscribe(
-          data => {
-            this.users = data;
-            console.log(data);
-          },
-          error =>  this.errorMessage = <any>error);
+      .subscribe(
+        data => {
+          this.users = data;
+          console.log(data);
+        },
+        error =>  this.errorMessage = <any>error
+      );
   }
 }
