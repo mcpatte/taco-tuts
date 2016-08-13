@@ -41,34 +41,48 @@ export class HomeComponent implements OnInit {
   private errorMessage: string;
 
   constructor(
+    private userService: UserService,
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
-    private userService: UserService,
     private loginActions: LoginActions
     ) {}
   ngOnInit() {
+    console.log("Home initializing")
     this.getSubjects();
     this.getUsers();
+    setTimeout(function(){
+      this.getProfile();
+    }.bind(this), 2000)
 
-    if (localStorage.getItem('authID') !== null) {
-      //do google data collections
-      let userId = localStorage.getItem('authID');
-      //this.loginActions.setAuthDispatch(userID);  
-      this.userService.getUserData(userId)
-        .subscribe(
-          (response) => console.log('response from google getUserService', response)
-        );
-    } else {
+
+  };
+
+  getProfile() {
+      console.log("local storage", JSON.stringify(localStorage.getItem('userData')))
+      // if (JSON.parse(localStorage.getItem('profile')).user_id.indexOf('google')){
+      //   console.log("HEEELLOOOOO???------------------------");
+      //   console.log("SO ya logged in with google, eh?");
+      //   //this.auth.
+      //   let userID = JSON.parse(localStorage.getItem('profile')).user_id;
+      //   console.log("I have this userID?", JSON.parse(localStorage.getItem('profile')).user_id);
+      //   console.log("I am sending this user id: " + userID + " Into getUserData");
+      //   return this.userService.getUserData(userID)
+      //     .subscribe(
+      //       response => console.log("userdata", response)
+      //     )
+      // } else {
       let userID: string = this.ngRedux.getState()['login']['userID'];
       this.userService.getUserData(userID)
         .subscribe(
           (userData) => {
+            console.log("user data", userData)
             this.loginActions.setDataDispatch(userData[0]);
           }
         );
-    }
-  };
+   // }
+  }
+  
 
   getUsers() {
     this.homeService.getUsers()
