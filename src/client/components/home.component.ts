@@ -5,6 +5,7 @@ import { Auth } from '../services/auth.service';
 import { HomeService } from '../services/home.service';
 import { UserService } from '../services/user.service';
 import { LoginActions } from '../actions/login.actions';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'home',
@@ -46,7 +47,8 @@ export class HomeComponent implements OnInit {
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
-    private loginActions: LoginActions
+    private loginActions: LoginActions,
+    private socket: SocketService
   ) {}
   ngOnInit() {
     this.getSubjects();
