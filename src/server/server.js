@@ -51,6 +51,8 @@ app.delete('/api/users/:authID', db.removeUser);
 app.delete('/api/subject/:id', db.removeSubject);
 app.get('/api/learning/:id', db.findSubjectsByUser);
 app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
+app.get('/api/sessions/:id', db.getAppointmentsByUser);
+app.get('/api/sessions/tutor/:sessionid', db.getAppointmentTutor);
 
 
 // serve `index.html` to all unmatched routes as a failsafe, to account for
