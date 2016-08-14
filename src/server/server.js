@@ -14,10 +14,13 @@ require('./socket')(io);
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../dist'));
+
 app.use(function(req, res, next){
-  console.log("--------------------------" + req.url + ' method ' + req.method);
+  console.log(`${req.method} ${req.url}`);
+  if (Object.keys(req.body).length) console.log(`data: ${JSON.stringify(req.body)}`)
   next();
-})
+});
+
 app.get('/api/users', db.getAllUsers);
 app.get('/api/users/:authID', db.getSingleUser);
 app.get('/api/subject', db.getAllSubjects);
@@ -31,7 +34,7 @@ app.post('/api/learning', db.learningSubject);
 app.post('/api/teaching', db.teachingSubject);
 app.post('/api/users/:authID', db.setAuthID);
 app.put('/api/users/:authID', db.updateUser);
-app.delete('/api/users/:id', db.removeUser);
+app.delete('/api/users/:authID', db.removeUser);
 app.delete('/api/subject/:id', db.removeSubject);
 app.post('/api/available/:authID', db.setAvailability);
 app.get('/api/learning/:id', db.findSubjectsByUser);

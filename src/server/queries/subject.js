@@ -1,15 +1,4 @@
-var promise = require('bluebird');
-
-var options = {
-  // Initialization Options
-  promiseLib: promise
-};
-
-var pgp = require('pg-promise')(options);
-var connectionString = process.env.DATABASE_URL ||
-  'postgres://localhost:5432/tacobase';
-var db = pgp(connectionString);
-
+var db = require('./connection');
 var helpers = require('./queryHelpers')
 var respondWithData = helpers.respondWithData;
 var catchError = helpers.catchError;
