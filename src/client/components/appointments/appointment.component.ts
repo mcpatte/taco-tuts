@@ -34,7 +34,6 @@ export class AppointmentComponent {
      ngOnInit() {
         this.getState();
         this.getSubjects();
-        this.getAppointmentTutor(59);
     };
 
     
@@ -67,17 +66,13 @@ export class AppointmentComponent {
         this.appointmentService.getAppointmentsByUser(this.studentid)
             .subscribe(data => this.appointments = data);
     }
-
-    getAppointmentTutor(sessionid){
-        this.appointmentService.getAppointmentTutor(sessionid)
-            .subscribe(data => this.tutor = data[0].name)
-    }
     
 
      getState(){
         let authID = this.ngRedux.getState().login.userID
-        this.appointmentService.getUserID(authID)
-            .subscribe( data => this.studentid = data[0].id);
+        console.log("state", this.ngRedux.getState())
+        // this.appointmentService.getUserID(authID)
+        //     .subscribe( data => this.studentid = data[0].id);
     }    
     
 

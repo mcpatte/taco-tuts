@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="showAll" *ngIf="filter === false">
-            <div class="appointments"  *ngFor="let appointment of appointments | arraySort: start ">
+            <div class="appointments"  *ngFor="let appointment of appointments">
                     <h3>Subject: {{ appointment.name }}</h3>
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
