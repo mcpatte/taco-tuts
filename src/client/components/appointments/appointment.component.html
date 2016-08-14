@@ -40,3 +40,34 @@
     </form>
 </div>
 
+<button class="btn btn-default"
+        (click)="getAppointments(); apptListOpen = !apptListOpen">Get Appointments</button>
+<div *ngIf="apptListOpen === true" class="container">
+    <h1>Appointment List</h1>
+    <div class="appointment-list col-xs-6" >
+        <div class="filtered" *ngIf="filter === true">
+            <div class="appointments"  *ngFor="let appointment of appointments | filterdate:inputDate">
+                    <h3>Subject: {{ appointment.name }}</h3>
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Tutor: {{ appointment.username }}</p>
+            </div>
+        </div>
+        <div class="showAll" *ngIf="filter === false">
+            <div class="appointments"  *ngFor="let appointment of appointments | arraySort: start ">
+                    <h3>Subject: {{ appointment.name }}</h3>
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Tutor: {{ appointment.username }}</p>
+            </div>
+        </div>
+       
+    </div>
+     <div class="date-filter col-xs-6"> 
+            <input type="date" [(ngModel)]="inputDate">
+            <button *ngIf="filter === true" (click)="filter = false">Show All Appointments</button>
+            <button *ngIf="filter === false" (click)="filter = true">Filter by Date</button>
+    </div>
+</div>
+
+
