@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
+//********** USES NEW QUERIES **********//
 var db = require('./queries/exports');
 var path = require('path');
 

@@ -26,13 +26,13 @@ function getTeaching(req, res, next) {
 
 function insertTeacher(req, res, next){
   var userID = req.params.id;
-    db.result('INSERT INTO teachers { DEFAULT VALUES } [ RETURNING * ]')
+    db.result('INSERT INTO teachers VALUES(DEFAULT) RETURNING * ')
     .then(function (result) {
       res.status(200)
         .json({
           status: 'success',
-          message: `Added teacher ${teacher_id} `,
-          data: `${req.params.id}, ${teacher_id}`
+          message: `Added teacher `,
+          data: result.rows
         });
     })
     .catch(function (err) {
