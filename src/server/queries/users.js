@@ -27,7 +27,7 @@ function createUser(req, res, next){
 
 function updateUser(req, res, next){
   var authID = req.params.authID;
-    db.none('update users set username=coalesce($1, username), name=coalesce($2, name), email=coalesce($3, email), teacher=coalesce($4, teacher) where authID=$5', [req.body.username, req.body.name, req.body.email, req.body.teacher, authID], req.body)
+    db.none('update users set username=coalesce($1, username), name=coalesce($2, name), email=coalesce($3, email), teacher=coalesce($4, teacher), teacherid=coalesce($5, teacherid) where authID=$6', [req.body.username, req.body.name, req.body.email, req.body.teacher, req.body.teacherid, authID], req.body)
     .then(function () {
       res.status(200)
         .json({
