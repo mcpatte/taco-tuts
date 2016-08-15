@@ -53,6 +53,7 @@ export class AppointmentComponent {
         console.log(subjectid); 
     }
 
+
     addAppointment(apptModel) {
         apptModel.studentid = this.studentid;
         apptModel.datetime = apptModel.date + ' ' + apptModel.time
@@ -60,6 +61,7 @@ export class AppointmentComponent {
         this.appointmentService.addAppointment(apptModel)
             .subscribe(data => console.log("heres the data", data))
     }
+
 
     getAppointments(){
         console.log("get appointments called with student id", this.studentid)
@@ -69,10 +71,9 @@ export class AppointmentComponent {
     
 
      getState(){
-        let authID = this.ngRedux.getState().login.userID
-        console.log("state", this.ngRedux.getState())
-        // this.appointmentService.getUserID(authID)
-        //     .subscribe( data => this.studentid = data[0].id);
+        let authID = this.ngRedux.getState().login['userData'].authid;
+        this.appointmentService.getUserID(authID)
+            .subscribe( data => this.studentid = data[0].id);
     }    
     
 
