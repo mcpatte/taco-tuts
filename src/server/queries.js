@@ -1,3 +1,10 @@
+var promise = require('bluebird');
+
+var options = {
+  // Initialization Options
+  promiseLib: promise
+};
+
 var pgp = require('pg-promise')(options);
 var connectionString = process.env.DATABASE_URL ||
   'postgres://localhost:5432/tacobase2';
@@ -54,12 +61,13 @@ function createUser(req, res, next){
 
 function insertTeacher(req, res, next){
   var userID = parseInt(req.params.id);
-    db.result('INSERT INTO teachers { DEFAULT VALUES } [ RETURNING * | output_expression [ AS teacher_id')
+    db.result('INSERT INTO teachers { DEFAULT VALUES } [ RETURNING * ]')
     .then(function (result) {
       res.status(200)
         .json({
           status: 'success',
-          message: `Added teacher ${teacher_id} `
+          message: `Added teacher ${teacher_id} `,
+          data: `${teacher_id}`
         });
     })
     .catch(function (err) {
