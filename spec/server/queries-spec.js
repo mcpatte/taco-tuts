@@ -8,18 +8,16 @@ var util = require('../support/util');
 var testdb = util.file('testdb.sql');
 var testdata = util.file('testdata.sql');
 
-describe('the server', function() {
-  beforeEach(function(done) {
-    db.any(testdb)
-      .then(function() {
-        return db.any(testdata);
-      })
-      .then(done);
-  });
+function resetDB(done) {
+  db.any(testdb)
+    .then(function() {
+      return db.any(testdata);
+    })
+    .then(done);
+}
 
-  it('should exist', function() {
-    expect(server).toBeDefined();
-  });
+describe('the user queries', function() {
+  beforeEach(resetDB);
 
   it('should return all users', function(done) {
     util.apiRequest(server, 'get', '/api/users')
@@ -74,6 +72,19 @@ describe('the server', function() {
           .then(function(data) {
             expect(data.name).toBe(update.name);
             expect(data.email).toBe(update.email);
+            done();
+          });
+      });
+  });
+
+  it('should delete an existing user', function(done) {
+    util.apiRequest(server, 'delete', '/api/users/auth3')
+      .end(function(err, res) {
+        expect(res.body.status).toBe('success');
+
+        db.any('select * from users where authid=$1', ['auth3'])
+          .then(function(data) {
+            expect(data.length).toBe(0);
             done();
           });
       });
