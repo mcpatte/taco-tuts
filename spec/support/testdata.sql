@@ -36,3 +36,24 @@ INSERT INTO subjects (name)
 
 INSERT INTO subjects (name)
   VALUES ('Dueling');
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (1, 1);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (4, 2);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (5, 2);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (6, 2);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (3, 3);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (7, 4);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (7, 5);

@@ -16,7 +16,7 @@ function resetDB(done) {
     .then(done);
 }
 
-describe('the user queries', function() {
+xdescribe('the user queries', function() {
   beforeEach(resetDB);
 
   it('should return all users', function(done) {
@@ -87,6 +87,54 @@ describe('the user queries', function() {
             expect(data.length).toBe(0);
             done();
           });
+      });
+  });
+});
+
+describe('the subject queries', function() {
+  beforeEach(resetDB);
+
+  it('should get all subjects', function(done) {
+    util.apiRequest(server, 'get', '/api/subject')
+      .end(function(err, res) {
+        expect(res.body.data.length).toBe(5);
+        done();
+      });
+  });
+
+  it('should add a subject', function(done) {
+    var subject = { name: 'chickendancing' };
+
+    util.apiRequest(server, 'post', '/api/subject', subject)
+      .end(function(err, res) {
+        expect(res.body.status).toBe('success');
+
+        db.one('select * from subjects where name=$1', [subject.name])
+          .then(function(data) {
+            expect(data.name).toBe(subject.name);
+            done();
+          });
+      });
+  });
+
+  it('should delete a subject', function(done) {
+    util.apiRequest(server, 'delete', '/api/subject/3')
+      .end(function(err, res) {
+        expect(res.body.status).toBe('success');
+
+        db.any('select * from subjects where id=$1', [3])
+          .then(function(data) {
+            expect(data.length).toBe(0);
+            done();
+          });
+      });
+  });
+
+  it('should get all teachers teaching a subject', function(done) {
+    util.apiRequest(server, 'get', '/api/subject/4')
+      .end(function(err, res) {
+        expect(res.body.data.length).toBe(1);
+        done();
       });
   });
 });
