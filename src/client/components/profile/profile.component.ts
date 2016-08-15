@@ -37,7 +37,6 @@ export class ProfileComponent {
     }
 
     isTeacher() {
-        console.log('isTeacher?', this.auth.isTeacher())
         return this.auth.isTeacher();
     }
 
@@ -51,6 +50,18 @@ export class ProfileComponent {
                         this.loginActions.setDataDispatch(response[0]);
                     }
                 );
+            }
+        )
+    }
+    putNewTeacher() {
+        this.userService.getUserData(this.getID())
+        .subscribe(
+            response => {
+                if (response[0].teacher === true && response[0].teacherid === null) {
+                    //then we need to insert the teacher in the DB
+                    this.auth.createTeacher(this.getID())
+                } 
+
             }
         )
     }
