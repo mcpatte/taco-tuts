@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { NgRedux, DevToolsExtension } from 'ng2-redux';
-import { AdvancedSearchComponent } from '../components/advancedSearch.component';
+import { AdvancedSearchComponent } from '../components/advanced-search';
 import { SearchBarComponent } from '../components/searchBar.component';
 import { StudentDashboardComponent } from '../components/student-dashboard/studentDashboard.component';
 import { LoginComponent } from '../components/login.component';
