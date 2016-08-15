@@ -21,6 +21,7 @@ var postData = function(res, message){
 
 var catchError = function(next){
   return function(err){
+    console.error(err);
     return next(err);
   };
 };
