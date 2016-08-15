@@ -6,8 +6,15 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = process.env.DATABASE_URL ||
-  'postgres://localhost:5432/tacobase2';
+
+if (process.env.DATABASE_URL) {
+  connectionString = process.env.DATABASE_URL;
+} else if (process.env.NODE_ENV === 'test') {
+  connectionString = 'postgres://localhost:5432/tacotest';
+} else {
+  connectionString = 'postgres://localhost:5432/tacobase2';
+}
+
 var db = pgp(connectionString);
 
 module.exports = db;
