@@ -22,6 +22,13 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  public createTeacher(authID: string) {
+    console.log('createTeacher in userService');
+    this.http.post('/api/teachers/' + authID, authID)
+      .subscribe (
+        response => console.log("response from createTeacher in userService: ", response)
+      )
+  }
 
   private extractData(res: Response) {
     let body = res.json();

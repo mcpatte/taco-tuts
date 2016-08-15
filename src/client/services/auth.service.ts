@@ -137,15 +137,7 @@ export class Auth {
       callback(response);
     });
   };
-
     
-  // public createTeacher(authID: string) {
-  //   console.log('createTeacher in userService');
-  //   this.http.post('api/teachers/' + authID, authID)
-  //     .subscribe (
-  //       response => console.log("response from createTeacher in userService: ", response)
-  //     )
-  // }
 
   public googleLogin() {
     this.auth0.login({
