@@ -38,6 +38,7 @@ app.get('/api/teaching', db.getTeaching);
 app.get('/api/learning', db.getLearning);
 app.get('/api/subject/:id', db.getTeachersForSubject);
 app.get('/api/learning/:id', db.findSubjectsByUser);
+app.get('/api/teachers/:id', db.getTeachersInfo)
 app.post('/api/users', db.createUser);
 app.post('/api/subject', db.createSubject);
 app.post('/api/learning', db.learningSubject);

@@ -16,20 +16,23 @@ import { SocketService } from '../services/socket.service';
     <tr>
     Subjects:
         <td *ngFor="let subject of subjects">
-          <button (click)="getTeaching(subject.id)">
+          <button (click)="getUsers(subject.id)">
             {{subject.name}}
           </button>
         </td>
     </tr>
   </table>
-    <div>
-      <ul *ngFor="let user of users">
-        <li *ngIf="user.isavailible === true && user.teacher === true">
-          {{user.name}}
-          <button (click)="requestSession(user)">
+    <div *ngFor="let user of users">
+      <ul *ngIf="user.teacherID">
+        {{getTeacher(user.teacherID)}}
+        <div *ngFor="let teacher of teachers">
+        <li *ngIf="teacher.isavailible === true && teacher.teacher === true">
+          {{teacher.name}}
+          <button (click)="requestSession(teacher)">
             request session
           </button>
         </li>
+        </div>
       </ul>
     </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
@@ -42,6 +45,7 @@ export class HomeComponent implements OnInit {
   private users = [];
   private subjects = [];
   private errorMessage: string;
+  private teachers = [];
 
   constructor(
     private userService: UserService,
@@ -55,6 +59,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
+    this.setProfile();
+    this.getTeacher(1);
   };
   
   getUsers() {
@@ -91,7 +97,18 @@ export class HomeComponent implements OnInit {
       userID: this.ngRedux.getState().login.userData.authid,
       name: 'harambe'
     };
-
     this.socket.requestSession(teacherID, student);
+  }
+
+  getTeacher(teacherID) {
+    console.log(teacherID);
+    this.homeService.getTeacher(teacherID)
+      .subscribe(
+        data => {
+          this.teachers = data;
+          console.log(data);
+        },
+        error => this.errorMessage = <any>error
+      );
   }
 }
