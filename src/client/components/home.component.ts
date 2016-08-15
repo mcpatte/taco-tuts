@@ -5,7 +5,7 @@ import { Auth } from '../services/auth.service';
 import { HomeService } from '../services/home.service';
 import { UserService } from '../services/user.service';
 import { LoginActions } from '../actions/login.actions';
-
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'home',
@@ -26,32 +26,34 @@ import { LoginActions } from '../actions/login.actions';
       <ul *ngFor="let user of users">
         <li *ngIf="user.isavailible === true && user.teacher === true">
           {{user.name}}
+          <button (click)="requestSession(user)">
+            request session
+          </button>
         </li>
       </ul>
     </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
-  
+
   `
 })
 export class HomeComponent implements OnInit {
-  // Selected observables to test async pipe model. 
+  // Selected observables to test async pipe model.
   // Members to test subscribe model.
   private users = [];
   private subjects = [];
   private errorMessage: string;
-
   constructor(
     private userService: UserService,
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
-    private loginActions: LoginActions
+    private loginActions: LoginActions,
+    private socket: SocketService
   ) {}
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
   };
-
   getUsers() {
     this.homeService.getUsers()
       .subscribe(
@@ -59,7 +61,6 @@ export class HomeComponent implements OnInit {
         error =>  this.errorMessage = <any>error
       );
   }
-
   getSubjects() {
     this.homeService.getSubjects()
       .subscribe(
@@ -67,7 +68,6 @@ export class HomeComponent implements OnInit {
         error =>  this.errorMessage = <any>error
       );
   }
-
   getTeaching(subjectID) {
     console.log(subjectID);
     this.homeService.getTeaching(subjectID)
@@ -78,5 +78,16 @@ export class HomeComponent implements OnInit {
         },
         error =>  this.errorMessage = <any>error
       );
+  }
+  requestSession(teacher) {
+    const teacherID = teacher.authid;
+
+    const student = {
+      // TODO: replace with method on auth service
+      userID: this.ngRedux.getState().login.userData.authid,
+      name: 'harambe'
+    };
+
+    this.socket.requestSession(teacherID, student);
   }
 }

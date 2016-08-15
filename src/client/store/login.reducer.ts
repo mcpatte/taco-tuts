@@ -4,10 +4,12 @@ import { LOGOUT_ACTIONS } from '../actions/logout.actions';
 
 export interface ILoginState {
   userID: string;
+  userData: any;
 }
 
 const INIT_STATE: ILoginState = {
-  userID: ''
+  userID: '',
+  userData: null
 };
 
 export function loginReducer(

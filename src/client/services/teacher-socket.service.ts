@@ -13,13 +13,13 @@ export class TeacherSocketService {
   ) { }
 
   init() {
-    this.socket.onRequestedSession((session) => {
-      this.actions.addSessionRequestDispatch(session);
+    this.socket.onRequestedSession(({ data }) => {
+      this.actions.addSessionRequestDispatch(data);
     });
   }
 
   acceptSession(session) {
-    const teacherID = this.ngRedux.getState().login.userID;
+    const teacherID = this.ngRedux.getState().login.userData.authid;
     const studentID = session.student.userID;
 
     this.socket.acceptSession(teacherID, studentID);
