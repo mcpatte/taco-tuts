@@ -50,26 +50,41 @@ CREATE TABLE teaching (
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('hbp@hotwarts.com', 'auth1', 'halfbloodprince', 'Severus Snape', true);
+INSERT INTO teachers (isAvailible, favorite, rating)
+  VALUES (true, false, 1);
+
+INSERT INTO teachers (isAvailible, favorite, rating)
+  VALUES (true, false, 2);
+
+INSERT INTO teachers (isAvailible, favorite, rating)
+  VALUES (true, false, 3);
+
+INSERT INTO teachers (isAvailible, favorite, rating)
+  VALUES (true, false, 4);
+
+INSERT INTO teachers (isAvailible, favorite, rating)
+  VALUES (true, false, 5);
+
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('hbp@hotwarts.com', 'auth1', 'halfbloodprince', 'Severus Snape', true, 1);
   
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('hp@hogwarts.com', 'auth8', 'chosen one', 'Harry Potter', false);
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('hagrid@gmail.com', 'auth7', 'Hagrid', 'Hagrid', true);
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('hagrid@gmail.com', 'auth7', 'Hagrid', 'Hagrid', true, 2);
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('mmoody', 'auth5', 'crazyeyes', 'Mad-Eye Moody', true);
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('mmoody', 'auth5', 'crazyeyes', 'Mad-Eye Moody', true, 3);
 
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('rweasly@yahoo.com', 'auth4', 'Ronald', 'Ron', false);
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('vmor@hotmail.com', 'auth6', 'Tom', 'Voldemort', true);
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('vmor@hotmail.com', 'auth6', 'Tom', 'Voldemort', true, 4);
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('ddoor@gmail.com', 'auth3', 'Headmaster', 'Dumbledoor', true);
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('ddoor@gmail.com', 'auth3', 'Headmaster', 'Dumbledoor', true, 5);
 
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('deathwatcher@crazy.com', 'auth9', 'crazy person', 'Luna Lovegood', false);
