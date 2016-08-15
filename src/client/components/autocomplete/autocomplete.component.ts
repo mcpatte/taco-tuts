@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService } from '../../services/appointment.service';
+import { StudentDashboardService } from '../../services/studentDashboard.service';
 
 
 
 
 @Component({
     selector: 'subjectSearch',
-    providers: [ AppointmentService ],
+    providers: [ AppointmentService, StudentDashboardService ],
     styles: [`
         .filter-input: {
             
@@ -36,27 +37,43 @@ export class SubjectSearchComponent {
     public query = '';
     public subjects = [];
     public filteredList = [];
+    private studentid: number; 
+    private fullSubjects = [];
 
  
 constructor(
-     private appointmentService: AppointmentService
+     private ngRedux: NgRedux<IAppState>,    
+     private appointmentService: AppointmentService,
+     private studentDashboardServices: StudentDashboardService
 ) {}
 
  ngOnInit() {
      this.getSubjects()
+     this.getStudentID()
  }
 
  getSubjects() {
         this.appointmentService.getSubjects()
             .subscribe(
-                data => data.forEach(el => {
+                data => 
+                data.forEach(el => {
+                    this.fullSubjects.push(el)
                     this.subjects.push(el.name)
-                })
+                })        
             )
     }
 
 addSubject(subject) {
-    console.log("added subject", subject);
+    let subjectObj = this.fullSubjects.filter( (el) => { 
+        return el.name === subject;
+    })
+   let model = {
+       userID: this.studentid,
+       subjectID: subjectObj[0].id
+   }
+    this.studentDashboardServices.addSubjectForStudent(model)
+        .subscribe(data => console.log(data))
+    
 }
     
  filter() {
@@ -74,10 +91,10 @@ select(item){
     this.filteredList = [];
 }
 
-
-
-
-
-
+ getStudentID(){
+        let authID = this.ngRedux.getState().login['userData'].authid;
+        this.appointmentService.getUserID(authID)
+            .subscribe( data => this.studentid = data[0].id);
+    }   
 
 }
