@@ -42,6 +42,9 @@ export class ProfileComponent {
     isTeacher() {
         return this.auth.isTeacher();
     }
+    isAuthenticated() {
+        return this.auth.isAuthenticated();
+    }
 
     updateUser(userData: Object){
         this.profileService.updateUser(userData, this.getID())
@@ -50,22 +53,15 @@ export class ProfileComponent {
                 this.userService.getUserData(this.getID())
                 .subscribe (
                     response => {
-                        this.loginActions.setDataDispatch(response[0]);
+                        if (response[0].teacher === true && response[0].teacherid === null) {
+                            //then we need to insert the teacher in the DB
+                            this.userService.createTeacher(this.getID())
+                        } else {
+                            this.loginActions.setDataDispatch(response[0]);
+                        }
+                        
                     }
                 );
-            }
-        )
-    }
-    putNewTeacher() {
-        this.userService.getUserData(this.getID())
-        .subscribe(
-            response => {
-                console.log('response', response);
-                if (response[0].teacher === true && response[0].teacherid === null) {
-                    //then we need to insert the teacher in the DB
-                    this.userService.createTeacher(this.getID())
-                } 
-
             }
         )
     }
