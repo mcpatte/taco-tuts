@@ -7,9 +7,10 @@ var util = {
     return new pgp.QueryFile(path.join(__dirname, '..', 'support', name));
   },
 
-  apiRequest: function(server, method, route) {
+  apiRequest: function(server, method, route, data) {
     return request(server)
       [method](route)
+      .send(data)
       .expect('Content-Type', /json/)
       .expect(200);
   }
