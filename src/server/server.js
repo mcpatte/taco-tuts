@@ -35,12 +35,9 @@ app.post('/api/teaching', db.teachingSubject);
 app.post('/api/users/:authID', db.setAuthID);
 
 
+app.post('/api/teaching/:authID', db.insertTeacher);
 
-app.post('/api/teachers/:authID', db.insertTeacher);
 app.post('/api/available/:authID', db.setAvailability);
-
-
-
 app.put('/api/users/:authID', db.updateUser);
 app.delete('/api/users/:authID', db.removeUser);
 app.delete('/api/subject/:id', db.removeSubject);
