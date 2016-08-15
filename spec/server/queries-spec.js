@@ -16,7 +16,7 @@ function resetDB(done) {
     .then(done);
 }
 
-xdescribe('the user queries', function() {
+describe('the user queries', function() {
   beforeEach(resetDB);
 
   it('should return all users', function(done) {
@@ -135,6 +135,37 @@ describe('the subject queries', function() {
       .end(function(err, res) {
         expect(res.body.data.length).toBe(1);
         done();
+      });
+  });
+});
+
+describe('the teaching queries', function() {
+  beforeEach(resetDB);
+
+  it('should get all teachers and subject pairs', function(done) {
+    util.apiRequest(server, 'get', '/api/teaching')
+      .end(function(err, res) {
+        expect(res.body.data.length).toBe(7);
+        done();
+      });
+  });
+
+  it('should add a subject to an existing teacher', function(done) {
+    var teaching = { userID: 5, subjectID: 3 };
+
+    util.apiRequest(server, 'post', '/api/teaching', teaching)
+      .end(function(err, res) {
+        expect(res.body.status).toBe('success');
+
+        db.one(
+          'select * from teaching where userid=$1 and subjectid=$2',
+          [teaching.userID, teaching.subjectID]
+        )
+          .then(function(data) {
+            expect(data.userid).toBe(teaching.userID);
+            expect(data.subjectid).toBe(teaching.subjectID);
+            done();
+          });
       });
   });
 });
