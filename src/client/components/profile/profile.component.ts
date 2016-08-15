@@ -59,7 +59,7 @@ export class ProfileComponent {
             response => {
                 if (response[0].teacher === true && response[0].teacherid === null) {
                     //then we need to insert the teacher in the DB
-                    this.auth.createTeacher(this.getID())
+                    //this.auth.createTeacher(this.getID())
                 } 
 
             }
