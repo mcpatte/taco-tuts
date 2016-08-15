@@ -24,8 +24,25 @@ function getTeaching(req, res, next) {
     .catch(catchError(next));
 }
 
+function insertTeacher(req, res, next){
+  var userID = parseInt(req.params.id);
+    db.result('INSERT INTO teachers { DEFAULT VALUES } [ RETURNING * ]')
+    .then(function (result) {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Added teacher ${teacher_id} `,
+          data: `${teacher_id}`
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
+
 module.exports = {
   teachingSubject: teachingSubject,
   getSubjectForTeacher: getSubjectForTeacher,
-  getTeaching: getTeaching
+  getTeaching: getTeaching,
+  insertTeacher: insertTeacher
 };

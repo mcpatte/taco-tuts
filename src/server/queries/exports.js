@@ -22,5 +22,6 @@ module.exports = {
   teachingSubject: teaching.teachingSubject,
   getSubjectForTeacher: teaching.getSubjectForTeacher,
   getTeaching: teaching.getTeaching,
+  insertTeacher: teaching.insertTeacher,
   setAvailability: available.setAvailability
 };
