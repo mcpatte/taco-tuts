@@ -6,11 +6,13 @@ import { StudentDashboardService } from '../../services/studentDashboard.service
 import { Observable } from 'rxjs/Observable';
 import { ProfileComponent } from '../profile/profile.component'; 
 import { AppointmentComponent } from '../appointments/appointment.component';
+import { SubjectSearchComponent } from '../autocomplete/autocomplete.component';
+
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
-  directives: [ProfileComponent, AppointmentComponent],
+  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent],
   styles: [`
     .subject {
       background-color: lightblue;
@@ -48,15 +50,17 @@ export class StudentDashboardComponent {
     
 
     getSubjectByStudent() {
-      this.studentDashboardService.findSubjectsByUser(this.studentID)
+      let authID = this.ngRedux.getState().login['userData'].authid
+      this.studentDashboardService.findSubjectsByUser(authID)
         .subscribe(
           data => this.subjects = data
         );
     }
 
     deleteStudentSubject(subjectid, index) {
+      let authID = this.ngRedux.getState().login['userData'].authid
       this.subjects.splice(index, 1);
-      this.studentDashboardService.deleteStudentSubject(this.studentID, subjectid)
+      this.studentDashboardService.deleteStudentSubject(authID, subjectid)
         .subscribe(
           response => console.log(response)
         );
