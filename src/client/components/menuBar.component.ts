@@ -17,6 +17,7 @@ import { LogoutActions }      from '../actions/logout.actions';
     <a routerLink="/teacher-dash" routerLinkActive="active" *ngIf="isTeacher()">Teacher Dashboard</a>
     <a routerLink="/advanced-search" routerLinkActive="active" >Advanced Search</a>
     <a routerLink="/login" routerLinkActive="active" *ngIf="!isAuthenticated()">Log In</a>
+    <a routerLink="/session" routerLinkActive="active" *ngIf="isInSession()">Session</a>
     <a routerLink="#" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated()">Log Out</a>
   </nav>
   `
@@ -26,25 +27,27 @@ export class MenuBarComponent {
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private logoutActions: LogoutActions
+  ) { }
 
-    ) { }
+  isAuthenticated() {
+    //will return true if user is logged in
+    return this.auth.isAuthenticated();
+  }
 
-    isAuthenticated() {
-      //will return true if user is logged in
-      return this.auth.isAuthenticated();
+  isTeacher() {
+    if (this.ngRedux.getState()['login']['userData'] !== undefined) {
+      return this.auth.isTeacher();
     }
+    return false;
+  }
 
-    isTeacher() {
-      if (this.ngRedux.getState()['login']['userData'] !== undefined) {
-        return this.auth.isTeacher();
-      }
-      return false;
-    }
+  logout () {
+    localStorage.clear();
+    this.auth.logout();
+    this.logoutActions.setLogoutDispatch();
+  }
 
-    logout () {
-      localStorage.clear();
-      this.auth.logout();
-      this.logoutActions.setLogoutDispatch();
-    }
+  isInSession() {
+    return !!this.ngRedux.getState().session.sessionID;
+  }
 }
-//*ngIf="user-service.isTeacher()"
