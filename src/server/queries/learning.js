@@ -28,7 +28,7 @@ function removeSubjectByUser(req, res, next){
   var userID = req.params.userID;
   var subjectID = parseInt(req.params.subjectID);
   db.result('DELETE FROM learning AS l USING users AS u WHERE l.userID = u.id AND u.authID = $1 AND l.subjectID = $2' , [userID, subjectID])
-    .then(postData(res, `Removed ${result.rowCount} row's`))
+    .then(postData(res, `Removed ${res.rowCount} row's`))
     .catch(catchError(next));
 };
 
