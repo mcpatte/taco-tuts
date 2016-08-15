@@ -3,7 +3,6 @@ var db = require('./connection');
 function setAvailability(req, res, next) {
   var authID = req.params.authID;
   var availability = req.body.availability;
-
   db.result(
     'update users set isAvailible = $1 where authID = $2',
     [availability, authID]

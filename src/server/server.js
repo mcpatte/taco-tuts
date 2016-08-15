@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
+//********** USES NEW QUERIES **********//
 var db = require('./queries/exports');
 var path = require('path');
 
@@ -33,10 +34,14 @@ app.post('/api/subject', db.createSubject);
 app.post('/api/learning', db.learningSubject);
 app.post('/api/teaching', db.teachingSubject);
 app.post('/api/users/:authID', db.setAuthID);
+
+
+app.post('/api/teaching/:authID', db.insertTeacher);
+
+app.post('/api/available/:authID', db.setAvailability);
 app.put('/api/users/:authID', db.updateUser);
 app.delete('/api/users/:authID', db.removeUser);
 app.delete('/api/subject/:id', db.removeSubject);
-app.post('/api/available/:authID', db.setAvailability);
 app.get('/api/learning/:id', db.findSubjectsByUser);
 app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
 

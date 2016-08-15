@@ -33,12 +33,17 @@ export class ProfileComponent {
 
     getID() {
         let currState = this.ngRedux.getState();
-        return currState.login['userData'].authid;
+        if (currState.login.userData !== null){
+            return currState.login['userData'].authid;
+        }
+        return undefined;
     }
 
     isTeacher() {
-        console.log('isTeacher?', this.auth.isTeacher())
         return this.auth.isTeacher();
+    }
+    isAuthenticated() {
+        return this.auth.isAuthenticated();
     }
 
     updateUser(userData: Object){
@@ -48,7 +53,13 @@ export class ProfileComponent {
                 this.userService.getUserData(this.getID())
                 .subscribe (
                     response => {
-                        this.loginActions.setDataDispatch(response[0]);
+                        if (response[0].teacher === true && response[0].teacherid === null) {
+                            //then we need to insert the teacher in the DB
+                            this.userService.createTeacher(this.getID())
+                        } else {
+                            this.loginActions.setDataDispatch(response[0]);
+                        }
+                        
                     }
                 );
             }

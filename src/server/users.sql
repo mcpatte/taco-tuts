@@ -6,7 +6,7 @@ CREATE DATABASE tacobase2;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
-  isAvailible BOOLEAN,
+  isAvailable BOOLEAN,
   favorite BOOLEAN,
   rating INT
 );

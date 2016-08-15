@@ -27,14 +27,18 @@ function createUser(req, res, next){
 
 function updateUser(req, res, next){
   var authID = req.params.authID;
-  console.log({ authID })
-  db.none(
-    'update users set username=$1, name=$2, email=$3, teacher=$4 where authid=$5',
-    [req.body.username, req.body.name, req.body.email, req.body.teacher, req.params.authID]
-  )
-    .then(postData(res, "Successfully updated user"))
-    .catch(catchError(next));
-}
+    db.none('update users set username=coalesce($1, username), name=coalesce($2, name), email=coalesce($3, email), teacher=coalesce($4, teacher), teacherid=coalesce($5, teacherid) where authID=$6', [req.body.username, req.body.name, req.body.email, req.body.teacher, req.body.teacherid, authID], req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Updated user'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
 
 function removeUser(req, res, next){
   var authID = req.params.authID;
