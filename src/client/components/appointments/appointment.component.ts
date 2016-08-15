@@ -32,7 +32,7 @@ export class AppointmentComponent {
 
 
      ngOnInit() {
-        this.getState();
+        this.getStudentID();
         this.getSubjects();
     };
 
@@ -70,7 +70,7 @@ export class AppointmentComponent {
     }
     
 
-     getState(){
+     getStudentID(){
         let authID = this.ngRedux.getState().login['userData'].authid;
         this.appointmentService.getUserID(authID)
             .subscribe( data => this.studentid = data[0].id);
