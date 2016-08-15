@@ -97,7 +97,7 @@ export class Auth {
                       response => {
                         this.loginActions.setDataDispatch(response[0]);
                       }
-                    ) 
+                    );
                 }
               );
           }
@@ -141,7 +141,6 @@ export class Auth {
       callback(response);
     });
   };
-    
 
   public googleLogin() {
     this.auth0.login({
