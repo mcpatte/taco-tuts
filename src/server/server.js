@@ -5,7 +5,15 @@ var bodyParser = require('body-parser');
 var db = require('./queries/exports');
 var path = require('path');
 
-var PORT = process.env.PORT || 3000;
+var PORT;
+
+if (process.env.PORT) {
+  PORT = process.env.PORT;
+} else if (process.env.NODE_ENV === 'test') {
+  PORT = 3131;
+} else {
+  PORT = 3000;
+}
 
 var app = express();
 var server = http.createServer(app);
@@ -53,7 +61,7 @@ app.get('*', function(req, res) {
 });
 
 server.listen(PORT, function() {
-  console.log("So many tacos here on 3000");
+  console.log("So many tacos here on " + PORT);
 });
 
 module.exports = app;

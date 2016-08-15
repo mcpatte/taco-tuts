@@ -3,14 +3,13 @@ var webpackConfig = require('./webpack.config');
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['jasmine', 'browserify'],
     files: [
       'tests/**/*.js'
     ],
-    exclude: [
-    ],
     preprocessors: {
-      'test/**/*.ts': ['webpack']
+      'tests/**/*.ts': ['webpack'],
+      'tests/**/*.js': ['browserify']
     },
     webpack: {
       module: webpackConfig.module,
@@ -23,6 +22,12 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    concurrency: Infinity
+    concurrency: Infinity,
+    plugins: [
+      'karma-browserify',
+      'karma-chrome-launcher',
+      'karma-webpack',
+      'karma-jasmine'
+    ]
   })
 }

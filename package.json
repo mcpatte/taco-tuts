@@ -10,7 +10,8 @@
     "postinstall": "typings install && webpack",
     "start": "node src/server/server.js",
     "dev": "webpack --watch",
-    "lint": "tslint -e /node_modules/**/** -e src/client/typings/**/*.ts src/client/**/*.ts || exit 0"
+    "lint": "tslint -e /node_modules/**/** -e src/client/typings/**/*.ts src/client/**/*.ts || exit 0",
+    "test": "jasmine"
   },
   "license": "MIT",
   "dependencies": {
@@ -22,8 +23,6 @@
     "@angular/platform-browser": "2.0.0-rc.4",
     "@angular/platform-browser-dynamic": "2.0.0-rc.4",
     "@angular/router": "3.0.0-alpha.7",
-    "@angular2-material/checkbox": "^2.0.0-alpha.6",
-    "@angular2-material/core": "^2.0.0-alpha.6",
     "angular2-jwt": "0.1.16",
     "auth0-lock": "^10.1.0",
     "bluebird": "^3.3.4",
@@ -50,18 +49,24 @@
   "devDependencies": {
     "babel-core": "^5.5.8",
     "babel-loader": "^5.1.4",
+    "browserify": "^13.1.0",
     "codelyzer": "0.0.26",
     "cross-env": "^1.0.7",
+    "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
+    "karma-browserify": "^5.1.0",
+    "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
-    "karma-webpack": "^1.7.0",
+    "karma-webpack": "^1.8.0",
     "node-libs-browser": "^0.5.2",
+    "supertest": "^2.0.0",
     "ts-loader": "^0.8.1",
     "tslint": "^3.14.0",
     "typescript": "^1.8.10",
     "typescript-simple-loader": "^0.3.8",
     "typings": "^1.0.4",
+    "watchify": "^3.7.0",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
   }

@@ -9,7 +9,7 @@ var postData = helpers.postData;
 function getAllUsers(req, res, next) {
   db.any('select * from users')
     .then(respondWithData(res, "Retrieved all users"))
-    .catch(catchError());
+    .catch(catchError(next));
 }
 
 function getSingleUser(req, res, next){
