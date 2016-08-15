@@ -82,16 +82,18 @@ export class HomeComponent implements OnInit {
   }
 
   setProfile() {
-    if (this.auth.isAuthenticated()){
-      this.auth.fetchAuth0Profile(this.getID(), function(profile){
-        this.auth.setProfile(this.getID(), profile);
-      }); 
+    if (this.auth.isAuthenticated()) {
+      if (this.getID().indexOf('google') !== -1) {
+         this.auth.fetchAuth0Profile(this.getID(), function(profile) {
+           this.auth.setProfile(this.getID(), profile);
+         });
+      }
     }
   }
 
   getID() {
     let currState = this.ngRedux.getState();
-    if (currState.login.userData !== null){
+    if (currState.login.userData !== null) {
         return currState.login['userData'].authid;
     }
     return undefined;
