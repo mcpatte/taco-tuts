@@ -7,7 +7,7 @@ var options = {
 
 var pgp = require('pg-promise')(options);
 var connectionString = process.env.DATABASE_URL ||
-  'postgres://localhost:5432/tacobase';
+  'postgres://localhost:5432/tacobase2';
 var db = pgp(connectionString);
 
 module.exports = db;
