@@ -18,7 +18,7 @@ function createSubject(req, res, next){
 
 function getTeachersForSubject(req, res, next){
   var subjectID = parseInt(req.params.id);
-  db.any('select teaching.userID, users.name, users.isAvailible, users.teacher from teaching JOIN users ON users.id = teaching.userID WHERE teaching.subjectID = $1', [subjectID])
+  db.any('select teaching.userID, users.name, users.teacher from teaching JOIN users ON users.id = teaching.userID WHERE teaching.subjectID = $1', [subjectID])
     .then(respondWithData(res, "Retrieved all teachers of given subject"))
     .catch(catchError(next));
 };
