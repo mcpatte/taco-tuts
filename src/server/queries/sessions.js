@@ -1,20 +1,9 @@
-var promise = require('bluebird');
-
-var options = {
-  // Initialization Options
-  promiseLib: promise
-};
-
-var pgp = require('pg-promise')(options);
-var connectionString = process.env.DATABASE_URL ||
-  'postgres://localhost:5432/tacobase2';
-var db = pgp(connectionString);
+var db = require('./connection');
 
 var helpers = require('./queryHelpers')
 var respondWithData = helpers.respondWithData;
 var catchError = helpers.catchError;
 var postData = helpers.postData;
-
 
 function addAppointment(req, res, next) {
   db.any('insert into sessions(start, subjectid) values(${datetime}, ${subjectid}) returning * ', req.body)
