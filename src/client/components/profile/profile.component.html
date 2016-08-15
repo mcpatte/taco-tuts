@@ -1,12 +1,7 @@
 <button class="btn btn-default"
+        *ngIf="isAuthenticated()"
         (click)="profileFormOpen = !profileFormOpen"
         >Update Profile</button>
-
-<button 
-    type="submit" 
-    class="btn btn-default"
-    (click)="putNewTeacher(); profileFormOpen=false"
-    >Put New Teacher</button>
 
 <div *ngIf="profileFormOpen === true" class="container">
     <h1>Update Profile</h1>
