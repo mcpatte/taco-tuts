@@ -1,18 +1,12 @@
 process.env.NODE_ENV = 'test';
 
-var path = require('path');
-var pgp = require('pg-promise');
+var request = require('supertest');
 var server = require('../../src/server/server');
 var db = require('../../src/server/queries/connection');
-var request = require('supertest');
+var util = require('../support/util');
 
-function file(name) {
-  return new pgp.QueryFile(path.join(__dirname, '..', 'support', name));
-}
-
-var testdb = file('testdb.sql');
-var testdata = file('testdata.sql');
-
+var testdb = util.file('testdb.sql');
+var testdata = util.file('testdata.sql');
 
 describe('the server', function() {
   beforeEach(function(done) {
@@ -27,13 +21,21 @@ describe('the server', function() {
     expect(server).toBeDefined();
   });
 
-  it('should accept requests', function(done) {
-    request(server)
-      .get('/api/users')
-      .expect('Content-Type', /json/)
-      .expect(200)
+  it('should return all users', function(done) {
+    util.apiRequest(server, 'get', '/api/users')
       .end(function(err, res) {
         expect(res.body.data.length).toBe(8);
+
+        done();
+      });
+  });
+
+  it('should return a specific user', function(done) {
+    util.apiRequest(server, 'get', '/api/users/auth8')
+      .end(function(err, res) {
+        var harry = res.body.data;
+        expect(harry.authid).toBe('auth8');
+        expect(harry.name).toBe('Harry Potter');
 
         done();
       });
