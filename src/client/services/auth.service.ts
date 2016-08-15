@@ -88,14 +88,18 @@ export class Auth {
                 );
           } else {
            // If they do exist on the db
+           //this updates their email and authid in the DB
             this.http.put('/api/users/' + authID, profile)
               .subscribe(
                 response => {
-                  return this.fetchDBProfile(authID);
+                  this.fetchDBProfile(authID)
+                    .subscribe (
+                      response => {
+                        this.loginActions.setDataDispatch(response[0]);
+                      }
+                    ) 
                 }
               );
-            this.loginActions.setDataDispatch(response[0]);
-            return response.data;
           }
         }
       );

@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
+    this.setProfile();
   };
   getUsers() {
     this.homeService.getUsers()
@@ -79,6 +80,23 @@ export class HomeComponent implements OnInit {
         error =>  this.errorMessage = <any>error
       );
   }
+
+  setProfile() {
+    if (this.auth.isAuthenticated()){
+      this.auth.fetchAuth0Profile(this.getID(), function(profile){
+        this.auth.setProfile(this.getID(), profile);
+      }); 
+    }
+  }
+
+  getID() {
+    let currState = this.ngRedux.getState();
+    if (currState.login.userData !== null){
+        return currState.login['userData'].authid;
+    }
+    return undefined;
+  }
+
   requestSession(teacher) {
     const teacherID = teacher.authid;
 
