@@ -11,7 +11,7 @@
     "start": "node src/server/server.js",
     "dev": "webpack --watch",
     "lint": "tslint -e /node_modules/**/** -e src/client/typings/**/*.ts src/client/**/*.ts || exit 0",
-    "test": "karma start karma.config.js"
+    "test": "jasmine"
   },
   "license": "MIT",
   "dependencies": {
@@ -52,6 +52,7 @@
     "browserify": "^13.1.0",
     "codelyzer": "0.0.26",
     "cross-env": "^1.0.7",
+    "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
     "karma-browserify": "^5.1.0",
@@ -59,6 +60,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-webpack": "^1.8.0",
     "node-libs-browser": "^0.5.2",
+    "supertest": "^2.0.0",
     "ts-loader": "^0.8.1",
     "tslint": "^3.14.0",
     "typescript": "^1.8.10",
