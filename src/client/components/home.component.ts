@@ -80,11 +80,11 @@ export class HomeComponent implements OnInit {
       );
   }
   requestSession(teacher) {
-    // need to put logged in user's data here
     const teacherID = teacher.authid;
 
     const student = {
-      userID: this.ngRedux.getState().login.userID,
+      // TODO: replace with method on auth service
+      userID: this.ngRedux.getState().login.userData.authid,
       name: 'harambe'
     };
 
