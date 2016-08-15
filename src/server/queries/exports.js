@@ -28,5 +28,6 @@ module.exports = {
   addAppointment: sessions.addAppointment,
   addSessionsToUsers: sessions.addSessionsToUsers,
   getAppointmentsByUser: sessions.getAppointmentsByUser,
+  getAppointmentTutor: sessions.getAppointmentTutor
 };
 
