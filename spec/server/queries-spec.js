@@ -33,11 +33,24 @@ describe('the server', function() {
   it('should return a specific user', function(done) {
     util.apiRequest(server, 'get', '/api/users/auth8')
       .end(function(err, res) {
-        var harry = res.body.data;
+        var harry = res.body.data[0];
         expect(harry.authid).toBe('auth8');
         expect(harry.name).toBe('Harry Potter');
 
         done();
       });
   });
+
+  it('should create a user from their authid and email', function(done) {
+    var user = {
+      email: 'man@street.com',
+      authid: 'secret'
+    };
+
+    util.apiRequest(server, 'post', '/api/users', user)
+      .end(function(err, res) {
+        expect(res.body.status).toBe('success');
+        done();
+      });
+  })
 })
