@@ -50,7 +50,32 @@ describe('the server', function() {
     util.apiRequest(server, 'post', '/api/users', user)
       .end(function(err, res) {
         expect(res.body.status).toBe('success');
-        done();
+
+        db.one('select * from users where authid=$1', [user.authid])
+          .then(function(data) {
+            expect(data.email).toBe(user.email);
+            expect(data.authid).toBe(user.authid);
+            done();
+          });
       });
-  })
-})
+  });
+
+  it('should update an existing user', function(done) {
+    var update = {
+      name: 'Dumbledore',
+      email: 'ddore@gmail.com'
+    };
+
+    util.apiRequest(server, 'put', '/api/users/auth3', update)
+      .end(function(err, res) {
+        expect(res.body.status).toBe('success');
+
+        db.one('select * from users where authid=$1', ['auth3'])
+          .then(function(data) {
+            expect(data.name).toBe(update.name);
+            expect(data.email).toBe(update.email);
+            done();
+          });
+      });
+  });
+});
