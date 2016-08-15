@@ -6,10 +6,13 @@ var db = require('./queries/exports');
 var path = require('path');
 
 var PORT;
+
 if (process.env.PORT) {
   PORT = process.env.PORT;
 } else if (process.env.NODE_ENV === 'test') {
   PORT = 3131;
+} else {
+  PORT = 3000;
 }
 
 var app = express();
