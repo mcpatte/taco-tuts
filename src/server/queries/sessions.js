@@ -41,7 +41,7 @@ function addSessionsToUsers(req, res, next) {
 
 function getAppointmentsByUser(req, res, next) {
   var userID = parseInt(req.params.id);
-    db.any('select sessions.id, subjects.name, users.username, sessions.start, sessions.subjectid, sessionsToUsers.userid from subjects inner join sessions on subjects.id = sessions.subjectid inner join sessionsToUsers on sessions.id = sessionsToUsers.sessionid inner join users on sessionsToUsers.userid = users.id WHERE sessionsToUsers.isTeacher = true AND sessionsToUsers.sessionid IN (select sessionsToUsers.sessionid from sessionsToUsers where sessionsToUsers.userid = $1) order by sessions.start asc' , [userID])
+    db.any('select sessions.id, subjects.name, users.username, sessions.start, sessions.subjectid, sessionsToUsers.userid, sessionsToUsers.isTeacher, sessions.confirmed from subjects inner join sessions on subjects.id = sessions.subjectid inner join sessionsToUsers on sessions.id = sessionsToUsers.sessionid inner join users on sessionsToUsers.userid = users.id WHERE sessionsToUsers.sessionid IN (select sessionsToUsers.sessionid from sessionsToUsers where sessionsToUsers.userid = $1) order by sessions.start asc' , [userID])
       .then(function (result) {
         res.status(200)
           .json({
