@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService  } from '../../services/appointment.service';
-import { FilterDatePipe } from './appointment.date-pipe';
+import { FilterDatePipe } from './pipes/appointment.date-pipe';
+import { PendingStudentPipe } from './pipes/appointment.pendingStudent-pipe';
+import { ConfirmedStudentPipe } from './pipes/appointment.confirmedStudent-pipe';
 
 
 @Component({
     selector: 'appointment',
     providers: [ AppointmentService ],
-    pipes: [ FilterDatePipe ],
+    pipes: [ FilterDatePipe, ConfirmedStudentPipe ],
     template: require('./appointment.component.html')
 })    
 
