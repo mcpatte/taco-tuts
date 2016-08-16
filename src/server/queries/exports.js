@@ -5,6 +5,7 @@ var learning = require('./learning');
 var teaching = require('./teaching');
 var sessions = require('./sessions');
 var teachers = require('./teachers');
+var advSearch = require('./advanced-search');
 
 module.exports = {
   getAllUsers: users.getAllUsers,
@@ -31,6 +32,7 @@ module.exports = {
   getAppointmentTutor: sessions.getAppointmentTutor,
   getTeachersInfo: teachers.getTeachersInfo,
   getAllTeachers: teachers.getAllTeachers,
-  setAvailability: available.setAvailability
+  setAvailability: available.setAvailability,
+  advancedSearch: advSearch.advancedSearch
 };
 
