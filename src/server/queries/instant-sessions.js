@@ -36,15 +36,26 @@ function getTeacherRequests(req, res, next) {
     .catch(catchError(next));
 }
 
+// cancel one request identified by `req.body`
 function cancelStudentRequest(req, res, next) {
   var studentID = req.body.studentID;
   var teacherID = req.body.teacherID;
   var subjectID = req.body.subjectID;
 
   db.any(`DELETE FROM instantSessionRequests AS i
-    WHERE i.studentAuthID=$1 AND i.teacherAuthID=$2 AND i.subjectID=$3
-    RETURNING *`, [studentID, teacherID, subjectID])
+      WHERE i.studentAuthID=$1 AND i.teacherAuthID=$2 AND i.subjectID=$3
+      RETURNING *`, [studentID, teacherID, subjectID])
     .then(respondWithData(res, 'Cancelled instant session request'))
+    .catch(catchError(next));
+}
+
+// cancel all requests for a student identified by `req.params.authID`
+function cancelStudentRequests(req, res, next) {
+  var studentID = req.params.authID;
+
+  db.any(`DELETE FROM instantSessionRequests AS i
+      WHERE i.studentAuthID=$1 RETURNING *`, [studentID])
+    .then(respondWithData(res, 'Cancelled student\'s session requests'))
     .catch(catchError(next));
 }
 
@@ -52,5 +63,6 @@ module.exports = {
   requestInstantSession: requestInstantSession,
   getStudentRequests: getStudentRequests,
   getTeacherRequests: getTeacherRequests,
-  cancelStudentRequest: cancelStudentRequest
+  cancelStudentRequest: cancelStudentRequest,
+  cancelStudentRequests: cancelStudentRequests
 };
