@@ -56,7 +56,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
-    this.setProfile();
     this.getTeachers();
   };
   
