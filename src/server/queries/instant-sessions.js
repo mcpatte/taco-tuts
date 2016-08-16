@@ -10,7 +10,7 @@ function requestInstantSession(req, res, next) {
   var subjectID = req.body.subjectID;
 
   db.one(`INSERT INTO instantSessionRequests
-      (studentAuthID, teacherAuthID, subjectAuthID)
+      (studentAuthID, teacherAuthID, subjectID)
       VALUES ($1, $2, $3) RETURNING *`, [studentID, teacherID, subjectID] )
     .then(respondWithData(res, 'Added live session request'))
     .catch(catchError(next));
@@ -36,10 +36,21 @@ function getTeacherRequests(req, res, next) {
     .catch(catchError(next));
 }
 
+function cancelStudentRequest(req, res, next) {
+  var studentID = req.body.studentID;
+  var teacherID = req.body.teacherID;
+  var subjectID = req.body.subjectID;
 
+  db.any(`DELETE FROM instantSessionRequests AS i
+    WHERE i.studentAuthID=$1 AND i.teacherAuthID=$2 AND i.subjectID=$3
+    RETURNING *`, [studentID, teacherID, subjectID])
+    .then(respondWithData(res, 'Cancelled instant session request'))
+    .catch(catchError(next));
+}
 
 module.exports = {
   requestInstantSession: requestInstantSession,
   getStudentRequests: getStudentRequests,
-  getTeacherRequests: getTeacherRequests
+  getTeacherRequests: getTeacherRequests,
+  cancelStudentRequest: cancelStudentRequest
 };
