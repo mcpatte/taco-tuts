@@ -38,6 +38,9 @@ import { TeacherActions } from '../actions';
 })
 
 export class AppComponent {
+
+  private initialized: boolean = false;
+
   constructor(
     private auth: Auth,
     public router: Router,
@@ -61,4 +64,33 @@ export class AppComponent {
     teacherSocket.init();
     ///// ^^^^^^ this is just placeholder stuff
   }
+
+  ngOnInit() {
+    this.setProfile();
+  }
+
+    setProfile() {
+    if (this.auth.isAuthenticated()) {
+      // this.initialized = true;
+      if (this.getID().indexOf('google') !== -1) {
+         this.auth.fetchAuth0Profile(this.getID(), function(profile) {
+           this.auth.setProfile(this.getID(), profile);
+         });
+      }
+    }
+  }
+
+
+
+  getID() {
+    let currState = this.ngRedux.getState();
+    if (currState.login.userData !== null) {
+        return currState.login['userData'].authid;
+    }
+    return undefined;
+  }
+
+
+
+
 }

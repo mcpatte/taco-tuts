@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   private users = [];
   private subjects = [];
   private errorMessage: string;
+
   constructor(
     private userService: UserService,
     private auth: Auth,
@@ -50,11 +51,12 @@ export class HomeComponent implements OnInit {
     private loginActions: LoginActions,
     private socket: SocketService
   ) {}
+
   ngOnInit() {
     this.getSubjects();
     this.getUsers();
-    this.setProfile();
   };
+  
   getUsers() {
     this.homeService.getUsers()
       .subscribe(
@@ -79,24 +81,6 @@ export class HomeComponent implements OnInit {
         },
         error =>  this.errorMessage = <any>error
       );
-  }
-
-  setProfile() {
-    if (this.auth.isAuthenticated()) {
-      if (this.getID().indexOf('google') !== -1) {
-         this.auth.fetchAuth0Profile(this.getID(), function(profile) {
-           this.auth.setProfile(this.getID(), profile);
-         });
-      }
-    }
-  }
-
-  getID() {
-    let currState = this.ngRedux.getState();
-    if (currState.login.userData !== null) {
-        return currState.login['userData'].authid;
-    }
-    return undefined;
   }
 
   requestSession(teacher) {
