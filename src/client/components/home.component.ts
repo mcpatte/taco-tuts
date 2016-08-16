@@ -6,18 +6,20 @@ import { HomeService } from '../services/home.service';
 import { UserService } from '../services/user.service';
 import { LoginActions } from '../actions/login.actions';
 import { SocketService } from '../services/socket.service';
+import { Button } from 'primeng/primeng';
 
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService],
+  directives: [ Button ],
   template: `
   <h3>Filter teachers by subject</h3>
+  <button pButton type="button" (click)="getTeachers()" label="Click"></button>
   <table>
     <tr>
     Subjects:
         <td *ngFor="let subject of subjects">
-          <button (click)="getTeaching(subject.id)">
-            {{subject.name}}
+          <button pButton type="button" (click)="getTeaching(subject.id)" label={{subject.name}}>
           </button>
         </td>
     </tr>
@@ -25,10 +27,11 @@ import { SocketService } from '../services/socket.service';
       <ul >
         <div *ngFor="let teacher of teachers">
         <li *ngIf="teacher.isavailable === true">
-          {{teacher.name}}
-          <button (click)="requestSession(teacher)">
-            request session
+          <strong>{{teacher.name}}</strong>
+          <button pButton (click)="requestSession(teacher)" label="request session">
           </button>
+          <br>
+          {{teacher.username}}
         </li>
         </div>
       </ul>

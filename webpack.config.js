@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
-      { from: path.join(clientDir, 'index.html') }
+      { from: path.join(clientDir, 'index.html') }, {from: path.join(clientDir, 'assets'), to: 'assets'}
     ])
   ],
   resolve: {
