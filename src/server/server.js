@@ -46,7 +46,7 @@ app.post('/api/teaching', db.teachingSubject);
 app.post('/api/users/:authID', db.setAuthID);
 app.post('/api/teaching/:authID', db.insertTeacher);
 app.post('/api/available/:authID', db.setAvailability);
-app.post('/api/sessions', db.addAppointment); 
+app.post('/api/sessions', db.addAppointment);
 app.post('/api/sessions/:sessionid', db.addSessionsToUsers);
 app.post('/api/advanced-search', db.advancedSearch)
 app.put('/api/users/:authID', db.updateUser);
@@ -55,7 +55,7 @@ app.delete('/api/subject/:id', db.removeSubject);
 app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
 app.get('/api/sessions/:id', db.getAppointmentsByUser);
 app.get('/api/sessions/tutor/:sessionid', db.getAppointmentTutor);
-
+app.post('/api/instantsessions/', db.requestInstantSession);
 
 // serve `index.html` to all unmatched routes as a failsafe, to account for
 // html5 pushstate. it would be better to only do this for valid routes

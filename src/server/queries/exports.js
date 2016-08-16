@@ -8,6 +8,7 @@ var teaching = require('./teaching');
 var sessions = require('./sessions');
 var teachers = require('./teachers');
 var advSearch = require('./advanced-search');
+var instantSessions = require('./instant-sessions');
 
 module.exports = _.assign({},
   users,
@@ -17,5 +18,6 @@ module.exports = _.assign({},
   teaching,
   sessions,
   teachers,
-  advSearch
+  advSearch,
+  instantSessions
 );
