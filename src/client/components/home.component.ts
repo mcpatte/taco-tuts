@@ -16,17 +16,15 @@ import { SocketService } from '../services/socket.service';
     <tr>
     Subjects:
         <td *ngFor="let subject of subjects">
-          <button (click)="getUsers(subject.id)">
+          <button (click)="getTeaching(subject.id)">
             {{subject.name}}
           </button>
         </td>
     </tr>
   </table>
-    <div *ngFor="let user of users">
-      <ul *ngIf="user.teacherID">
-        {{getTeacher(user.teacherID)}}
+      <ul >
         <div *ngFor="let teacher of teachers">
-        <li *ngIf="teacher.isavailible === true && teacher.teacher === true">
+        <li *ngIf="teacher.isavailable === true">
           {{teacher.name}}
           <button (click)="requestSession(teacher)">
             request session
@@ -34,7 +32,6 @@ import { SocketService } from '../services/socket.service';
         </li>
         </div>
       </ul>
-    </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
   `
@@ -60,7 +57,7 @@ export class HomeComponent implements OnInit {
     this.getSubjects();
     this.getUsers();
     this.setProfile();
-    this.getTeacher(1);
+    this.getTeachers();
   };
   
   getUsers() {
@@ -82,7 +79,7 @@ export class HomeComponent implements OnInit {
     this.homeService.getTeaching(subjectID)
       .subscribe(
         data => {
-          this.users = data;
+          this.teachers = data;
           console.log(data);
         },
         error =>  this.errorMessage = <any>error
@@ -100,9 +97,8 @@ export class HomeComponent implements OnInit {
     this.socket.requestSession(teacherID, student);
   }
 
-  getTeacher(teacherID) {
-    console.log(teacherID);
-    this.homeService.getTeacher(teacherID)
+  getTeachers() {
+    this.homeService.getTeachers()
       .subscribe(
         data => {
           this.teachers = data;
