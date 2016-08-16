@@ -1,12 +1,13 @@
 <div class = "container">
     <h1>Advanced Search</h1>
-    <h2>*****DOESN'T WORK YET*****</h2>
+    {{ diagnostic }}
     <form> 
         <div class="form-group">
             <label for="name">Teacher Name</label>
             <input 
                 type="text"
                 class="form-control"
+                [(ngModel)] = "userParams.name"
             >
         </div>
         <div class="form-group">
@@ -14,6 +15,7 @@
             <input 
                 type="select"
                 class="form-control"
+                [(ngModel)] = "userParams.subject"
             >
         </div>
         <div class="form-group">
@@ -21,6 +23,7 @@
             <input 
                 type="select"
                 class="form-control"
+                [(ngModel)] = "userParams.rating"
             >
         </div>
         <div class="form-group">
@@ -28,12 +31,14 @@
             <input 
                 type="checkbox"
                 class="form-control"
+                [(ngModel)] = "userParams.currentlyAvailable"
             >
         </div>
 
         <button 
                 type="submit" 
                 class="btn btn-default"
+                (click)="search(userParams)"
                 >Search</button>
     </form>
 </div>
