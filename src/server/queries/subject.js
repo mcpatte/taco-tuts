@@ -1,4 +1,5 @@
 var db = require('./connection');
+
 var helpers = require('./queryHelpers')
 var respondWithData = helpers.respondWithData;
 var catchError = helpers.catchError;
