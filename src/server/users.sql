@@ -35,8 +35,8 @@ CREATE TABLE sessions (
 
 CREATE TABLE instantSessionRequests (
   ID SERIAL PRIMARY KEY,
-  studentID integer references users(id) ON DELETE CASCADE,
-  teacherID integer references users(id) ON DELETE CASCADE,
+  studentAuthID text,
+  teacherAuthID text,
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
@@ -131,8 +131,8 @@ INSERT INTO teaching (userID, subjectID)
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 5);
 
-INSERT INTO instantSessionRequests (studentID, teacherID, subjectID)
-  VALUES (2, 1, 1);
+INSERT INTO instantSessionRequests (studentAuthID, teacherAuthID, subjectID)
+  VALUES ('auth0|57b27e4e51f9235564a6f68b', 'auth0|57b27ddd71c16ce874b94fcb', 1);
 
-INSERT INTO instantSessionRequests (studentID, teacherID, subjectID)
-  VALUES (2, 4, 3);
+INSERT INTO instantSessionRequests (studentAuthID, teacherAuthID, subjectID)
+  VALUES ('auth0|57b27e4e51f9235564a6f68b', 'auth0|57b27e8a71c16ce874b94fd0', 3);
