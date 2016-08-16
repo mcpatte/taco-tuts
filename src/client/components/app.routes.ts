@@ -15,7 +15,7 @@ const routes: RouterConfig = [
   { path: 'advanced-search', component: AdvancedSearchComponent },
   { path: 'session', component: SessionComponent },
   { path: 'home', component: HomeComponent },
-  { path: '**', redirectTo: '/student-dash' }
+  { path: '**', redirectTo: '/home' }
 ];
 
 export const appRouterProviders = [
