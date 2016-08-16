@@ -3,7 +3,6 @@ import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService  } from '../../services/appointment.service';
 import { FilterDatePipe } from './pipes/appointment.date-pipe';
-import { PendingStudentPipe } from './pipes/appointment.pendingStudent-pipe';
 import { ConfirmedStudentPipe } from './pipes/appointment.confirmedStudent-pipe';
 
 
