@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-const persistState = require('redux-localstorage');
 import { ILoginState, loginReducer } from './login.reducer';
 import { ITeacherState, teacherReducer } from './teacher.reducer';
 import { ISessionState, sessionReducer } from './session.reducer';
@@ -22,6 +21,4 @@ export const rootReducer = combineReducers<IAppState>({
   sessionRequest: sessionRequestReducer
 });
 
-export const enhancers = [
-  persistState('counter', { key: 'ng2-redux/examples/counter' })
-];
+export const enhancers = [];
