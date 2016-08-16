@@ -3,7 +3,7 @@ import { AdvancedSearchComponent } from './advanced-search';
 import { StudentDashboardComponent } from './student-dashboard/studentDashboard.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './sign-up/signUp.component';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './home';
 import { TeacherDashboardComponent } from './teacher-dashboard';
 import { SessionComponent } from './session';
 

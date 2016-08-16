@@ -1,0 +1,23 @@
+<h3>Filter teachers by subject</h3>
+<button pButton type="button" (click)="getTeachers()" label="Click"></button>
+<table>
+  <tr>
+  Subjects:
+      <td *ngFor="let subject of subjects">
+        <button pButton type="button" (click)="getTeaching(subject.id)" label={{subject.name}}>
+        </button>
+      </td>
+  </tr>
+</table>
+<ul >
+  <div *ngFor="let teacher of teachers">
+  <li *ngIf="teacher.isavailable === true">
+    <strong>{{teacher.name}}</strong>
+    <button pButton (click)="requestSession(teacher)" label="request session">
+    </button>
+    <br>
+    {{teacher.username}}
+  </li>
+  </div>
+</ul>
+<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
