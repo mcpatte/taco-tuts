@@ -29,7 +29,8 @@ export function loginReducer(
         });
       case LOGOUT_ACTIONS.LOGOUT:
           return Object.assign({}, state, {
-            userID: ''
+            userID: null,
+            userData: null
         });
       default:
         return state;
