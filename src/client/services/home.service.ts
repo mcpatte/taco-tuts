@@ -25,8 +25,8 @@ export class HomeService {
                     .catch(this.handleError);
   }
 
-  getTeacher (teacherID): Observable<any> {
-    return this.http.get('/api/teachers/' + teacherID)
+  getTeachers (): Observable<any> {
+    return this.http.get('/api/teachers/')
                     .map(this.extractData)
                     .catch(this.handleError);
   }
