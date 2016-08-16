@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { NgRedux, DevToolsExtension } from 'ng2-redux';
-import { AdvancedSearchComponent } from '../components/advancedSearch.component';
+import { AdvancedSearchComponent } from '../components/advanced-search';
 import { SearchBarComponent } from '../components/searchBar.component';
 import { StudentDashboardComponent } from '../components/student-dashboard/studentDashboard.component';
 import { LoginComponent } from '../components/login.component';
@@ -38,6 +38,9 @@ import { TeacherActions } from '../actions';
 })
 
 export class AppComponent {
+
+  private initialized: boolean = false;
+
   constructor(
     private auth: Auth,
     public router: Router,
@@ -61,4 +64,33 @@ export class AppComponent {
     teacherSocket.init();
     ///// ^^^^^^ this is just placeholder stuff
   }
+
+  ngOnInit() {
+    this.setProfile();
+  }
+
+    setProfile() {
+    if (this.auth.isAuthenticated()) {
+      // this.initialized = true;
+      if (this.getID().indexOf('google') !== -1) {
+         this.auth.fetchAuth0Profile(this.getID(), function(profile) {
+           this.auth.setProfile(this.getID(), profile);
+         });
+      }
+    }
+  }
+
+
+
+  getID() {
+    let currState = this.ngRedux.getState();
+    if (currState.login.userData !== null) {
+        return currState.login['userData'].authid;
+    }
+    return undefined;
+  }
+
+
+
+
 }

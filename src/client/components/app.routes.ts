@@ -1,5 +1,5 @@
 import { RouterConfig, provideRouter } from '@angular/router';
-import { AdvancedSearchComponent } from './advancedSearch.component';
+import { AdvancedSearchComponent } from './advanced-search';
 import { StudentDashboardComponent } from './student-dashboard/studentDashboard.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './sign-up/signUp.component';
