@@ -7,8 +7,11 @@ import { Http, HTTP_PROVIDERS } from '@angular/http';
 import { provideRouter } from '@angular/router';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { appRouterProviders } from './components/app.routes';
-import { SessionActions } from './actions';
-import { LoginActions } from './actions';
+import {
+  SessionActions,
+  LoginActions,
+  SessionRequestActions
+} from './actions';
 
 bootstrap(AppComponent, [
   appRouterProviders,
@@ -16,5 +19,6 @@ bootstrap(AppComponent, [
   NgRedux,
   AUTH_PROVIDERS,
   SessionActions,
-  LoginActions
+  LoginActions,
+  SessionRequestActions
 ]);
