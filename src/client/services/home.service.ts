@@ -25,6 +25,12 @@ export class HomeService {
                     .catch(this.handleError);
   }
 
+  getTeachers (): Observable<any> {
+    return this.http.get('/api/teachers/')
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body.data || { };

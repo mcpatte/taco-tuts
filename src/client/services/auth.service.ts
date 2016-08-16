@@ -74,7 +74,7 @@ export class Auth {
         response => {
           //this response will be 0 if they do not exist
           if (response.length === 0) {
-              //this will then update the profile based on the info we got from google
+              // this will then update the profile based on the info we got from google
               this.http.post('/api/users', profile)
                 .subscribe (
                   response => {

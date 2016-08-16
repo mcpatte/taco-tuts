@@ -4,7 +4,7 @@ function setAvailability(req, res, next) {
   var authID = req.params.authID;
   var availability = req.body.availability;
   db.result(
-    'update users set isAvailible = $1 where authID = $2',
+    'update users set isAvailable = $1 where authID = $2',
     [availability, authID]
   ).then(function(result) {
     res.status(200)

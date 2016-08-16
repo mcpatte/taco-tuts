@@ -33,7 +33,6 @@ CREATE TABLE sessions (
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE sessionsToUsers (
   userID integer references users(id) ON DELETE CASCADE,
   sessionID integer references sessions(id) ON DELETE CASCADE,
@@ -50,29 +49,44 @@ CREATE TABLE teaching (
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('hbp@hotwarts.com', 'auth1', 'halfbloodprince', 'Severus Snape', true);
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 1);
+
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 2);
+
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 3);
+
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 4);
+
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 5);
+
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('hbp@hotwarts.com', 'auth0|57b27ddd71c16ce874b94fcb', 'halfbloodprince', 'Severus Snape', true, 1);
   
 INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('hp@hogwarts.com', 'auth8', 'chosen one', 'Harry Potter', false);
+  VALUES ('hp@hogwarts.com', 'auth0|57b27e4e51f9235564a6f68b', 'chosen one', 'Harry Potter', false);
+
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('hagrid@gmail.com', 'auth0|57b27e8a71c16ce874b94fd0', 'Hagrid', 'Hagrid', true, 2);
+
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('mmoody', 'auth0|57b27f3971c16ce874b94fd6', 'crazyeyes', 'Mad-Eye Moody', true, 3);
 
 INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('hagrid@gmail.com', 'auth7', 'Hagrid', 'Hagrid', true);
+  VALUES ('rweasly@yahoo.com', 'auth0|57b27fa071c16ce874b94fd8auth4', 'Ronald', 'Ron', false);
+
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('vmor@hotmail.com', 'auth0|57b27fd771c16ce874b94fda', 'Tom', 'Voldemort', true, 4);
+
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('ddoor@gmail.com', 'auth0|57b2801371c16ce874b94fdd', 'Headmaster', 'Dumbledoor', true, 5);
 
 INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('mmoody', 'auth5', 'crazyeyes', 'Mad-Eye Moody', true);
-
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('rweasly@yahoo.com', 'auth4', 'Ronald', 'Ron', false);
-
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('vmor@hotmail.com', 'auth6', 'Tom', 'Voldemort', true);
-
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('ddoor@gmail.com', 'auth3', 'Headmaster', 'Dumbledoor', true);
-
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('deathwatcher@crazy.com', 'auth9', 'crazy person', 'Luna Lovegood', false);
+  VALUES ('deathwatcher@crazy.com', 'auth0|57b2805971c16ce874b94fe0', 'crazy person', 'Luna Lovegood', false);
 
 INSERT INTO subjects (name)
   VALUES ('Potions');
