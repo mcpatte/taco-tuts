@@ -9,4 +9,9 @@ require('@angular/platform-browser');
 require('@angular/platform-browser-dynamic');
 require('redux');
 require('redux-logger');
+require('@angular/forms');
+require('@angular/http');
+require('@angular/router');
+require('primeng/primeng');
+require('rxjs/Rx');
 //# sourceMappingURL=vendor.js.map
