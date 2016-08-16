@@ -1,8 +1,8 @@
 -- --to run this file and update your local db run: psql -f users.sql
-DROP DATABASE IF EXISTS tacobase2;
-CREATE DATABASE tacobase2;
+DROP DATABASE IF EXISTS tacobase3;
+CREATE DATABASE tacobase3;
 
-\c tacobase2;
+\c tacobase3;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
@@ -30,7 +30,8 @@ CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
   start TIMESTAMP,
   ending TIMESTAMP,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID integer references subjects(id) ON DELETE CASCADE, 
+  confirmed BOOLEAN
 );
 
 CREATE TABLE instantSessionRequests (
@@ -95,6 +96,13 @@ INSERT INTO users (email, authid, username, name, teacher, teacherID)
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('deathwatcher@crazy.com', 'auth0|57b2805971c16ce874b94fe0', 'crazy person', 'Luna Lovegood', false);
 
+INSERT INTO users (email, authid, username, name, teacher)
+  VALUES ('e@e.com', 'auth0|57b2818451f9235564a6f698', 'halfbloodprince', 'Severus Snape', true);
+  
+INSERT INTO users (email, authid, username, name, teacher)
+  VALUES ('q@q.com', 'auth0|57b2817951f9235564a6f697', 'chosen one', 'Harry Potter', false);
+
+
 INSERT INTO subjects (name)
   VALUES ('Potions');
 
@@ -114,16 +122,13 @@ INSERT INTO teaching (userID, subjectID)
   VALUES (1, 1);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (4, 2);
+  VALUES (1, 2);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (5, 2);
+  VALUES (1, 3);
 
-INSERT INTO teaching (userID, subjectID)
-  VALUES (6, 2);
-
-INSERT INTO teaching (userID, subjectID)
-  VALUES (3, 3);
+INSERT INTO learning (userID, subjectID)
+  VALUES (2, 1)
 
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 4);
