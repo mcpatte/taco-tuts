@@ -30,6 +30,7 @@ module.exports = {
   getAppointmentsByUser: sessions.getAppointmentsByUser,
   getAppointmentTutor: sessions.getAppointmentTutor,
   getTeachersInfo: teachers.getTeachersInfo,
-  getAllTeachers: teachers.getAllTeachers
+  getAllTeachers: teachers.getAllTeachers,
+  setAvailability: available.setAvailability
 };
 
