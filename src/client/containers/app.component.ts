@@ -67,7 +67,7 @@ export class AppComponent {
     this.setProfile();
   }
 
-    setProfile() {
+  setProfile() {
     if (this.auth.isAuthenticated()) {
       // this.initialized = true;
       if (this.getID().indexOf('google') !== -1) {
