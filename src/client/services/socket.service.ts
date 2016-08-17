@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
-import { SessionActions } from '../actions';
+import {
+  SessionActions,
+  SessionRequestActions,
+  TeacherActions
+} from '../actions';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -9,15 +13,18 @@ export class SocketService {
   private socket = null;
   private listeners = {};
 
-  // TODO: rename session events to all have `session-` prefix
   private events: string[] = [
     'session-request',
     'session-start',
-    'session-message'
+    'session-message',
+    'session-requests-teacher-sync',
+    'session-requests-student-sync'
   ];
 
   constructor(
     private sessionActions: SessionActions,
+    private teacherActions: TeacherActions,
+    private sessionRequestActions: SessionRequestActions,
     private router: Router
   ) { }
 
@@ -27,6 +34,17 @@ export class SocketService {
     this.events.forEach((event) => {
       this.listeners[event] = this.getListener(event);
     });
+
+    // allow the server to trigger an update of the student's pending requests
+    this.socket.on(
+      'session-requests-student-sync',
+      authid => this.sessionRequestActions.syncStudentRequestsDispatch(authid)
+    );
+
+    this.socket.on(
+      'session-requests-teacher-sync',
+      authid => this.teacherActions.syncTeacherRequestsDispatch(authid)
+    );
 
     // need to move this somewhere better, preferably separating
     // it into a student handler and a teacher handler

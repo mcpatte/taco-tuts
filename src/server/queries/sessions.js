@@ -8,8 +8,8 @@ var postData = helpers.postData;
 function addAppointment(req, res, next) {
   db.any('insert into sessions(start, subjectid) values(${datetime}, ${subjectid}) returning * ', req.body)
     .then(respondWithData(res, "Added Appointment"))
-    .catch(catchError)
-    
+    .catch(catchError(next));
+
     // .then(function (result) {
     //   res.status(200)
     //     .json({

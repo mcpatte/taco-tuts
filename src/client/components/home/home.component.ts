@@ -1,43 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
-import { IAppState } from '../store/index';
-import { Auth } from '../services/auth.service';
-import { HomeService } from '../services/home.service';
-import { UserService } from '../services/user.service';
-import { LoginActions } from '../actions/login.actions';
-import { SocketService } from '../services/socket.service';
+import { IAppState } from '../../store/index';
+import { Auth } from '../../services/auth.service';
+import { HomeService } from '../../services/home.service';
+import { UserService } from '../../services/user.service';
+import { LoginActions, SessionRequestActions } from '../../actions';
+import { SocketService } from '../../services/socket.service';
 import { Button } from 'primeng/primeng';
 
 @Component({
   selector: 'home',
-  providers: [ HomeService, LoginActions, UserService],
+  providers: [ HomeService, LoginActions, UserService ],
   directives: [ Button ],
-  template: `
-  <h3>Filter teachers by subject</h3>
-  <button pButton type="button" (click)="getTeachers()" label="Click"></button>
-  <table>
-    <tr>
-    Subjects:
-        <td *ngFor="let subject of subjects">
-          <button pButton type="button" (click)="getTeaching(subject.id)" label={{subject.name}}>
-          </button>
-        </td>
-    </tr>
-  </table>
-      <ul >
-        <div *ngFor="let teacher of teachers">
-        <li *ngIf="teacher.isavailable === true">
-          <strong>{{teacher.name}}</strong>
-          <button pButton (click)="requestSession(teacher)" label="request session">
-          </button>
-          <br>
-          {{teacher.username}}
-        </li>
-        </div>
-      </ul>
-<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
-
-  `
+  template: require('./home.template.html')
 })
 export class HomeComponent implements OnInit {
   // Selected observables to test async pipe model.
@@ -53,6 +28,7 @@ export class HomeComponent implements OnInit {
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
     private loginActions: LoginActions,
+    private sessionRequestActions: SessionRequestActions,
     private socket: SocketService
   ) {}
 
@@ -90,13 +66,34 @@ export class HomeComponent implements OnInit {
 
   requestSession(teacher) {
     const teacherID = teacher.authid;
+    const studentID = this.ngRedux.getState().login.userData.authid;
 
     const student = {
       // TODO: replace with method on auth service
-      userID: this.ngRedux.getState().login.userData.authid,
+      userID: studentID,
       name: 'harambe'
     };
-    this.socket.requestSession(teacherID, student);
+
+    this.sessionRequestActions.addRequestDispatch(
+      studentID,
+      teacherID,
+      2
+    );
+    // this.socket.requestSession(teacherID, student);
+  }
+
+  hasPendingRequest(teacher) {
+    const teachers = this.ngRedux.getState().sessionRequest.requests
+      .map(request => request.teacherauthid);
+
+    return teachers.indexOf(teacher.authid) > -1;
+  }
+
+  cancelRequest(teacher) {
+    const teacherID = teacher.authid;
+    const studentID = this.ngRedux.getState().login.userData.authid;
+
+    this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
   }
 
   getTeachers() {

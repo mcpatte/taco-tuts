@@ -4,8 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 
 export const TEACHER_ACTIONS = {
   TOGGLE_AVAILABILITY: 'TOGGLE_AVAILABILITY',
-  ADD_SESSION_REQUEST: 'ADD_SESSION_REQUEST',
-  REMOVE_SESSION_REQUEST: 'REMOVE_SESSION_REQUEST'
+  SET_SESSION_REQUESTS: 'SET_SESSION_REQUESTS'
 };
 
 @Injectable()
@@ -33,12 +32,8 @@ export class TeacherActions {
       });
   }
 
-  addSessionRequestDispatch(session) {
-    this.ngRedux.dispatch(this.addSessionRequest(session));
-  }
-
-  removeSessionRequestDispatch(session) {
-    this.ngRedux.dispatch(this.removeSessionRequest(session));
+  setRequestsDispatch(sessions) {
+    this.ngRedux.dispatch(this.setRequests(sessions));
   }
 
   toggleAvailability() {
@@ -47,17 +42,16 @@ export class TeacherActions {
     };
   }
 
-  addSessionRequest(session) {
+  setRequests(sessions) {
     return {
-      type: TEACHER_ACTIONS.ADD_SESSION_REQUEST,
-      session
+      type:  TEACHER_ACTIONS.SET_SESSION_REQUESTS,
+      sessions
     };
   }
 
-  removeSessionRequest(session) {
-    return {
-      type: TEACHER_ACTIONS.REMOVE_SESSION_REQUEST,
-      session
-    };
+  syncTeacherRequestsDispatch(authid) {
+    return this.http.get('/api/instantsessions/teacher/' + authid)
+      .map(res => res.json().data || {})
+      .subscribe(requests => this.setRequestsDispatch(requests));
   }
 }

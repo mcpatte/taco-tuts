@@ -18,7 +18,7 @@ var app = express();
 var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
-require('./socket/socket')(io);
+var connectionManager = require('./socket/socket')(io);
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../dist'));
@@ -26,6 +26,12 @@ app.use(express.static(__dirname + '/../dist'));
 app.use(function(req, res, next){
   console.log(`${req.method} ${req.url}`);
   if (Object.keys(req.body).length) console.log(`data: ${JSON.stringify(req.body)}`)
+  next();
+});
+
+// add a reference to the socket connection manager to each request
+app.use(function(req, res, next) {
+  req.connectionManager = connectionManager;
   next();
 });
 
@@ -46,7 +52,7 @@ app.post('/api/teaching', db.teachingSubject);
 app.post('/api/users/:authID', db.setAuthID);
 app.post('/api/teaching/:authID', db.insertTeacher);
 app.post('/api/available/:authID', db.setAvailability);
-app.post('/api/sessions', db.addAppointment); 
+app.post('/api/sessions', db.addAppointment);
 app.post('/api/sessions/:sessionid', db.addSessionsToUsers);
 app.post('/api/advanced-search', db.advancedSearch)
 app.put('/api/users/:authID', db.updateUser);
@@ -55,7 +61,11 @@ app.delete('/api/subject/:id', db.removeSubject);
 app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
 app.get('/api/sessions/:id', db.getAppointmentsByUser);
 app.get('/api/sessions/tutor/:sessionid', db.getAppointmentTutor);
-
+app.post('/api/instantsessions', db.requestInstantSession);
+app.delete('/api/instantsessions/:studentID/:teacherID', db.cancelStudentRequest);
+app.delete('/api/instantsessions/:authID', db.cancelStudentRequests);
+app.get('/api/instantsessions/student/:authID', db.getStudentRequests);
+app.get('/api/instantsessions/teacher/:authID', db.getTeacherRequests);
 
 // serve `index.html` to all unmatched routes as a failsafe, to account for
 // html5 pushstate. it would be better to only do this for valid routes

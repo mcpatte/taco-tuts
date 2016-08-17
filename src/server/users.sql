@@ -28,8 +28,15 @@ CREATE TABLE subjects (
 
 CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
-  start TIMESTAMP, 
+  start TIMESTAMP,
   ending TIMESTAMP,
+  subjectID integer references subjects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE instantSessionRequests (
+  ID SERIAL PRIMARY KEY,
+  studentAuthID text,
+  teacherAuthID text,
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
@@ -66,7 +73,7 @@ INSERT INTO teachers (isAvailable, favorite, rating)
 
 INSERT INTO users (email, authid, username, name, teacher, teacherID)
   VALUES ('hbp@hotwarts.com', 'auth0|57b27ddd71c16ce874b94fcb', 'halfbloodprince', 'Severus Snape', true, 1);
-  
+
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('hp@hogwarts.com', 'auth0|57b27e4e51f9235564a6f68b', 'chosen one', 'Harry Potter', false);
 
@@ -92,7 +99,7 @@ INSERT INTO subjects (name)
   VALUES ('Potions');
 
 INSERT INTO subjects (name)
-  VALUES ('Defense against the dark arts'); 
+  VALUES ('Defense against the dark arts');
 
 INSERT INTO subjects (name)
   VALUES ('Magical Creatures');
@@ -123,3 +130,9 @@ INSERT INTO teaching (userID, subjectID)
 
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 5);
+
+INSERT INTO instantSessionRequests (studentAuthID, teacherAuthID, subjectID)
+  VALUES ('auth0|57b27e4e51f9235564a6f68b', 'auth0|57b27ddd71c16ce874b94fcb', 1);
+
+INSERT INTO instantSessionRequests (studentAuthID, teacherAuthID, subjectID)
+  VALUES ('auth0|57b27e4e51f9235564a6f68b', 'auth0|57b27e8a71c16ce874b94fd0', 3);
