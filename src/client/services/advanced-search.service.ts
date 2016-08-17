@@ -8,7 +8,7 @@ export class AdvancedSearchService {
   constructor (private http: Http) {}
 
   public advancedSearch(userParams: Object) {
-    this.http.post('/api/advanced-search', userParams)
+    return this.http.post('/api/advanced-search', userParams)
       .map(this.extractData)
       .catch(this.handleError);
   }
