@@ -12,6 +12,8 @@ function initSocket(io) {
     socket.on('session-accept', connectionManager.onSessionAccept);
     socket.on('session-message', connectionManager.onSessionMessage);
   });
+
+  return connectionManager;
 }
 
 module.exports = initSocket;

@@ -48,4 +48,14 @@ ConnectionManager.prototype.onSessionMessage = function(data) {
   session.emitMessage(message);
 };
 
+ConnectionManager.prototype.syncTeacherSessionRequests = function(teacherID) {
+  var socket = this.connections[teacherID]
+  if (socket) socket.emit('session-requests-teacher-sync');
+};
+
+ConnectionManager.prototype.syncStudentSessionRequests = function(studentID) {
+  var socket = this.connections[studentID]
+  if (socket) socket.emit('session-requests-student-sync');
+};
+
 module.exports = ConnectionManager;
