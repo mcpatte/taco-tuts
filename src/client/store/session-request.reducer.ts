@@ -1,8 +1,11 @@
 import { SESSION_REQUEST_ACTIONS } from '../actions';
 
 export interface IRequestState {
-  authid: string;
+  id: number;
   name: string;
+  studentauthid: string;
+  teacherauthid: string;
+  subjectid: number;
 }
 
 export interface ISessionRequestState {
