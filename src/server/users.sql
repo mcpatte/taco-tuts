@@ -1,8 +1,8 @@
 -- --to run this file and update your local db run: psql -f users.sql
-DROP DATABASE IF EXISTS tacobase3;
-CREATE DATABASE tacobase3;
+DROP DATABASE IF EXISTS tacobase4;
+CREATE DATABASE tacobase4;
 
-\c tacobase3;
+\c tacobase4;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
@@ -28,6 +28,8 @@ CREATE TABLE subjects (
 
 CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
+  studentID integer references users(id) ON DELETE CASCADE, 
+  teacherID integer references users(id) ON DELETE CASCADE, 
   start TIMESTAMP,
   ending TIMESTAMP,
   subjectID integer references subjects(id) ON DELETE CASCADE, 
@@ -41,15 +43,10 @@ CREATE TABLE instantSessionRequests (
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
-CREATE TABLE sessionsToUsers (
-  userID integer references users(id) ON DELETE CASCADE,
-  sessionID integer references sessions(id) ON DELETE CASCADE,
-  isTeacher BOOLEAN
-);
-
 CREATE TABLE learning (
   userID integer references users(id) ON DELETE CASCADE,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID integer references subjects(id) ON DELETE CASCADE,
+  progress integer default 0
 );
 
 CREATE TABLE teaching (
@@ -131,7 +128,7 @@ INSERT INTO teaching (userID, subjectID)
   VALUES (1, 3);
 
 INSERT INTO learning (userID, subjectID)
-  VALUES (2, 1)
+  VALUES (2, 1);
 
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 4);
