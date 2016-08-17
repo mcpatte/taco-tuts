@@ -72,9 +72,21 @@ export class AppointmentService {
       .map(this.extractData);
   }
 
+  getUserID(authid) { 
+    return this.http.get('api/users/' + authid )
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
 
-  getUserID(authid) {
-    return this.http.get('/api/users/' + authid )
+  confirmAppt(sessionid) {
+    return this.http.put('api/sessions/' + sessionid, null)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
+
+  removeAppt(sessionid) {
+    return this.http.delete('api/sessions/' + sessionid)
       .map(this.extractData)
       .catch(this.handleError);
   }
