@@ -7,6 +7,6 @@ import { Pipe } from '@angular/core';
 
 export class ConfirmedTeacherPipe {
     transform(value, target) {
-        return value.filter((item) => item.confirmed === target && item.isteacher === false)
+        return value.filter((item) => item.confirmed === target)
     }
 } 
