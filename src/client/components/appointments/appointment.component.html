@@ -51,6 +51,7 @@
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
                     <p>Tutor: {{ appointment.username }}</p>
+                    <button class="btn btn-default" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
         </div>
         <div class="showAll" *ngIf="filter === false">
@@ -59,6 +60,7 @@
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
                     <p>Tutor: {{ appointment.username }}</p>
+                    <button class="btn btn-default" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
         </div>
         <h1>Pending Appointments</h1>
@@ -68,6 +70,7 @@
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
                     <p>Tutor: {{ appointment.username }}</p>
+                    <button class="btn btn-default" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
         </div>
     </div>
