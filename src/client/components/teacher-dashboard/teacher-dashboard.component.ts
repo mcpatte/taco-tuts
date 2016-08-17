@@ -4,9 +4,10 @@ import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { TeacherActions } from '../../actions';
 import { TeacherSocketService } from '../../services/teacher-socket.service';
-
+import { TeacherAppointmentComponent } from '../appointments/teacherAppointment.component';
 @Component({
   selector: 'teacher-dashboard',
+  directives: [ TeacherAppointmentComponent ],
   providers: [ TeacherActions ],
   styles: [`
     h3 {
