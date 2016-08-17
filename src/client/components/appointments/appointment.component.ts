@@ -56,12 +56,26 @@ export class AppointmentComponent {
 
 
     addAppointment(apptModel) {
+        apptModel.confirmed = false;
         apptModel.studentid = this.studentid;
         apptModel.datetime = apptModel.date + ' ' + apptModel.time
         console.log("appt Model from add appointment", apptModel)
         this.appointmentService.addAppointment(apptModel)
-            .subscribe(data => console.log("heres the data", data))
+            .subscribe(data => {
+                console.log("heres the data", data)
+                this.getAppointments()  
+            })
     }
+
+    removeAppt(sessionid){
+        console.log("appt remove", sessionid);
+        this.appointmentService.removeAppt(sessionid)
+            .subscribe(
+                data => { console.log(data)
+                        this.getAppointments()
+                }
+            )
+    } 
 
 
     getAppointments(){
