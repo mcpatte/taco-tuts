@@ -44,7 +44,7 @@ export class SubjectSearchComponent {
 constructor(
      private ngRedux: NgRedux<IAppState>,    
      private appointmentService: AppointmentService,
-     private studentDashboardServices: StudentDashboardService
+     private studentDashboardService: StudentDashboardService
 ) {}
 
  ngOnInit() {
@@ -71,10 +71,18 @@ addSubject(subject) {
        userID: this.studentid,
        subjectID: subjectObj[0].id
    }
-    this.studentDashboardServices.addSubjectForStudent(model)
-        .subscribe(data => console.log(data))
-    
+    this.studentDashboardService.addSubjectForStudent(model)
+        .subscribe(
+            data => console.log(data))
 }
+
+ getSubjectByStudent() {
+      let authID = this.ngRedux.getState().login['userData'].authid
+      this.studentDashboardService.findSubjectsByUser(authID)
+        .subscribe(
+          data => this.subjects = data
+        );
+    }
     
  filter() {
     if (this.query !== ""){
