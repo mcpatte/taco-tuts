@@ -45,14 +45,12 @@ export class Auth {
         this.fetchAuth0Profile(id_token, function(profile){
           //format the profile for use in the DB
           let userProfile = {
-            //username: profile
             email : profile.email,
             authid: profile.user_id
           };
           //set profile checks if the user is in the db
           this.setProfile(userProfile.authid, userProfile);
         }.bind(this));
-        this.goToHome();
       } else if (result && result.error) {
         alert('error: ' + result.error);
       }
@@ -61,8 +59,9 @@ export class Auth {
   public fetchAuth0Profile (id_token: string, callback: Function) {
     return this.lock.getProfile(id_token, function(error, profile) {
       if (error) {
-        alert(error);
+        return alert('asdfasdfasdf' + error);
       }
+
       callback(profile);
     });
   }
@@ -123,9 +122,6 @@ export class Auth {
       responseType: 'code',
       username: model.email,
       password: model.password
-    }, function(err, response) {
-      if (err) return alert('something went wrong: ' + err.message);
-      callback(response);
     });
   };
 
@@ -135,10 +131,6 @@ export class Auth {
       responseType: 'code',
       email: username,
       password: password,
-    }, function(err, response) {
-      if (err) alert('something went wrong: ' + err.message);
-      localStorage.setItem('authID', response.idTokenPayload.sub);
-      callback(response);
     });
   };
 
@@ -149,10 +141,6 @@ export class Auth {
       if (err) alert('something went wrong: ' + err.message);
     });
   };
-
-  public goToHome() {
-    return this.router.navigate(['/home']);
-  }
 
   // Listening for the authenticated event
   public authenticated() {
