@@ -82,6 +82,20 @@ export class HomeComponent implements OnInit {
     // this.socket.requestSession(teacherID, student);
   }
 
+  hasPendingRequest(teacher) {
+    const teachers = this.ngRedux.getState().sessionRequest.requests
+      .map(request => request.teacherauthid);
+
+    return teachers.indexOf(teacher.authid) > -1;
+  }
+
+  cancelRequest(teacher) {
+    const teacherID = teacher.authid;
+    const studentID = this.ngRedux.getState().login.userData.authid;
+
+    this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
+  }
+
   getTeachers() {
     this.homeService.getTeachers()
       .subscribe(

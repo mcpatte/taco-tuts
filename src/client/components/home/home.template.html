@@ -13,8 +13,17 @@
   <div *ngFor="let teacher of teachers">
   <li *ngIf="teacher.isavailable === true">
     <strong>{{teacher.name}}</strong>
-    <button pButton (click)="requestSession(teacher)" label="request session">
-    </button>
+
+    <div *ngIf="!hasPendingRequest(teacher)">
+      <button pButton (click)="requestSession(teacher)" label="request session">
+      </button>
+    </div>
+
+    <div *ngIf="hasPendingRequest(teacher)">
+      <button pButton (click)="cancelRequest(teacher)" label="cancel session">
+      </button>
+    </div>
+
     <br>
     {{teacher.username}}
   </li>
