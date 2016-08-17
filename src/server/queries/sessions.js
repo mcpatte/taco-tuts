@@ -6,73 +6,26 @@ var catchError = helpers.catchError;
 var postData = helpers.postData;
 
 function addAppointment(req, res, next) {
-  db.any('insert into sessions(start, subjectid, confirmed) values(${datetime}, ${subjectid}, ${confirmed}) returning * ', req.body)
+  db.any('insert into sessions(start, subjectid, confirmed, studentID, teacherID) values(${datetime}, ${subjectid}, ${confirmed}, ${studentid}, ${teacherid}) returning * ', req.body)
     .then(respondWithData(res, "Added Appointment"))
     .catch(catchError(next));
-
-    // .then(function (result) {
-    //   res.status(200)
-    //     .json({
-    //       status: 'success',
-    //       data: result,
-    //       message: 'Added Appointment'
-    //     });
-    // })
-    // .catch(function (err) {
-    //   return next(err);
-    // });
 }
 
+function getAppointmentsByStudent(req, res, next) {
+  var studentID = parseInt(req.params.id);
+    db.any('select sessions.id, subjects.name, users.username, sessions.start, sessions.subjectid, sessions.studentID, sessions.teacherID, sessions.confirmed from subjects inner join sessions on subjects.id = sessions.subjectid inner join users on sessions.teacherid = users.id WHERE sessions.id IN (select sessions.id from sessions where sessions.studentid = $1) order by sessions.start asc' , [studentID])
+      .then(respondWithData(res, "Appointments by Student"))
+      .catch(catchError(next));
 
-function addSessionsToUsers(req, res, next) {
-  db.any('insert into sessionsToUsers(sessionID, userID, isTeacher) values(${sessionID}, ${userID}, ${isTeacher})', req.body)
-    .then(function (result) {
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Added User to Appointment'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
 }
 
+function getAppointmentsByTeacher(req, res, next) {
+  var teacherID = parseInt(req.params.id);
+    db.any('select sessions.id, subjects.name, users.username, sessions.start, sessions.subjectid, sessions.studentID, sessions.teacherID, sessions.confirmed from subjects inner join sessions on subjects.id = sessions.subjectid inner join users on sessions.studentid = users.id WHERE sessions.id IN (select sessions.id from sessions where sessions.teacherid = $1) order by sessions.start asc' , [teacherID])
+      .then(respondWithData(res, "Appointments by Teacher"))
+      .catch(catchError(next));
 
-function getAppointmentsByUser(req, res, next) {
-  var userID = parseInt(req.params.id);
-    db.any('select sessions.id, subjects.name, users.username, sessions.start, sessions.subjectid, sessionsToUsers.userid, sessionsToUsers.isTeacher, sessions.confirmed from subjects inner join sessions on subjects.id = sessions.subjectid inner join sessionsToUsers on sessions.id = sessionsToUsers.sessionid inner join users on sessionsToUsers.userid = users.id WHERE sessionsToUsers.sessionid IN (select sessionsToUsers.sessionid from sessionsToUsers where sessionsToUsers.userid = $1) order by sessions.start asc' , [userID])
-      .then(function (result) {
-        res.status(200)
-          .json({
-            status: 'success',
-            data: result,
-            message: 'Added Appointment'
-          });
-      })
-      .catch(function (err) {
-        return next(err);
-      });
 }
-
-
-function getAppointmentTutor(req, res, next) {
-  var sessionID = parseInt(req.params.sessionid);
-  console.log("session id from query", sessionID)
-    db.any('SELECT users.name FROM users INNER JOIN sessionsToUsers ON users.id = sessionsToUsers.userid WHERE sessionsToUsers.sessionid = $1 AND sessionsToUsers.isTeacher = true', [sessionID])
-      .then(function (result) {
-        res.status(200)
-          .json({
-            status: 'success',
-            data: result,
-            message: 'Added Appointment'
-          });
-      })
-      .catch(function (err) {
-        return next(err);
-      });
-}
-
 
 function confirmAppt(req, res, next) {
   var sessionID = parseInt(req.params.sessionid);
@@ -92,9 +45,11 @@ function removeAppt(req, res, next) {
 
 module.exports = {
   addAppointment: addAppointment,
-  addSessionsToUsers: addSessionsToUsers,
-  getAppointmentsByUser: getAppointmentsByUser,
-  getAppointmentTutor: getAppointmentTutor,
+  // addSessionsToUsers: addSessionsToUsers,
+  getAppointmentsByStudent: getAppointmentsByStudent,
+  getAppointmentsByTeacher: getAppointmentsByTeacher,
   confirmAppt: confirmAppt,
   removeAppt: removeAppt
 };
+
+
