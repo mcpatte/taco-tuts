@@ -5,7 +5,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export const TEACHER_ACTIONS = {
   TOGGLE_AVAILABILITY: 'TOGGLE_AVAILABILITY',
   ADD_SESSION_REQUEST: 'ADD_SESSION_REQUEST',
-  REMOVE_SESSION_REQUEST: 'REMOVE_SESSION_REQUEST'
+  REMOVE_SESSION_REQUEST: 'REMOVE_SESSION_REQUEST',
+  SET_SESSION_REQUESTS: 'SET_SESSION_REQUESTS'
 };
 
 @Injectable()
@@ -41,6 +42,10 @@ export class TeacherActions {
     this.ngRedux.dispatch(this.removeSessionRequest(session));
   }
 
+  setSessionRequestsDispatch(sessions) {
+    this.ngRedux.dispatch(this.setSessionRequests(sessions));
+  }
+
   toggleAvailability() {
     return {
       type: TEACHER_ACTIONS.TOGGLE_AVAILABILITY,
@@ -58,6 +63,13 @@ export class TeacherActions {
     return {
       type: TEACHER_ACTIONS.REMOVE_SESSION_REQUEST,
       session
+    };
+  }
+
+  setSessionRequests(sessions) {
+    return {
+      type:  TEACHER_ACTIONS.SET_SESSION_REQUESTS,
+      sessions
     };
   }
 }

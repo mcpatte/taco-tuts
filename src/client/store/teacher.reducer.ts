@@ -1,14 +1,16 @@
 import { TEACHER_ACTIONS } from '../actions';
+import { IRequestState } from './session-request.reducer';
 
 const {
   TOGGLE_AVAILABILITY,
   ADD_SESSION_REQUEST,
-  REMOVE_SESSION_REQUEST
+  REMOVE_SESSION_REQUEST,
+  SET_SESSION_REQUESTS
 } = TEACHER_ACTIONS;
 
 export interface ITeacherState {
   available: boolean;
-  sessions: any[];
+  sessions: IRequestState[];
 }
 
 const INIT_STATE = {
@@ -37,6 +39,11 @@ export function teacherReducer(
     case REMOVE_SESSION_REQUEST:
       return Object.assign({}, state, {
         sessions: state.sessions.filter(session => session !== action.session)
+      });
+
+    case SET_SESSION_REQUESTS:
+      return Object.assign({}, state, {
+        sessions: action.sessions
       });
 
     default:
