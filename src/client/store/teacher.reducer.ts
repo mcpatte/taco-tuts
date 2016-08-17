@@ -3,8 +3,6 @@ import { IRequestState } from './session-request.reducer';
 
 const {
   TOGGLE_AVAILABILITY,
-  ADD_SESSION_REQUEST,
-  REMOVE_SESSION_REQUEST,
   SET_SESSION_REQUESTS
 } = TEACHER_ACTIONS;
 
@@ -26,19 +24,6 @@ export function teacherReducer(
     case TOGGLE_AVAILABILITY:
       return Object.assign({}, state, {
         available: !state.available
-      });
-
-    case ADD_SESSION_REQUEST:
-      return Object.assign({}, state, {
-        sessions: [
-          ...state.sessions,
-          action.session
-        ]
-      });
-
-    case REMOVE_SESSION_REQUEST:
-      return Object.assign({}, state, {
-        sessions: state.sessions.filter(session => session !== action.session)
       });
 
     case SET_SESSION_REQUESTS:

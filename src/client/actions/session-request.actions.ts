@@ -38,12 +38,6 @@ export class SessionRequestActions {
       .subscribe(requests => this.setRequestsDispatch(requests));
   }
 
-  syncTeacherRequestsDispatch(authid) {
-    return this.http.get('/api/instantsessions/teacher/' + authid)
-      .map(res => res.json().data || {})
-      .subscribe(requests => this.setRequestsDispatch(requests));
-  }
-
   setRequestsDispatch(requests) {
     this.ngRedux.dispatch(this.setRequests(requests));
   }
