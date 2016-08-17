@@ -5,7 +5,6 @@ import { NgRedux, DevToolsExtension } from 'ng2-redux';
 import { AdvancedSearchComponent } from '../components/advanced-search';
 import { SearchBarComponent } from '../components/searchBar.component';
 import { StudentDashboardComponent } from '../components/student-dashboard/studentDashboard.component';
-import { LoginComponent } from '../components/login.component';
 import { MenuBarComponent } from '../components/menuBar.component';
 import { IAppState } from '../store/index';
 import { ConfigureStoreService } from '../services/configure-store.service.ts';
@@ -16,9 +15,7 @@ import { TeacherActions } from '../actions';
 
 @Component({
   selector: 'app',
-  directives: [
-    SearchBarComponent, StudentDashboardComponent, MenuBarComponent,
-    LoginComponent, AdvancedSearchComponent, ROUTER_DIRECTIVES ],
+  directives: [ROUTER_DIRECTIVES, MenuBarComponent],
   pipes: [ AsyncPipe ],
   providers: [
     DevToolsExtension,
@@ -64,7 +61,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.setProfile();
+    // this.setProfile();
   }
 
   setProfile() {
