@@ -6,7 +6,7 @@ var catchError = helpers.catchError;
 var postData = helpers.postData;
 
 function addAppointment(req, res, next) {
-  db.any('insert into sessions(start, subjectid) values(${datetime}, ${subjectid}) returning * ', req.body)
+  db.any('insert into sessions(start, subjectid, confirmed) values(${datetime}, ${subjectid}, ${confirmed}) returning * ', req.body)
     .then(respondWithData(res, "Added Appointment"))
     .catch(catchError(next));
 
@@ -74,9 +74,27 @@ function getAppointmentTutor(req, res, next) {
 }
 
 
+function confirmAppt(req, res, next) {
+  var sessionID = parseInt(req.params.sessionid);
+  db.any('UPDATE sessions set confirmed = true where id = $1', [sessionID])
+      .then(respondWithData(res, "Updated Appointment"))
+      .catch(catchError)
+
+}
+
+function removeAppt(req, res, next) {
+  var sessionID = parseInt(req.params.sessionid); 
+  db.any('DELETE from sessions where id = $1', [sessionID])
+    .then(respondWithData(res, "Deleted Appointmet"))
+    .catch(catchError)
+}
+
+
 module.exports = {
   addAppointment: addAppointment,
   addSessionsToUsers: addSessionsToUsers,
   getAppointmentsByUser: getAppointmentsByUser,
-  getAppointmentTutor: getAppointmentTutor
+  getAppointmentTutor: getAppointmentTutor,
+  confirmAppt: confirmAppt,
+  removeAppt: removeAppt
 };
