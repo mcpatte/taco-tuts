@@ -21,3 +21,4 @@ module.exports = _.assign({},
   advSearch,
   instantSessions
 );
+
