@@ -35,7 +35,7 @@ export class SessionRequestActions {
   }
 
   syncStudentRequestsDispatch(authid) {
-    return this.http.get('/api/instantsessions/student' + authid)
+    return this.http.get('/api/instantsessions/student/' + authid)
       .map(res => res.json().data || {})
       .subscribe(requests => this.setRequestsDispatch(requests));
   }
