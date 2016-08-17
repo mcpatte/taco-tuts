@@ -36,6 +36,12 @@ export class StudentDashboardService {
       .catch(this.handleError);
   }
 
+  levelUp(model) {
+    return this.http.put('/api/learning', model)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     console.log('BODY', body.data);

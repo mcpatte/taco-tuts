@@ -68,6 +68,7 @@ app.delete('/api/instantsessions/:authID', db.cancelStudentRequests);
 app.get('/api/instantsessions/student/:authID', db.getStudentRequests);
 app.get('/api/instantsessions/teacher/:authID', db.getTeacherRequests);
 app.put('/api/sessions/:sessionid', db.confirmAppt);
+app.put('/api/learning', db.levelUp);
 
 
 
