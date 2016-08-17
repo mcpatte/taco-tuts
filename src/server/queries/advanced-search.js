@@ -1,69 +1,62 @@
-    
-function advancedSearch(req, res){
-  console.log(req.body);
+var db = require('./connection');
+
+var helpers = require('./queryHelpers')
+var respondWithData = helpers.respondWithData;
+var catchError = helpers.catchError;
+var postData = helpers.postData; 
+
+function advancedSearch(req, res, next){
   let userParams = req.body;
-  let query = '';
-  let querySelect = 'select ';
-  let queryFrom = 'from ';
-  let queryJoin = 'join ';
-  let queryOn = 'on ';
+  let qs1 = `select users.name, users.email, users.authid, 
+             teachers.isAvailable, teaching.subjectid `;
+  let qs2 = `, subjects.name as subjectName `;
+  let qs3 = 'inner join subjects on subjects.id=teaching.subjectid ';
+  let qs4 = `inner join teachers on users.teacherid=teachers.id 
+             inner join teaching on teaching.userid=users.id `;
+  let fromUsers = 'from users ';
   let queryWhere = 'where ';
 
   if (!!userParams['name']) {
-    //query to find name
-    console.log("sees name: ", userParams['name'])
-    //need table: users
-    let select1 = 'users.name ';
-    let from1 = 'users ';
-    let where1 = 'users.name=' + userParams['name'] + ' ';
-    querySelect += select1;
-    queryFrom += from1;
+    let where1 = "lower(users.name) like lower('%" + userParams['name'] + "%') ";
     queryWhere += where1;
-
   }
   if (!!userParams['subject']) {
-    //query to find subject
-    console.log("sees subject: ", userParams['subject'])
-    //need table: teaching where subjectID = thesubjectid and userID=theuserid
-    let select2 = 'subject.name ';
-    let from2 = 'subjects ';
-    let where2 = 'subjects.name=' + userParams['subject'] + ' ';
-    querySelect += select2;
-    queryFrom += from2;
-    queryWhere += where2;
+    qs1 = qs1.trim();
+    qs1 += qs2 + fromUsers + qs4 + qs3;
+    let fromOrInner2 = queryWhere.length > 6 ? 
+      "and lower(subjects.name) like lower('%" + userParams['subject'] + "%')" 
+      : "lower(subjects.name) like lower('%" + userParams['subject'] + "%') ";
+    queryWhere += fromOrInner2;
+  } else {
+    qs1 += fromUsers + qs4;
   }
   if (!!userParams['rating']) {
-    //query to find rating
-    console.log("sees rating: ", userParams['rating'])
-    //need table: teachers
-    let select3 = 'subject.name ';
-    let from3 = 'teaching ';
-    let where3 = 'subjects.name=' + userParams['subject'];
-    querySelect += select3;
-    
+    let where3 = queryWhere.length > 6 ? 
+    'and teachers.rating=' + userParams['rating'] + ' ' 
+    : 'teachers.rating=' + userParams['rating'] + ' ';
     queryWhere += where3;
   }
-  if (!!userParams['currentlyAvailable']) {
-    //query to find currentlyAvailable
-    console.log("sees currentlyAvailable: ", userParams['currentlyAvailable'])
-    //need table: teachers
-    let select4 = 'subject.name ';
-    let from4 = queryFrom.indexOf('teaching') > -1 ? '' : 'teaching ';
-    let where4 = 'subjects.name=' + userParams['subject'];
-    querySelect += select4;
-    queryFrom += from4;
+  if (!!userParams['isAvailable']) {
+    let where4 = queryWhere.length > 6 ? 
+    'and teachers.isAvailable=' + userParams['currentlyAvailable'] + ' ' 
+    : 'teachers.isAvailable=' + userParams['currentlyAvailable'];
+    queryWhere += where4;
+  } else {
+    let where4 = queryWhere.length > 6 ? 
+      'and teachers.isavailable=true or teachers.isavailable=false ' 
+      : 'teachers.isavailable=true or teachers.isavailable=false ';
     queryWhere += where4;
   }
-
-  query += querySelect + queryJoin + queryFrom + queryOn +  queryWhere;
-  console.log("QUERY: ", query);
-
-
-  db.any(query)
-    .then(respondWithData(res, "Retrieved results from advanced search"))
-    .catch(catchError(next));
-}
+  if (queryWhere.length > 6){
+      qs1 += queryWhere;
+    }
+  console.log('---------->QUERY------------>',qs1);
+    db.any(qs1)
+      .then(respondWithData(res, "Retrieved results from advanced search"))
+      .catch(catchError(next));
+  }
 
 module.exports = {
   advancedSearch: advancedSearch
+
 }
