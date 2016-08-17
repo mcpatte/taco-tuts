@@ -5,8 +5,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/do';
 
 export const SESSION_REQUEST_ACTIONS = {
-  SET_REQUESTS: 'SET_REQUESTS',
-  ADD_REQUEST: 'ADD_SESSION_REQUEST'
+  SET_REQUESTS: 'SET_REQUESTS'
 };
 
 @Injectable()
@@ -23,21 +22,19 @@ export class SessionRequestActions {
       .do(() => this.syncStudentRequestsDispatch(studentID));
   }
 
-  addRequest(request) {
-    return {
-      type: SESSION_REQUEST_ACTIONS.ADD_REQUEST,
-      request
-    };
-  }
-
   syncStudentRequestsDispatch(authid) {
     return this.http.get('/api/instantsessions/student/' + authid)
       .map(res => res.json() || {})
       .subscribe(requests => this.setRequestsDispatch(requests));
   }
 
+  syncTeacherRequestsDispatch(authid) {
+    return this.http.get('/api/instantsessions/teacher/' + authid)
+      .map(res => res.json() || {})
+      .subscribe(requests => this.setRequestsDispatch(requests));
+  }
+
   setRequestsDispatch(requests) {
-    console.log('got requests', { requests });
     this.ngRedux.dispatch(this.setRequests(requests));
   }
 
