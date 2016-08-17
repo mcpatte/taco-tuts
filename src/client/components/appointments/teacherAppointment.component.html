@@ -1,0 +1,45 @@
+
+
+<button class="btn btn-default"
+        (click)="getAppointments(); apptListOpen = !apptListOpen">Get Appointments</button>
+<div *ngIf="apptListOpen === true" class="container">
+    <div class="appointment-list col-xs-5" >
+    <h1>Confirmed Appointments</h1>
+        <div class="filtered" *ngIf="filter === true">
+            <div class="appointments"  *ngFor="let appointment of appointments | filterdate:inputDate | confirmedTeacher:true">
+                    <h3>Subject: {{ appointment.name }}</h3>
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Student: {{ appointment.username }}</p>
+                    <button class="btn btn-default" (click)="removeAppt(appointment.id)">Remove</button>
+            </div>
+        </div>
+        <div class="showAll" *ngIf="filter === false">
+            <div class="appointments"  *ngFor="let appointment of appointments | confirmedTeacher:true">
+                    <h3>Subject: {{ appointment.name }}</h3>
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Student: {{ appointment.username }}</p>
+                    <button class="btn btn-default" (click)="removeAppt(appointment.id)">Remove</button>
+            </div>
+        </div>
+        <h1>Appointment Requests</h1>
+        <div class="showAll">
+            <div class="appointments"  *ngFor="let appointment of appointments | confirmedTeacher:false">
+                    <h3>Subject: {{ appointment.name }}</h3>
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Student: {{ appointment.username }}</p>
+                    <button class="btn btn-default" (click)="confirmAppt(appointment.id); getAppointments()">Confirm</button>
+                    <button class="btn btn-default" (click)="removeAppt(appointment.id)">Remove</button>
+            </div>
+        </div>
+    </div>
+     <div class="date-filter col-xs-5"> 
+            <input type="date" [(ngModel)]="inputDate">
+            <button *ngIf="filter === true" (click)="filter = false">Show All Appointments</button>
+            <button *ngIf="filter === false" (click)="filter = true">Filter by Date</button>
+    </div>
+</div>
+
+
