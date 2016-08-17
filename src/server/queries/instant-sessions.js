@@ -21,7 +21,6 @@ function requestInstantSession(req, res, next) {
 
 function getStudentRequests(req, res, next) {
   var authID = req.params.authID;
-  console.log('whooops')
   db.any(`SELECT * FROM instantSessionRequests AS i
       INNER JOIN subjects AS s ON i.subjectID = s.id
       WHERE i.studentAuthId=$1`, [authID])

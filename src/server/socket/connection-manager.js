@@ -50,12 +50,12 @@ ConnectionManager.prototype.onSessionMessage = function(data) {
 
 ConnectionManager.prototype.syncTeacherSessionRequests = function(teacherID) {
   var socket = this.connections[teacherID]
-  if (socket) socket.emit('session-requests-teacher-sync');
+  if (socket) socket.emit('session-requests-teacher-sync', teacherID);
 };
 
 ConnectionManager.prototype.syncStudentSessionRequests = function(studentID) {
   var socket = this.connections[studentID]
-  if (socket) socket.emit('session-requests-student-sync');
+  if (socket) socket.emit('session-requests-student-sync', studentID);
 };
 
 module.exports = ConnectionManager;
