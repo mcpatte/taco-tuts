@@ -39,8 +39,6 @@ import { TeacherActions } from '../actions';
 
 export class AppComponent {
 
-  private initialized: boolean = false;
-
   constructor(
     private auth: Auth,
     public router: Router,
