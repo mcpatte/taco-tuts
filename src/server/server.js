@@ -1,7 +1,6 @@
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
-//********** USES NEW QUERIES **********//
 var db = require('./queries/exports');
 var path = require('path');
 
@@ -49,6 +48,7 @@ app.post('/api/teaching/:authID', db.insertTeacher);
 app.post('/api/available/:authID', db.setAvailability);
 app.post('/api/sessions', db.addAppointment); 
 app.post('/api/sessions/:sessionid', db.addSessionsToUsers);
+app.post('/api/advanced-search', db.advancedSearch)
 app.put('/api/users/:authID', db.updateUser);
 app.delete('/api/users/:authID', db.removeUser);
 app.delete('/api/subject/:id', db.removeSubject);

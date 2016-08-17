@@ -40,7 +40,7 @@ export class SocketService {
       this.sessionActions.addMessageDispatch(data);
     });
 
-    this.onRequestedSession((obj) => console.log('woop', obj))
+    this.onRequestedSession((obj) => console.log('woop', obj));
   }
 
   getListener(event) {

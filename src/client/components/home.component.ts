@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     this.getUsers();
     this.getTeachers();
   };
-  
+
   getUsers() {
     this.homeService.getUsers()
       .subscribe(

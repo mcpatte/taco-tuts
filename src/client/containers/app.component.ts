@@ -39,8 +39,6 @@ import { TeacherActions } from '../actions';
 
 export class AppComponent {
 
-  private initialized: boolean = false;
-
   constructor(
     private auth: Auth,
     public router: Router,
@@ -69,7 +67,7 @@ export class AppComponent {
     this.setProfile();
   }
 
-    setProfile() {
+  setProfile() {
     if (this.auth.isAuthenticated()) {
       // this.initialized = true;
       if (this.getID().indexOf('google') !== -1) {
