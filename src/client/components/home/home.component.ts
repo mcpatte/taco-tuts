@@ -6,12 +6,12 @@ import { HomeService } from '../../services/home.service';
 import { UserService } from '../../services/user.service';
 import { LoginActions, SessionRequestActions } from '../../actions';
 import { SocketService } from '../../services/socket.service';
-import { Button } from 'primeng/primeng';
+import { Button, DataList } from 'primeng/primeng';
 
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService ],
-  directives: [ Button ],
+  directives: [ Button, DataList ],
   template: require('./home.template.html')
 })
 export class HomeComponent implements OnInit {
