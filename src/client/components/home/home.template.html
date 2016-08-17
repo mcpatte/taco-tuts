@@ -1,6 +1,7 @@
 <h3>Filter teachers by subject</h3>
-  <button pButton type="button" (click)="getTeachers()" label="Click"></button>
-  <table>
+  <button pButton type="button" (click)="getTeachers()" label="Show All Teachers"></button>
+  <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
+  <!--<table>
     <tr>
     Subjects:
         <td *ngFor="let subject of subjects">
@@ -8,7 +9,7 @@
           </button>
         </td>
     </tr>
-  </table>
+  </table>-->
   <h4>Teachers</h4>
   <p-dataList [value]="teachers">
     <template let-teacher>

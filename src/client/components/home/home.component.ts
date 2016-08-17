@@ -7,11 +7,12 @@ import { UserService } from '../../services/user.service';
 import { LoginActions, SessionRequestActions } from '../../actions';
 import { SocketService } from '../../services/socket.service';
 import { Button, DataList } from 'primeng/primeng';
+import { TeacherSearchComponent } from './teacherSearch.component.ts';
 
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService ],
-  directives: [ Button, DataList ],
+  directives: [ Button, DataList, TeacherSearchComponent ],
   template: require('./home.template.html')
 })
 export class HomeComponent implements OnInit {
@@ -38,6 +39,15 @@ export class HomeComponent implements OnInit {
     this.getTeachers();
   };
 
+  getSubjectIDByName(name){
+    for(let i = 0; i < this.subjects.length; i++) {
+      let subject = this.subjects[i];
+      if(subject.name === name) {
+        return subject.id;
+      }
+    }
+  }
+
   getUsers() {
     this.homeService.getUsers()
       .subscribe(
@@ -53,12 +63,10 @@ export class HomeComponent implements OnInit {
       );
   }
   getTeaching(subjectID) {
-    console.log(subjectID);
     this.homeService.getTeaching(subjectID)
       .subscribe(
         data => {
           this.teachers = data;
-          console.log(data);
         },
         error =>  this.errorMessage = <any>error
       );
