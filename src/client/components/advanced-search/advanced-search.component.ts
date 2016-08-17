@@ -6,15 +6,23 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
 @Component({
   selector: 'advanced-search',
   providers: [ AdvancedSearchService ],
-  template: require('./advanced-search.template.html')
+  template: require('./advanced-search.template.html'),
+  styles: [`
+    .result {
+      cursor: pointer;
+    }
+  `]
 })
 export class AdvancedSearchComponent {
+
+  private results = [];
+  private clicked = false;
 
   private userParams: Object = {
     name: null,
     subject: null,
     rating: null,
-    currentlyAvailable: null
+    currentlyAvailable: false
   };
 
   constructor(
@@ -23,11 +31,23 @@ export class AdvancedSearchComponent {
     ) { }
     
   search(userParams: Object) {
-    console.log('search clicked with ', userParams);
+    this.clicked = true;
+    userParams['currentlyAvailable'] = userParams['currentlyAvailable'] || null;
     this.advSearch.advancedSearch(userParams)
-
+      .subscribe(
+        response => {
+          this.results = response;
+        }
+      )
   }
 
-  get diagnostic() { return JSON.stringify(this.userParams); }   
+  chooseTeacher(teacher) {
+    console.log("You chose ", teacher);
+  }
+
+  noResults() {
+    return this.clicked && !this.results.length;
+  }
+
 }
 
