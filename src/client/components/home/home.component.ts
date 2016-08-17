@@ -4,13 +4,13 @@ import { IAppState } from '../../store/index';
 import { Auth } from '../../services/auth.service';
 import { HomeService } from '../../services/home.service';
 import { UserService } from '../../services/user.service';
-import { LoginActions } from '../../actions/login.actions';
+import { LoginActions, SessionRequestActions } from '../../actions';
 import { SocketService } from '../../services/socket.service';
 import { Button } from 'primeng/primeng';
 
 @Component({
   selector: 'home',
-  providers: [ HomeService, LoginActions, UserService],
+  providers: [ HomeService, LoginActions, UserService ],
   directives: [ Button ],
   template: require('./home.template.html')
 })
@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     private ngRedux: NgRedux<IAppState>,
     private homeService: HomeService,
     private loginActions: LoginActions,
+    private sessionRequestActions: SessionRequestActions,
     private socket: SocketService
   ) {}
 
@@ -65,13 +66,20 @@ export class HomeComponent implements OnInit {
 
   requestSession(teacher) {
     const teacherID = teacher.authid;
+    const studentID = this.ngRedux.getState().login.userData.authid;
 
     const student = {
       // TODO: replace with method on auth service
-      userID: this.ngRedux.getState().login.userData.authid,
+      userID: studentID,
       name: 'harambe'
     };
-    this.socket.requestSession(teacherID, student);
+
+    this.sessionRequestActions.addRequestDispatch(
+      studentID,
+      teacherID,
+      2
+    ).subscribe(data => console.log('WOOOOO', data))
+    // this.socket.requestSession(teacherID, student);
   }
 
   getTeachers() {

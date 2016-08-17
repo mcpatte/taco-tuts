@@ -16,11 +16,11 @@ export class SessionRequestActions {
     private http: Http
   ) {}
 
-  addRequestDispatch(studentAuthID, teacherAuthID, subjectID) {
-    const body = { studentAuthID, teacherAuthID, subjectID };
+  addRequestDispatch(studentID, teacherID, subjectID) {
+    const body = { studentID, teacherID, subjectID };
 
     return this.http.post('/api/instantsessions/', body)
-      .do(this.syncStudentRequestsDispatch);
+      .do(() => this.syncStudentRequestsDispatch(studentID));
   }
 
   addRequest(request) {
@@ -30,10 +30,10 @@ export class SessionRequestActions {
     };
   }
 
-  syncStudentRequestsDispatch() {
-    const authid = this.ngRedux.getState().login.userData.authid;
+  syncStudentRequestsDispatch(authid) {
     return this.http.get('/api/instantsessions/student/' + authid)
-      .do(requests => this.setRequestsDispatch(requests));
+      .map(res => res.json() || {})
+      .subscribe(requests => this.setRequestsDispatch(requests));
   }
 
   setRequestsDispatch(requests) {
