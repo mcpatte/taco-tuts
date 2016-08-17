@@ -1,7 +1,7 @@
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/do';
 
 export const SESSION_REQUEST_ACTIONS = {
@@ -22,10 +22,8 @@ export class SessionRequestActions {
       .do(() => this.syncStudentRequestsDispatch(studentID));
   }
 
-  cancelRequestDispatch(studentID, teacherID, subjectID) {
-    const body = { studentID, teacherID, subjectID };
-
-    return this.http.delete('/api/instantsessions', body)
+  cancelRequestDispatch(studentID, teacherID) {
+    return this.http.delete(`/api/instantsessions/${studentID}/${teacherID}`)
       .do(() => this.syncStudentRequestsDispatch(studentID));
   }
 

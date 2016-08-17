@@ -38,13 +38,12 @@ function getTeacherRequests(req, res, next) {
 
 // cancel one request identified by `req.body`
 function cancelStudentRequest(req, res, next) {
-  var studentID = req.body.studentID;
-  var teacherID = req.body.teacherID;
-  var subjectID = req.body.subjectID;
+  var studentID = req.params.studentID;
+  var teacherID = req.params.teacherID;
 
   db.any(`DELETE FROM instantSessionRequests AS i
-      WHERE i.studentAuthID=$1 AND i.teacherAuthID=$2 AND i.subjectID=$3
-      RETURNING *`, [studentID, teacherID, subjectID])
+      WHERE i.studentAuthID=$1 AND i.teacherAuthID=$2
+      RETURNING *`, [studentID, teacherID])
     .then(respondWithData(res, 'Cancelled instant session request'))
     .catch(catchError(next));
 }

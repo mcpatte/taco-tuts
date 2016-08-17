@@ -56,7 +56,7 @@ app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
 app.get('/api/sessions/:id', db.getAppointmentsByUser);
 app.get('/api/sessions/tutor/:sessionid', db.getAppointmentTutor);
 app.post('/api/instantsessions', db.requestInstantSession);
-app.delete('/api/instantsessions', db.cancelStudentRequest);
+app.delete('/api/instantsessions/:studentID/:teacherID', db.cancelStudentRequest);
 app.delete('/api/instantsessions/:authID', db.cancelStudentRequests);
 app.get('/api/instantsessions/student/:authID', db.getStudentRequests);
 app.get('/api/instantsessions/teacher/:authID', db.getTeacherRequests);
