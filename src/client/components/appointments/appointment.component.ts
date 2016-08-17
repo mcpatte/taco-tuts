@@ -80,7 +80,7 @@ export class AppointmentComponent {
 
     getAppointments(){
         console.log("get appointments called with student id", this.studentid)
-        this.appointmentService.getAppointmentsByUser(this.studentid)
+        this.appointmentService.getAppointmentsByStudent(this.studentid)
             .subscribe(data => this.appointments = data);
     }
     
