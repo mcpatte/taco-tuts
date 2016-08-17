@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
       studentID,
       teacherID,
       2
-    ).subscribe(data => console.log('WOOOOO', data))
+    );
     // this.socket.requestSession(teacherID, student);
   }
 

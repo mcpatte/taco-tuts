@@ -19,12 +19,12 @@ export class SessionRequestActions {
     const body = { studentID, teacherID, subjectID };
 
     return this.http.post('/api/instantsessions', body)
-      .do(() => this.syncStudentRequestsDispatch(studentID));
+      .subscribe(() => this.syncStudentRequestsDispatch(studentID));
   }
 
   cancelRequestDispatch(studentID, teacherID) {
     return this.http.delete(`/api/instantsessions/${studentID}/${teacherID}`)
-      .do(() => this.syncStudentRequestsDispatch(studentID));
+      .subscribe(() => this.syncStudentRequestsDispatch(studentID));
   }
 
   cancelAllRequestsDispatch(studentID) {
