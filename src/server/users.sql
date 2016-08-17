@@ -72,6 +72,9 @@ INSERT INTO teachers (isAvailable, favorite, rating)
 INSERT INTO teachers (isAvailable, favorite, rating)
   VALUES (true, false, 5);
 
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 5);
+
 INSERT INTO users (email, authid, username, name, teacher, teacherID)
   VALUES ('hbp@hotwarts.com', 'auth0|57b27ddd71c16ce874b94fcb', 'halfbloodprince', 'Severus Snape', true, 1);
 
@@ -96,8 +99,8 @@ INSERT INTO users (email, authid, username, name, teacher, teacherID)
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('deathwatcher@crazy.com', 'auth0|57b2805971c16ce874b94fe0', 'crazy person', 'Luna Lovegood', false);
 
-INSERT INTO users (email, authid, username, name, teacher)
-  VALUES ('e@e.com', 'auth0|57b2818451f9235564a6f698', 'halfbloodprince', 'Severus Snape', true);
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('e@e.com', 'auth0|57b2818451f9235564a6f698', 'halfbloodprince', 'Severus Snape', true, 6);
   
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('q@q.com', 'auth0|57b2817951f9235564a6f697', 'chosen one', 'Harry Potter', false);
