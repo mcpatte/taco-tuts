@@ -19,7 +19,7 @@ function learningSubject(req, res, next){
 
 function findSubjectsByUser(req, res, next){
     var userID = req.params.id;
-  db.any('select users.name, learning.subjectID, subjects.name from users inner join learning on users.id = learning.userID inner join subjects on learning.subjectID = subjects.id WHERE users.authid = $1', [userID])
+  db.any('select users.name, learning.subjectID, learning.progress, subjects.name from users inner join learning on users.id = learning.userID inner join subjects on learning.subjectID = subjects.id WHERE users.authid = $1', [userID])
     .then(respondWithData(res, `Retrieved all subjects that ${req.body.name} wants to learn`))
     .catch(catchError(next));
 };
