@@ -7,11 +7,15 @@
     <div class="subject" 
         *ngFor="let subject of subjects; let i = index" >
         <h3>Subject: {{ subject.name }}</h3>
-        <p>Progress: {{subject.progress}}%</p>
-        <progress value={{subject.progress}} max="100"></progress>
+        <h4>Progress:</h4>
+        <!--<progress value={{subject.progress}} max="100"></progress>-->
+        <p-progressBar value={{subject.progress}} ></p-progressBar>
        
-       
-        <div>
+        <div> 
+            <button class="btn btn-default" 
+                    (click)="levelUp(subject.subjectid, subject.userid, subject.progress)"
+            >Level Up
+            </button>
             <button class="btn btn-default" 
                     (click)="deleteStudentSubject(subject.subjectid, i)"
             >Delete

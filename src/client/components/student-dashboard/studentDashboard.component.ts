@@ -7,12 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import { ProfileComponent } from '../profile/profile.component'; 
 import { AppointmentComponent } from '../appointments/appointment.component';
 import { SubjectSearchComponent } from '../autocomplete/autocomplete.component';
+import { ProgressBar } from 'primeng/primeng';
 
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
-  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent],
+  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, ProgressBar],
   styles: [`
     .subject {
       background-color: lightblue;
@@ -64,6 +65,25 @@ export class StudentDashboardComponent {
         .subscribe(
           response => console.log(response)
         );
+    }
+
+    levelUp(subjectid, userid, progress) {
+      let model = {
+        userID: userid,
+        subjectID: subjectid
+      }
+      if(progress <= 90) {  
+        this.studentDashboardService.levelUp(model)
+          .subscribe(
+            response => {
+               this.getSubjectByStudent()
+               console.log(response)
+            }
+          )
+      }  else {
+        alert("You have completed this subject");
+      }
+      
     }
 
 
