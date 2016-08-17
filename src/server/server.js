@@ -18,7 +18,7 @@ var app = express();
 var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
-require('./socket/socket')(io);
+var connectionManager = require('./socket/socket')(io);
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../dist'));
@@ -26,6 +26,12 @@ app.use(express.static(__dirname + '/../dist'));
 app.use(function(req, res, next){
   console.log(`${req.method} ${req.url}`);
   if (Object.keys(req.body).length) console.log(`data: ${JSON.stringify(req.body)}`)
+  next();
+});
+
+// add a reference to the socket connection manager to each request
+app.use(function(req, res, next) {
+  req.connectionManager = connectionManager;
   next();
 });
 
