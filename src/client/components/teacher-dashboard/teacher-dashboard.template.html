@@ -1,9 +1,12 @@
-<h3>
-  <div>Teacher dashboard</div>
+  <div class='container'>
+    <h3>Welcome to the Teacher Dashboard!</h3>
   <div>
-    <button (click)="actions.toggleAvailabilityDispatch()">
-      available: {{ available$ | async }}
-    </button>
+    <center>
+      <h4>Are you available now?</h4>
+      <button class ='toggle btn' [class.available]="availability" [class.notAvailable]="!availability" (click)="actions.toggleAvailabilityDispatch(); isAvailable()">
+        {{ available$ | async }}
+      </button>
+    </center>
   </div>
   <div>
     <ul *ngFor="let session of sessions$ | async">
@@ -15,4 +18,4 @@
       </button>
     </ul>
   </div>
-</h3>
+</div>
