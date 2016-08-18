@@ -7,16 +7,15 @@ import { Observable } from 'rxjs/Observable';
 import { ProfileComponent } from '../profile/profile.component'; 
 import { AppointmentComponent } from '../appointments/appointment.component';
 import { SubjectSearchComponent } from '../autocomplete/autocomplete.component';
-import { ProgressBar } from 'primeng/primeng';
+import { ProgressBar, TabView, TabPanel, InputText, Button, Calendar } from 'primeng/primeng';
 
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
-  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, ProgressBar],
+  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, ProgressBar, TabView, TabPanel, InputText, Button, Calendar],
   styles: [`
     .subject {
-      background-color: lightblue;
       width: 40%;
       margin: 5px;
       padding: 5px;

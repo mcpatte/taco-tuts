@@ -1,5 +1,5 @@
 <h1>Student Dashboard</h1>
-    <button type="submit"   
+    <!--<button type="submit"   
         class="btn btn-default btn-primary" 
         (click)="getSubjectByStudent()"
         >List subjects
@@ -8,7 +8,7 @@
         *ngFor="let subject of subjects; let i = index" >
         <h3>Subject: {{ subject.name }}</h3>
         <h4>Progress:</h4>
-        <!--<progress value={{subject.progress}} max="100"></progress>-->
+        <progress value={{subject.progress}} max="100"></progress>
         <p-progressBar value={{subject.progress}} ></p-progressBar>
        
         <div> 
@@ -21,14 +21,47 @@
             >Delete
             </button>
         </div>
-    </div>
+    </div>-->
+
+<p-tabView>
+    <p-tabPanel header="List Subjects">
+        <div class="subject" 
+            *ngFor="let subject of subjects; let i = index" >
+            <h3>Subject: {{ subject.name }}</h3>
+            <h4>Progress:</h4>
+            <!--<progress value={{subject.progress}} max="100"></progress>-->
+            <p-progressBar value={{subject.progress}} ></p-progressBar>
+        
+            <div> 
+                <button pButton type="button" 
+                        (click)="levelUp(subject.subjectid, subject.userid, subject.progress)"
+                        label="Level Up"
+                >
+                </button>
+                <button pButton type="button" 
+                        (click)="deleteStudentSubject(subject.subjectid, i)"
+                        label="Delete"
+                >
+                </button>
+            </div>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Add Subjects">
+        <subjectSearch></subjectSearch>
+    </p-tabPanel>
+    <p-tabPanel header="Update Profile">
+        <profile></profile>
+    </p-tabPanel>
+     <p-tabPanel header="Appointments">
+        <appointment></appointment>
+    </p-tabPanel>
+    
+</p-tabView>
 
 
+<!--<subjectSearch></subjectSearch>-->
 
+<!--<profile></profile>
 
-<subjectSearch></subjectSearch>
-
-<profile></profile>
-
-<appointment></appointment>
+<appointment></appointment>-->
 
