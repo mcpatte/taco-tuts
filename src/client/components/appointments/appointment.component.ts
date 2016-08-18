@@ -4,11 +4,12 @@ import { IAppState } from '../../store/index';
 import { AppointmentService  } from '../../services/appointment.service';
 import { FilterDatePipe } from './pipes/appointment.date-pipe';
 import { ConfirmedStudentPipe } from './pipes/appointment.confirmedStudent-pipe';
-
+import {  InputText, Button, DataList } from 'primeng/primeng';
 
 @Component({
     selector: 'appointment',
     providers: [ AppointmentService ],
+    directives: [InputText, Button, DataList ],
     pipes: [ FilterDatePipe, ConfirmedStudentPipe ],
     template: require('./appointment.component.html')
 })    
@@ -27,9 +28,7 @@ export class AppointmentComponent {
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
-        private appointmentService: AppointmentService) { 
-
-        }
+        private appointmentService: AppointmentService) {}
 
 
      ngOnInit() {
@@ -42,7 +41,7 @@ export class AppointmentComponent {
         this.appointmentService.getSubjects()
             .subscribe(
                 data => this.subjects = data
-            );
+            )
     }
 
 
