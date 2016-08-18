@@ -12,6 +12,7 @@ import {
   LoginActions,
   SessionRequestActions
 } from './actions';
+import { StateGetterService } from './services/state-getter.service';
 
 bootstrap(AppComponent, [
   appRouterProviders,
@@ -20,5 +21,6 @@ bootstrap(AppComponent, [
   AUTH_PROVIDERS,
   SessionActions,
   LoginActions,
-  SessionRequestActions
+  SessionRequestActions,
+  StateGetterService
 ]);
