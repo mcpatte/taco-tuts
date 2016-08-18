@@ -27,7 +27,6 @@ import { TeacherActions, LoginActions } from '../actions';
   ],
   template: `
   <div class='container-fluid'>
-    <h4>Welcome to taco tuts</h4>
     <menu-bar></menu-bar>
     <router-outlet></router-outlet>
   </div>

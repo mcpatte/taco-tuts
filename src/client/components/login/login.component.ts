@@ -18,6 +18,31 @@ import { UserService }    from '../../services/user.service';
     a {
       color: white;
     }
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+      text-align: center;    
+    }
+    h4 {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;   
+    }
+    label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+    }
+    .sign-up a{
+      color: #ff9f4f;
+    }
+
   `],
   template: require('./login.template.html')
 })
