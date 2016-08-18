@@ -4,7 +4,7 @@ import { Router }          from '@angular/router';
 import { NgRedux }         from 'ng2-redux';
 import { AUTH_VARS }       from '../auth0.variables.ts';
 import { Http, Response }  from '@angular/http';
-import { Observable }      from 'rxjs/Rx';
+import { Observable, Subject }      from 'rxjs/Rx';
 import { LoginActions }    from '../actions/login.actions';
 
 
@@ -31,29 +31,33 @@ export class Auth {
     AUTH0_DOMAIN
   );
 
+  public userData$: Subject<any>;
+
   constructor(
     private router: Router,
     private ngRedux: NgRedux<any>,
     private http: Http,
     private loginActions: LoginActions
   ) {
-      var result = this.auth0.parseHash(window.location.hash);
-      if (result && result.idToken) {
-        // this is the user's specific id
-        let id_token = result.idToken;
-        //fetch auth0 profile calls auth0, returns a profile object
-        this.fetchAuth0Profile(id_token, function(profile){
-          //format the profile for use in the DB
-          let userProfile = {
-            email : profile.email,
-            authid: profile.user_id
-          };
-          //set profile checks if the user is in the db
-          this.setProfile(userProfile.authid, userProfile);
-        }.bind(this));
-      } else if (result && result.error) {
-        alert('error: ' + result.error);
-      }
+    this.userData$ = new Subject();
+
+    var result = this.auth0.parseHash(window.location.hash);
+    if (result && result.idToken) {
+      // this is the user's specific id
+      let id_token = result.idToken;
+      //fetch auth0 profile calls auth0, returns a profile object
+      this.fetchAuth0Profile(id_token, function(profile){
+        //format the profile for use in the DB
+        let userProfile = {
+          email : profile.email,
+          authid: profile.user_id
+        };
+        //set profile checks if the user is in the db
+        this.setProfile(userProfile.authid, userProfile);
+      }.bind(this));
+    } else if (result && result.error) {
+      alert('error: ' + result.error);
+    }
   }
 
   public fetchAuth0Profile (id_token: string, callback: Function) {
@@ -80,7 +84,7 @@ export class Auth {
                     this.http.put('/api/users/' + authID, profile)
                       .subscribe(
                         response => {
-                          this.loginActions.setDataDispatch(profile);
+                          this.onReceiveUserData(profile);
                         }
                       );
                   }
@@ -94,7 +98,7 @@ export class Auth {
                   this.fetchDBProfile(authID)
                     .subscribe (
                       response => {
-                        this.loginActions.setDataDispatch(response[0]);
+                        this.onReceiveUserData(response[0]);
                       }
                     );
                 }
@@ -102,6 +106,10 @@ export class Auth {
           }
         }
       );
+  }
+
+  public onReceiveUserData(userData) {
+    this.userData$.next(userData);
   }
 
   public getUserFromDB(authID: string) {
