@@ -1,3 +1,21 @@
-<h1>
-  The Session Is Over
-</h1>
+<div>
+  <div><h1>Please rate your session:</h1></div>
+  <div>
+    <span class="rating"><input type="radio" name="editList" value="1">1</span>
+    <span class="rating"><input type="radio" name="editList" value="2">2</span>
+    <span class="rating"><input type="radio" name="editList" value="3">3</span>
+    <span class="rating"><input type="radio" name="editList" value="4">4</span>
+    <span class="rating"><input type="radio" name="editList" value="5">5</span>
+  </div>
+  <br>
+  <div>
+    <textarea
+      class="review"
+      placeholder="Leave a comment for your tutor!"
+    ></textarea>
+  </div>
+  <br>
+  <div>
+    <button (click)="submitReview()">Submit</button>
+  </div>
+</div>
