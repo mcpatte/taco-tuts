@@ -27,4 +27,8 @@ export class StateGetterService {
   public getSessionID() {
     return this.readState(['session', 'sessionID']);
   }
+
+  public getAvailability() {
+    return this.readState(['teacher', 'available']);
+  }
 }
