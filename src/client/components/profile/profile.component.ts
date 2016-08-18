@@ -5,10 +5,12 @@ import { ProfileService }   from '../../services/profile.service';
 import { Auth }             from '../../services/auth.service';
 import { LoginActions }     from '../../actions/login.actions';
 import { UserService }      from '../../services/user.service';
+import { InputText, Button, Checkbox } from 'primeng/primeng';
 
 
 @Component({
   selector: 'profile',
+  directives: [ InputText, Button ],
   providers: [ ProfileService, UserService ],
   template: require('./profile.component.html')
 })
