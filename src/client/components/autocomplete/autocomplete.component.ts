@@ -4,12 +4,13 @@ import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService } from '../../services/appointment.service';
 import { StudentDashboardService } from '../../services/studentDashboard.service';
-
+import { InputText, Button } from 'primeng/primeng';
 
 
 
 @Component({
     selector: 'subjectSearch',
+    directives: [InputText, Button],
     providers: [ AppointmentService, StudentDashboardService ],
     styles: [`
         .filter-input: {
@@ -19,8 +20,8 @@ import { StudentDashboardService } from '../../services/studentDashboard.service
     template: `
         <div class="container" >
             <div class="input-field col s12">
-              <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=filter() size="35">
-              <button class="btn btn-default" (click)="addSubject(query)">Add Subject</button>
+              <input id="subject" type="text" pInputText class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=filter() size="35">
+              <button pButton label="Add Subject" (click)="addSubject(query)"></button>
             </div>
             <div class="suggestions" *ngIf="filteredList.length > 0">
                 <ul *ngFor="#item of filteredList" >
