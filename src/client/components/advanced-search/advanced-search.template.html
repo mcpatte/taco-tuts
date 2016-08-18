@@ -1,5 +1,5 @@
 <div class = "container">
-    <h1>Advanced Search</h1>
+    <h1 class='advanced-search'>Advanced Search</h1>
     <form> 
         <div class="form-group">
             <label for="name">Teacher Name</label>
@@ -44,7 +44,7 @@
         <div *ngIf="results.length">
             <ul *ngFor="#teacher of results" >
                 <div class = 'result' (click)="chooseTeacher(teacher)">
-                    <h3>{{teacher.name}}</h3>
+                    <h3 class='name'>{{teacher.name}}</h3>
                     <h5 *ngIf="!!teacher.rating">Rating: {{teacher.rating}}</h5>
                     <h5 *ngIf="!teacher.rating">Rating: no ratings yet!</h5>
                     <h5>Email: {{teacher.email}}</h5>
