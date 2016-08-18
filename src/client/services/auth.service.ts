@@ -65,13 +65,17 @@ export class Auth {
     const redirectHash = this.auth0.parseHash(window.location.hash);
     const redirectIdToken = redirectHash && redirectHash.idToken;
 
-    return storedIdToken || redirectIdToken;
+    // prioritize the url hash token over local storage, since the
+    // url one will always be right, while the local one may be expired
+    return redirectIdToken || storedIdToken;
   }
 
   public fetchAuth0Profile (id_token: string, callback: Function) {
-    return this.lock.getProfile(id_token, function(error, profile) {
+    return this.lock.getProfile(id_token, (error, profile) => {
       if (error) {
-        return alert('asdfasdfasdf' + error);
+        // goofy hack to remove expired `id_token` from local storage
+        this.logout();
+        return console.log(error);
       }
 
       callback(profile);
