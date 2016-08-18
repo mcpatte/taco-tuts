@@ -114,4 +114,14 @@ export class HomeComponent implements OnInit {
         error => this.errorMessage = <any>error
       );
   }
+
+  teacherAvailibility(userID) {
+    for(let i = 0; i < this.teachers.length; i++) {
+      let teacher = this.teachers[i];
+      if(teacher.id === userID && teacher.isavailable) {
+          return 'Available now!';
+      }
+    }
+  }
+
 }

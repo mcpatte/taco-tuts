@@ -13,7 +13,7 @@
   <h4>Teachers</h4>
   <p-dataList [value]="teachers">
     <template let-teacher>
-        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i></div>
                 <div class="ui-grid-col-9">
@@ -36,8 +36,8 @@
                             <div class="ui-grid-col-10">{{teacher.rating}}</div>
                         </div>
                         <div class="ui-grid-row">
-                            <div class="ui-grid-col-2">Availability: </div>
-                            <div class="ui-grid-col-10">{{teacher.isavailible}}</div>
+                            <div class="ui-grid-col-2">Availability:</div>
+                            <div class="ui-grid-col-2">{{teacherAvailibility(teacher.id)}}</div>
                         </div>
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">Email: </div>

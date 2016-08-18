@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService } from '../../services/appointment.service';
@@ -31,76 +31,75 @@ import { Button } from 'primeng/primeng';
         `
 })
 
-export class TeacherSearchComponent {
-    public subjects = [];
-    public filteredList = [];
-    private studentid: number; 
-    private fullSubjects = [];
+export class TeacherSearchComponent implements OnInit {
+  public subjects = [];
+  public filteredList = [];
+  private studentid: number;
+  private fullSubjects = [];
 
-@Input()  query: string;
-@Output() onClicked = new EventEmitter<string>();
+  @Input() query: string;
+  @Output() onClicked = new EventEmitter<string>();
   go(stuff: string) {
-    console.log(stuff);
-    this.onClicked.emit(stuff);
+      console.log(stuff);
+      this.onClicked.emit(stuff);
   }
 
-constructor(
-     private ngRedux: NgRedux<IAppState>,    
-     private appointmentService: AppointmentService,
-     private studentDashboardServices: StudentDashboardService
-) {}
+  constructor(
+      private ngRedux: NgRedux<IAppState>,
+      private appointmentService: AppointmentService,
+      private studentDashboardServices: StudentDashboardService
+  ) {}
 
- ngOnInit() {
-     this.getSubjects()
-     this.getStudentID()
- }
+  ngOnInit() {
+      this.getSubjects();
+      this.getStudentID();
+  }
 
- getSubjects() {
+  getSubjects() {
         this.appointmentService.getSubjects()
             .subscribe(
-                data => 
+                data =>
                 data.forEach(el => {
                     this.fullSubjects.push(el)
                     this.subjects.push(el.name)
-                })        
-            )
+                })
+            );
     }
 
-addSubject(subject) {
+  addSubject(subject) {
     let subjectObj = this.fullSubjects.filter( (el) => { 
         return el.name === subject;
-    })
-   let model = {
-       userID: this.studentid,
-       subjectID: subjectObj[0].id
-   }
+    });
+    let model = {
+        userID: this.studentid,
+        subjectID: subjectObj[0].id
+    };
     this.studentDashboardServices.addSubjectForStudent(model)
         .subscribe(data => console.log(data))
-    
-}
-    
- filter() {
-    if (this.query !== ""){
+
+  }
+
+  filter() {
+    if (this.query !== '') {
         this.filteredList = this.subjects.filter(function(el){
             return el.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
         }.bind(this));
-    }else{
+    } else {
         this.filteredList = [];
     }
-}
+  }
 
-select(item){
+  select(item){
     this.query = item;
     this.filteredList = [];
-}
+  }
 
- getStudentID(){
-        let userData = this.ngRedux.getState().login['userData']
-        if(userData){
-          let authID = userData.authID;
-          this.appointmentService.getUserID(authID)
-            .subscribe( data => this.studentid = data[0].id);
-        }
-    }   
-
+  getStudentID() {
+    let userData = this.ngRedux.getState().login['userData'];
+    if(userData) {
+      let authID = userData.authID;
+      this.appointmentService.getUserID(authID)
+        .subscribe( data => this.studentid = data[0].id);
+    }
+  }
 }
