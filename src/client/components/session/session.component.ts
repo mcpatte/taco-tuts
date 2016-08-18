@@ -7,6 +7,7 @@ import { IMessageState } from '../../store/session.reducer';
 import { SessionActions } from '../../actions';
 import { SocketService } from '../../services/socket.service';
 import { StateGetterService } from '../../services/state-getter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'session',
@@ -22,11 +23,16 @@ export class SessionComponent {
     private ngRedux: NgRedux<IAppState>,
     private actions: SessionActions,
     private socket: SocketService,
-    private state: StateGetterService
+    private state: StateGetterService,
+    private router: Router
   ) {}
 
   isTeacher() {
     return this.state.getRole() === 'teacher';
+  }
+
+  endSession() {
+    this.router.navigate(['/session-end']);
   }
 
   onKeypress(e) {
