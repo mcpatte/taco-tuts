@@ -6,10 +6,13 @@ import { IAppState } from '../../store';
 import { IMessageState } from '../../store/session.reducer';
 import { SessionActions } from '../../actions';
 import { SocketService } from '../../services/socket.service';
+import { StateGetterService } from '../../services/state-getter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'session',
   directives: [SessionWidgetsComponent],
+  providers: [StateGetterService],
   template: require('./session.template.html')
 })
 export class SessionComponent {
@@ -19,28 +22,26 @@ export class SessionComponent {
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private actions: SessionActions,
-    private socket: SocketService
-  ) { }
-
-  getRole() {
-    return this.ngRedux.getState().session.role;
-  }
-
-  getSessionID() {
-    return this.ngRedux.getState().session.sessionID;
-  }
+    private socket: SocketService,
+    private state: StateGetterService,
+    private router: Router
+  ) {}
 
   isTeacher() {
-    return this.getRole() === 'teacher';
+    return this.state.getRole() === 'teacher';
+  }
+
+  endSession() {
+    this.router.navigate(['/session-end']);
   }
 
   onKeypress(e) {
     if (e.charCode === 13) {
       // use role as the `from` message property as placeholder
       this.socket.sendSessionMessage(
-        this.getSessionID(),
+        this.state.getSessionID(),
         e.target.value,
-        this.getRole()
+        this.state.getUserName()
       );
 
       e.target.value = '';

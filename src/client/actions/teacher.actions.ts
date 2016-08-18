@@ -1,6 +1,7 @@
 import { NgRedux } from 'ng2-redux';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { StateGetterService } from '../services/state-getter.service';
 
 export const TEACHER_ACTIONS = {
   TOGGLE_AVAILABILITY: 'TOGGLE_AVAILABILITY',
@@ -13,20 +14,19 @@ export class TeacherActions {
 
   constructor(
     private ngRedux: NgRedux<any>,
-    private http: Http
+    private http: Http,
+    private state: StateGetterService
   ) {}
 
   toggleAvailabilityDispatch() {
-    const {
-      login: { userID },
-      teacher: { available }
-    } = this.ngRedux.getState();
+    const authID = this.state.getAuthID();
+    const availability = this.state.getAvailability();
 
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
-    const body = JSON.stringify({ availability: !available });
+    const body = JSON.stringify({ availability: !availability });
 
-    this.http.post(this.availabilityUrl + userID, body, options)
+    this.http.post(this.availabilityUrl + authID, body, options)
       .subscribe(() => {
         this.ngRedux.dispatch(this.toggleAvailability());
       });
