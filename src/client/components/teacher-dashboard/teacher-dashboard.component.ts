@@ -45,12 +45,12 @@ export class TeacherDashboardComponent {
     'sessions'
   ]) sessions$: Observable<any[]>;
 
-  availability: boolean = false;
-  
+  private availability = this.isAvailable();
+
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private actions: TeacherActions,
-    private teacherSocket: TeacherSocketService
+    private teacherSocket: TeacherSocketService  
   ) { }
 
   acceptSession(session) {
