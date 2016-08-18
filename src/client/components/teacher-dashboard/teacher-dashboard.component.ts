@@ -45,7 +45,7 @@ export class TeacherDashboardComponent {
     'sessions'
   ]) sessions$: Observable<any[]>;
 
-  availability: boolean = false;
+  availability: boolean;
   
   constructor(
     private ngRedux: NgRedux<IAppState>,
