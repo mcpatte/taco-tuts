@@ -11,7 +11,7 @@ import { ConfigureStoreService } from '../services/configure-store.service.ts';
 import { Auth } from '../services/auth.service';
 import { SocketService } from '../services/socket.service';
 import { TeacherSocketService } from '../services/teacher-socket.service';
-import { TeacherActions } from '../actions';
+import { TeacherActions, LoginActions } from '../actions';
 
 @Component({
   selector: 'app',
@@ -35,7 +35,6 @@ import { TeacherActions } from '../actions';
 })
 
 export class AppComponent {
-
   constructor(
     private auth: Auth,
     public router: Router,
@@ -43,21 +42,16 @@ export class AppComponent {
     private devTool: DevToolsExtension,
     private configureStore: ConfigureStoreService,
     private socket: SocketService,
-    private teacherSocket: TeacherSocketService
+    private teacherSocket: TeacherSocketService,
+    private loginActions: LoginActions
   ) {
     configureStore.configure(ngRedux);
 
-    ////// vvvvvv this is just placeholder stuff
-    const userID = localStorage.getItem('authID');
+    auth.userData$.subscribe(this.onNewUserData.bind(this))
+  }
 
-    ngRedux.dispatch({
-      type: 'SET_USER_ID',
-      userID
-    });
-
-    socket.connect(userID);
-    teacherSocket.init();
-    ///// ^^^^^^ this is just placeholder stuff
+  onNewUserData(userData) {
+    this.loginActions.setDataDispatch(userData);
   }
 
   ngOnInit() {
