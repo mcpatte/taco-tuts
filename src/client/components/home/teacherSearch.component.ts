@@ -20,7 +20,7 @@ import { Button } from 'primeng/primeng';
         <div class="container" >
             <div class="input-field col s12">
               <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=filter() size="35">
-              <button class="btn btn-default" (click)="go(query)">Submit</button>
+              <button pButton class="btn btn-default" (click)="sendToParent(query)" label="Submit"></button>
             </div>
             <div class="suggestions" *ngIf="filteredList.length > 0">
                 <div *ngFor="#item of filteredList" >
@@ -36,12 +36,11 @@ export class TeacherSearchComponent implements OnInit {
   public filteredList = [];
   private studentid: number;
   private fullSubjects = [];
-
-  @Input() query: string;
-  @Output() onClicked = new EventEmitter<string>();
-  go(stuff: string) {
-      console.log(stuff);
-      this.onClicked.emit(stuff);
+@Input()  query: string;
+@Output() onClicked = new EventEmitter<string>();
+  sendToParent(stuff: string) {
+    console.log(stuff);
+    this.onClicked.emit(stuff);
   }
 
   constructor(

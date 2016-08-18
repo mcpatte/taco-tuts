@@ -6,23 +6,27 @@ import { HomeService } from '../../services/home.service';
 import { UserService } from '../../services/user.service';
 import { LoginActions, SessionRequestActions } from '../../actions';
 import { SocketService } from '../../services/socket.service';
-import { Button, DataList } from 'primeng/primeng';
+import { Button, DataList, Rating } from 'primeng/primeng';
 import { TeacherSearchComponent } from './teacherSearch.component.ts';
+import { AcStars, AcStar } from '../rating';
 
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService ],
-  directives: [ Button, DataList, TeacherSearchComponent ],
+  directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars, AcStar],
   template: require('./home.template.html')
 })
 export class HomeComponent implements OnInit {
   // Selected observables to test async pipe model.
   // Members to test subscribe model.
+  public val = '5';
   private users = [];
   private subjects = [];
   private errorMessage: string;
   private teachers = [];
-
+  private userParams: Object = {
+    rating: 0
+  };
   constructor(
     private userService: UserService,
     private auth: Auth,
