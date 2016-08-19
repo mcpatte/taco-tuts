@@ -32,9 +32,12 @@ CREATE TABLE subjects (
 
 CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
-  start TIMESTAMP, 
+  studentID integer references users(id) ON DELETE CASCADE, 
+  teacherID integer references users(id) ON DELETE CASCADE, 
+  start TIMESTAMP,
   ending TIMESTAMP,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID integer references subjects(id) ON DELETE CASCADE, 
+  confirmed BOOLEAN
 );
 
 CREATE TABLE instantSessionRequests (
@@ -44,15 +47,11 @@ CREATE TABLE instantSessionRequests (
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
-CREATE TABLE sessionsToUsers (
-  userID integer references users(id) ON DELETE CASCADE,
-  sessionID integer references sessions(id) ON DELETE CASCADE,
-  isTeacher BOOLEAN
-);
 
 CREATE TABLE learning (
   userID integer references users(id) ON DELETE CASCADE,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID integer references subjects(id) ON DELETE CASCADE,
+  progress integer default 0
 );
 
 CREATE TABLE teaching (
