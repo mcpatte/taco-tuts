@@ -12,7 +12,26 @@ import { InputText, Button, Checkbox } from 'primeng/primeng';
   selector: 'profile',
   directives: [ InputText, Button ],
   providers: [ ProfileService, UserService ],
-  template: require('./profile.component.html')
+  template: require('./profile.component.html'),
+  styles: [`
+    .profile {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+    }
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+    label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+      text-align: left;
+    }
+    `]
 })
 
 

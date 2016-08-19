@@ -1,11 +1,11 @@
-<button pButton
+<!--<button 
+        class="btn btn-default"
         label="Update Profile"
         *ngIf="isAuthenticated()"
         (click)="profileFormOpen = !profileFormOpen"
-        pButton
-        ></button>
+        >Update Profile</button>-->
 
-<div *ngIf="profileFormOpen === true" class="container">
+<div class="container profile">
     <h1>Update Profile</h1>
     <form> 
         <div class="form-group">
@@ -14,7 +14,6 @@
                 [(ngModel)] = "userData.name"
                 type="text"
                 class="form-control"
-                pInputText
             >
         </div>
            <div class="form-group">
@@ -23,7 +22,6 @@
                 [(ngModel)] = "userData.username"
                 type="text"
                 class="form-control"
-                pInputText
             >
         </div>
         <div class="form-group">
@@ -32,7 +30,6 @@
                 [(ngModel)] = "userData.email"
                 type="text"
                 class="form-control"
-                pInputText
             >
         </div>
         <div class="form-group">
@@ -43,23 +40,21 @@
                 type="checkbox" 
                 name="vehicle" 
                 value="true"
-                p-checkbox>
+               >
         </div>
         <button 
             *ngIf="isTeacher()"
             type="submit" 
             class="btn btn-default"
             (click)="updateUser({teacher: false}); profileFormOpen=false"
-            pButton
             label="Stop Teaching"
-            ></button>
+            >Stop Teaching</button>
 
         <button 
                 type="submit" 
                 class="btn btn-default"
                 (click)="updateUser(userData); profileFormOpen=false"
-                pButton
                 label="Update Profile"
-                ></button>
+                >Update Profile</button>
     </form>
 </div>
