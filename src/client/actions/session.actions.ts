@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 export const SESSION_ACTIONS = {
   ADD_MESSAGE: 'ADD_MESSAGE',
   SET_ROLE: 'SET_ROLE',
-  SET_SESSION_ID: 'SET_SESSION_ID'
+  SET_SESSION_ID: 'SET_SESSION_ID',
+  SET_SESSION_DATA: 'SET_SESSION_DATA'
 };
 
 @Injectable()
@@ -20,8 +21,11 @@ export class SessionActions {
     this.ngRedux.dispatch(this.setRole(role));
   }
 
-  setSessionIDDispatch(role) {
-    this.ngRedux.dispatch(this.setSessionID(role));
+  setSessionIDDispatch(sessionID) {
+    this.ngRedux.dispatch(this.setSessionID(sessionID));
+  }
+  setSessionDataDispatch(data) {
+    this.ngRedux.dispatch(this.setSessionData(data));
   }
 
   addMessage(message, from) {
@@ -43,6 +47,12 @@ export class SessionActions {
     return {
       type: SESSION_ACTIONS.SET_SESSION_ID,
       sessionID
+    };
+  }
+  setSessionData(data) {
+    return {
+      type: SESSION_ACTIONS.SET_SESSION_DATA,
+      data
     };
   }
 }
