@@ -20,9 +20,12 @@ import { Observable } from 'rxjs/Observable';
   template: require('./home.template.html'),
   styles: [`
     div {
-          margin: 0;
-          padding: 0;
-        }
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      margin: 25px 60px 75px;
+    }
     `]
 })
 export class HomeComponent implements OnInit {

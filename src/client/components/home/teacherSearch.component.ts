@@ -41,9 +41,7 @@ import { TeacherList } from '../../actions/teacherList.actions';
     template: `
         <br />
         <div class="container-fluid" >
-
             <input id="subject" type="text" class="validate filter-input" placeholder="Filter teachers by subject..." [(ngModel)]=query (keyup)=debounce()>
-
         </div>  	
         `
 })

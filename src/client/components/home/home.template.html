@@ -7,7 +7,7 @@
       </div>
     </div>
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5">
-    <template let-teacher>
+    <template let-teacher >
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i><img src="/assets/profilepics/{{teacher.username}}.jpg"></div>
@@ -29,7 +29,7 @@
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">Rating: </div>
                             <div class="ui-grid-col-10">
-                              <ac-stars [rating]="teacher.rating"></ac-stars>           
+                              <ac-stars [teacher]="teacher"></ac-stars>           
                             </div>       
 
                         </div>

@@ -19,6 +19,7 @@ import { HomeService } from '../../services/home.service.ts';
 })
 export class AcStars implements OnInit {
   @Input() starCount: number;
+  @Input() teacher;
   @Input() rating: number;
   @Output() rate = new EventEmitter();
   stars:number[] = [1,2,3,4,5];
@@ -27,11 +28,11 @@ export class AcStars implements OnInit {
 
   inputName: string;
 
-    ngOnInit() {
-      // this.setStar(3);
-    }
+  ngOnInit() {
+    this.setStar(this.teacher.rating);
+  }
   constructor() {
-    // const count = this.starCount < 0 ? 5 : this.starCount;
+    const count = this.starCount < 0 ? 5 : this.starCount;
   }
 
   onRate(star) {

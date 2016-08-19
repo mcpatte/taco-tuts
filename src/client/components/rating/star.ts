@@ -17,10 +17,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AcStar {
   @Input() active: boolean;
+  @Input() teacher;
   @Input() position: number;
   @Output() rate = new EventEmitter();
 
   handleRate() {
+    console.log(this.teacher);
     this.rate.emit(this.position);
   }
 };
