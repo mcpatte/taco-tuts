@@ -1,8 +1,14 @@
 -- --to run this file and update your local db run: psql -f users.sql
-DROP DATABASE IF EXISTS tacobase4;
-CREATE DATABASE tacobase4;
+DROP TABLE IF EXISTS teaching;
+DROP TABLE IF EXISTS learning;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS subjects CASCADE;
+DROP TABLE IF EXISTS teachers CASCADE;
+DROP TABLE IF EXISTS sessions CASCADE;
+DROP TABLE IF EXISTS instantSessionRequests CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS sessionsToUsers CASCADE;
 
-\c tacobase4;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
