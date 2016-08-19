@@ -1,7 +1,8 @@
-import { Component }          from '@angular/core';
-import { IAppState }          from '../../store';
-import { SessionEndService }  from '../../services/session-end.service';
-import { NgRedux }            from 'ng2-redux';
+import { Component }           from '@angular/core';
+import { IAppState }           from '../../store';
+import { SessionEndService }   from '../../services/session-end.service';
+import { NgRedux }             from 'ng2-redux';
+import { StateGetterService }  from '../../services/state-getter.service';
 
 @Component({
   selector: 'session-end',
@@ -71,15 +72,18 @@ export class SessionEndComponent {
 
   constructor(
     private sessionEndService: SessionEndService,
-    private ngRedux: NgRedux<IAppState>
+    private ngRedux: NgRedux<IAppState>,
+    private state: StateGetterService
   ) {}
 
   submitReview() {
-    console.log('submitting review', this.userReview);
-    this.userReview.studentID = this.getID();
+    this.userReview.studentID = this.getStudentID();
     this.userReview.teacherID = this.getTeacherID();
-    this.sessionEndService.addRating(this.userReview.rating);
-    this.sessionEndService.sendReview(this.userReview);
+
+    this.sessionEndService.sendReview(this.userReview)
+    .subscribe (
+      response => console.log(response)
+    );
   }
     
   setRating(rating) {
@@ -104,12 +108,10 @@ export class SessionEndComponent {
   undoRating(){
     this.ratingSet=false;
   }
-  getID(){
-    if(this.ngRedux.getState()['login']['userData'] !==null){
-      return this.ngRedux.getState()['login']['userData']['authid'];
-    }
+  getStudentID() {
+    return this.state.getSessionStudentID();
   }
   getTeacherID() {
-    //if (this.ngRedux.getState());
+    return this.state.getSessionTeacherID();
   }
 }
