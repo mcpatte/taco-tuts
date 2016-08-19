@@ -34,12 +34,11 @@ ConnectionManager.prototype.onSessionAccept = function(data) {
   var { teacherID, studentID } = data;
   var sessionID = Math.random().toString(36).substring(4, 9);
   var session = new Session(sessionID);
-
   this.sessions[sessionID] = session;
 
   session.addTeacher(this.getConnection(teacherID));
   session.addStudent(this.getConnection(studentID));
-  session.start();
+  session.start(data.teacherID, data.studentID);
 };
 
 ConnectionManager.prototype.onSessionMessage = function(data) {

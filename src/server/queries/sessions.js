@@ -1,6 +1,6 @@
 var db = require('./connection');
 
-var helpers = require('./queryHelpers')
+var helpers = require('./queryHelpers');
 var respondWithData = helpers.respondWithData;
 var catchError = helpers.catchError;
 var postData = helpers.postData;
@@ -45,7 +45,6 @@ function removeAppt(req, res, next) {
 
 module.exports = {
   addAppointment: addAppointment,
-  // addSessionsToUsers: addSessionsToUsers,
   getAppointmentsByStudent: getAppointmentsByStudent,
   getAppointmentsByTeacher: getAppointmentsByTeacher,
   confirmAppt: confirmAppt,

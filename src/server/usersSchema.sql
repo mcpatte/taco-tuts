@@ -1,14 +1,21 @@
 -- --to run this file and update your local db run: psql -f users.sql
-DROP DATABASE IF EXISTS tacobase4;
-CREATE DATABASE tacobase4;
+DROP TABLE IF EXISTS teaching;
+DROP TABLE IF EXISTS learning;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS subjects CASCADE;
+DROP TABLE IF EXISTS teachers CASCADE;
+DROP TABLE IF EXISTS sessions CASCADE;
+DROP TABLE IF EXISTS instantSessionRequests CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS sessionsToUsers CASCADE;
 
-\c tacobase4;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
   isAvailable BOOLEAN,
   favorite BOOLEAN,
-  rating INT
+  rating REAL,
+  ratingCount INT DEFAULT 0
 );
 
 CREATE TABLE users (
@@ -32,26 +39,34 @@ CREATE TABLE sessions (
   teacherID integer references users(id) ON DELETE CASCADE, 
   start TIMESTAMP,
   ending TIMESTAMP,
-  subjectID integer references subjects(id) ON DELETE CASCADE, 
-  confirmed BOOLEAN
+  confirmed BOOLEAN,
+  subjectID INT references subjects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE reviews (
+  ID SERIAL PRIMARY KEY,
+  teacherAuthID text,
+  studentAuthID text,
+  review text,
+  rating INT
 );
 
 CREATE TABLE instantSessionRequests (
   ID SERIAL PRIMARY KEY,
   studentAuthID text,
   teacherAuthID text,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID INT references subjects(id) ON DELETE CASCADE
 );
 
 CREATE TABLE learning (
-  userID integer references users(id) ON DELETE CASCADE,
-  subjectID integer references subjects(id) ON DELETE CASCADE,
-  progress integer default 0
+  userID INT references users(id) ON DELETE CASCADE,
+  subjectID INT references subjects(id) ON DELETE CASCADE,
+  progress INT default 0
 );
 
 CREATE TABLE teaching (
-  userID integer references users(id) ON DELETE CASCADE,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  userID INT references users(id) ON DELETE CASCADE,
+  subjectID INT references subjects(id) ON DELETE CASCADE
 );
 
 INSERT INTO teachers (isAvailable, favorite, rating)
@@ -73,7 +88,7 @@ INSERT INTO teachers (isAvailable, favorite, rating)
   VALUES (true, false, 5);
 
 INSERT INTO users (email, authid, username, name, teacher, teacherID)
-  VALUES ('hbp@hotwarts.com', 'auth0|57b27ddd71c16ce874b94fcb', 'halfbloodprince', 'Severus Snape', true, 1);
+  VALUES ('hbp@hogwarts.com', 'auth0|57b686db71f98d48132d9aad', 'halfbloodprince', 'Severus Snape', true, 1);
 
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('hp@hogwarts.com', 'auth0|57b27e4e51f9235564a6f68b', 'chosen one', 'Harry Potter', false);
@@ -91,7 +106,7 @@ INSERT INTO users (email, authid, username, name, teacher, teacherID)
   VALUES ('vmor@hotmail.com', 'auth0|57b27fd771c16ce874b94fda', 'Tom', 'Voldemort', true, 4);
 
 INSERT INTO users (email, authid, username, name, teacher, teacherID)
-  VALUES ('ddoor@gmail.com', 'auth0|57b2801371c16ce874b94fdd', 'Headmaster', 'Dumbledoor', true, 5);
+  VALUES ('ddore@gmail.com', 'auth0|57b2801371c16ce874b94fdd', 'Headmaster', 'Dumbledore', true, 5);
 
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('deathwatcher@crazy.com', 'auth0|57b2805971c16ce874b94fe0', 'crazy person', 'Luna Lovegood', false);
@@ -110,7 +125,7 @@ INSERT INTO subjects (name)
   VALUES ('Defense against the dark arts');
 
 INSERT INTO subjects (name)
-  VALUES ('Magical Creatures');
+  VALUES ('Care of Magical Creatures');
 
 INSERT INTO subjects (name)
   VALUES ('Taco Making');

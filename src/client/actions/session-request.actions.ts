@@ -1,7 +1,7 @@
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store';
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/do';
 
 export const SESSION_REQUEST_ACTIONS = {
