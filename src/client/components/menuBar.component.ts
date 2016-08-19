@@ -72,13 +72,27 @@ import { LogoutActions }      from '../actions/logout.actions';
   template: `
   <nav class="menu">
     <div class='logo'><img class='logoImg' src='../assets/logo/rocket-logo.svg' /></div>
-    <button class="menuItem" *ngIf="isAuthenticated()"><a routerLink="#" routerLinkActive="active" (click)="logout()" >Log Out</a></button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isInSession()"><a routerLink="/session" routerLinkActive="active" >Session</a></button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="!isAuthenticated()"><a routerLink="/login" routerLinkActive="active" >Log In</a></button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']"><a routerLink="/advanced-search" routerLinkActive="active" >Advanced Search</a></button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isTeacher()"><a routerLink="/teacher-dash" routerLinkActive="active" >Teacher Dashboard</a></button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isAuthenticated()"><a routerLink="/student-dash" routerLinkActive="active" >Student Dashboard</a></button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']"><a routerLink="/home" routerLinkActive="active">Home</a></button>
+    <button class="menuItem" *ngIf="isAuthenticated()">
+      <a routerLink="#" routerLinkActive="active" (click)="logout()" >Log Out</a>
+    </button>
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isInSession()">
+      <a routerLink="/session" routerLinkActive="active" >Session</a>
+    </button>
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="!isAuthenticated()">
+      <a routerLink="/login" routerLinkActive="active" >Log In</a>
+    </button>
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']">
+      <a routerLink="/advanced-search" routerLinkActive="active" >Advanced Search</a>
+    </button>
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isTeacher()">
+      <a routerLink="/teacher-dash" routerLinkActive="active" >Teacher Dashboard</a>
+    </button>
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isAuthenticated()">
+      <a routerLink="/student-dash" routerLinkActive="active" >Student Dashboard</a>
+    </button>
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+    </button>
   </nav>
   `
 })
@@ -90,7 +104,6 @@ export class MenuBarComponent {
   ) { }
 
   isAuthenticated() {
-    //will return true if user is logged in
     return this.auth.isAuthenticated();
   }
 
