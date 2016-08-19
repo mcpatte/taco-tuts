@@ -50,7 +50,7 @@ export class SocketService {
     // it into a student handler and a teacher handler
     this.onStartedSession(({ role, data }) => {
       this.sessionActions.setRoleDispatch(role);
-      this.sessionActions.setSessionIDDispatch(data.sessionID);
+      this.sessionActions.setSessionDataDispatch(data);
       this.router.navigate(['/session']);
     });
 
