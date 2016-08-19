@@ -1,11 +1,14 @@
 <div>
   <div><h1>Please rate your session:</h1></div>
-  <div>
-    <span class="rating"><input type="radio" name="editList" value="1">1</span>
-    <span class="rating"><input type="radio" name="editList" value="2">2</span>
-    <span class="rating"><input type="radio" name="editList" value="3">3</span>
-    <span class="rating"><input type="radio" name="editList" value="4">4</span>
-    <span class="rating"><input type="radio" name="editList" value="5">5</span>
+  <div>  
+    <div class="starContainer" on-mouseleave="emptyStars()">
+      <img class="rating" 
+        *ngFor="#star of ratingStars; #i = index;" 
+        [class.fillStar]=star src="../../assets/logo/emptyStar.svg" 
+        on-mouseenter="undoRating(); fillStars(i)"
+        (click)="setRating(i+1); fillStars();"
+      />
+    </div>
   </div>
   <br>
   <div>
