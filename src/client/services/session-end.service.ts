@@ -8,13 +8,9 @@ export class SessionEndService {
   constructor (private http: Http) {}
 
   public sendReview(userReview: Object) {
-    console.log("sendingReview with ", userReview)
-    return this.http.post('/api/addReview', userReview)
+    return this.http.post('/api/reviews', userReview)
       .map(this.extractData)
       .catch(this.handleError);
-  }
-  public addRating(userRating: number) {
-    console.log("addRating called with", userRating);
   }
 
   private extractData(res: Response) {
