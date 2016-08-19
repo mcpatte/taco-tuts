@@ -23,6 +23,18 @@ import { ProgressBar, TabView, TabPanel, InputText, Button, Calendar } from 'pri
       font-family: 'Roboto', sans-serif;
       color: #33495f;
     }
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+     label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+    }
   `]
 })
 export class StudentDashboardComponent {
