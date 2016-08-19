@@ -2,7 +2,7 @@
 
 <button class="btn btn-default"
         (click)="getAppointments(); apptListOpen = !apptListOpen">Get Appointments</button>
-<div *ngIf="apptListOpen === true" class="container">
+<div *ngIf="apptListOpen === true" class="container appointments">
     <div class="appointment-list col-xs-5" >
     <h1>Confirmed Appointments</h1>
         <div class="filtered" *ngIf="filter === true">
@@ -37,8 +37,8 @@
     </div>
      <div class="date-filter col-xs-5"> 
             <input type="date" [(ngModel)]="inputDate">
-            <button *ngIf="filter === true" (click)="filter = false">Show All Appointments</button>
-            <button *ngIf="filter === false" (click)="filter = true">Filter by Date</button>
+            <button class="btn btn-default" *ngIf="filter === true" (click)="filter = false">Show All Appointments</button>
+            <button class="btn btn-default" *ngIf="filter === false" (click)="filter = true">Filter by Date</button>
     </div>
 </div>
 

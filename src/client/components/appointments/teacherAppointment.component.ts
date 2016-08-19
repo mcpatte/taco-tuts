@@ -10,7 +10,25 @@ import { ConfirmedTeacherPipe } from './pipes/appoinment.confirmedTeacher-pipe';
     selector: 'teacher-appointment',
     providers: [ AppointmentService ],
     pipes: [ FilterDatePipe, ConfirmedTeacherPipe ],
-    template: require('./teacherAppointment.component.html')
+    template: require('./teacherAppointment.component.html'),
+    styles: [`
+    .appointments {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+    }
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+     label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+    }
+    `]
 })    
 
 export class TeacherAppointmentComponent {
