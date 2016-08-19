@@ -69,66 +69,7 @@ import { LogoutActions }      from '../../actions/logout.actions';
     }
 
   `],
-  template: `
-  <nav class="menu">
-    <div class='logo'>
-      <img class='logoImg' src='../assets/logo/rocket-logo.svg' />
-    </div>
-    <button
-      class="menuItem"
-      *ngIf="isAuthenticated()"
-      (click)="navigate('#'); logout()"
-    >
-      <a>Log Out</a>
-    </button>
-    <button
-      class="menuItem"
-      [routerLinkActive]="['menuItemActive']"
-      *ngIf="isInSession()"
-      (click)="navigate('/session')"
-    >
-      <a>Session</a>
-    </button>
-    <button
-      class="menuItem"
-      [routerLinkActive]="['menuItemActive']"
-      *ngIf="!isAuthenticated()"
-      (click)="navigate('/login')"
-    >
-      <a>Log In</a>
-    </button>
-    <button
-      class="menuItem"
-      [routerLinkActive]="['menuItemActive']"
-      (click)="navigate('/advanced-search')"
-    >
-      <a>Advanced Search</a>
-    </button>
-    <button
-      class="menuItem"
-      [routerLinkActive]="['menuItemActive']"
-      *ngIf="isTeacher()"
-      (click)="navigate('/teacher-dash')"
-    >
-      <a>Teacher Dashboard</a>
-    </button>
-    <button
-      class="menuItem"
-      [routerLinkActive]="['menuItemActive']"
-      *ngIf="isAuthenticated()"
-      (click)="nagivate('/student-dash')"
-    >
-      <a>Student Dashboard</a>
-    </button>
-    <button
-      class="menuItem"
-      [routerLinkActive]="['menuItemActive']"
-      (click)="navigate('/home')"
-    >
-      <a>Home</a>
-    </button>
-  </nav>
-  `
+  template: require('./menu-bar.template.html')
 })
 export class MenuBarComponent {
   constructor(
