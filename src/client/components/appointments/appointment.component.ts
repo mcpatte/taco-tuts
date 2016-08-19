@@ -11,7 +11,25 @@ import {  InputText, Button, DataList } from 'primeng/primeng';
     providers: [ AppointmentService ],
     directives: [InputText, Button, DataList ],
     pipes: [ FilterDatePipe, ConfirmedStudentPipe ],
-    template: require('./appointment.component.html')
+    template: require('./appointment.component.html'),
+    styles: [`
+    .appointments {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+    }
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+     label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+    }
+    `]
 })    
 
 export class AppointmentComponent {

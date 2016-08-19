@@ -1,55 +1,53 @@
 <button 
-        pButton
+        class="btn btn-default"
         label="Add Appointment"
-        (click)="apptFormOpen = !apptFormOpen"></button>
+        (click)="apptFormOpen = !apptFormOpen">Add Appointment</button>
 
 
-<div *ngIf="apptFormOpen === true"  class="container">
+<div *ngIf="apptFormOpen === true"  class="container appointments">
     <h1>Add New Appointment</h1>
-    <form>
+    <form class="appointments">
         <div class="form-group">
             <label for="subject">Subject</label>
-            <select class="ui-widget-content ui-widget" (change)="filterTeachers($event.target.value)" [(ngModel)] = "apptModel.subjectid">
+            <select (change)="filterTeachers($event.target.value)" [(ngModel)] = "apptModel.subjectid">
                 <option *ngFor="let subject of subjects" [value]="subject.id">{{subject.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <label for="teacher">Teacher</label>
-            <select class="ui-widget-content ui-widget" [(ngModel)] = "apptModel.teacherid">
+            <select [(ngModel)] = "apptModel.teacherid">
                 <option *ngFor="let teacher of teachers" [value]="teacher.userid">{{teacher.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <label for="date">Date</label>
             <input 
-                class="ui-widget-content ui-widget"
                 [(ngModel)]="apptModel.date"
                 type="date">
         </div>
         <div class="form-group">
              <label for="time">Time</label>
             <input 
-                class="ui-widget-content ui-widget"
                 [(ngModel)]="apptModel.time"
                 type="time">
         </div>
         <div class ="form-group">
-            <button 
-                    pButton
+            <button  
+                    class="btn btn-default"
                     type="submit"
                     (click)="addAppointment(apptModel); apptFormOpen=false"
                     label="Add Appointment"
-                    ></button>
+                    >Add Appointment</button>
         </div>
     </form>
 </div>
 
 <button 
-        pButton
+        class="btn btn-default"
         label="Get Appointments"
-        (click)="getAppointments(); apptListOpen = !apptListOpen"></button>
+        (click)="getAppointments(); apptListOpen = !apptListOpen">Get Appointments</button>
 <div *ngIf="apptListOpen === true" class="container">
-    <div class="appointment-list col-xs-5" >
+    <div class="appointments col-xs-5">
     <h1>Confirmed Appointments</h1>
         <div class="filtered" *ngIf="filter === true">
             <div class="appointments"  *ngFor="let appointment of appointments | filterdate:inputDate | confirmedStudent:true">
@@ -57,7 +55,7 @@
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
                     <p>Tutor: {{ appointment.username }}</p>
-                    <button pButton label="Remove" (click)="removeAppt(appointment.id)"></button>
+                    <button  class="btn btn-default"  label="Remove" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
         </div>
         <div class="showAll" *ngIf="filter === false">
@@ -66,7 +64,7 @@
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
                     <p>Tutor: {{ appointment.username }}</p>
-                    <button pButton label="Remove" (click)="removeAppt(appointment.id)"></button>
+                    <button class="btn btn-default" label="Remove" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
         </div>
         <h1>Pending Appointments</h1>
@@ -76,14 +74,14 @@
                     <p>Date: {{ appointment.start | date:'fullDate'  }}
                     <p>Time: {{ appointment.start | date: 'shortTime' }}
                     <p>Tutor: {{ appointment.username }}</p>
-                    <button pButton label="Remove" (click)="removeAppt(appointment.id)"></button>
+                    <button  class="btn btn-default" label="Remove" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
         </div>
     </div>
      <div class="date-filter col-xs-5"> 
             <input class="ui-widget-content ui-widget" type="date" [(ngModel)]="inputDate">
-            <button pButton label="Show All Appointments" *ngIf="filter === true" (click)="filter = false"></button>
-            <button pButton label="Filter by Date" *ngIf="filter === false" (click)="filter = true"></button>
+            <button  class="btn btn-default" label="Show All Appointments" *ngIf="filter === true" (click)="filter = false">Show All Appointments</button>
+            <button  class="btn btn-default" label="Filter by Date" *ngIf="filter === false" (click)="filter = true">Filter by Date</button>
     </div>
 </div>
 
