@@ -14,14 +14,14 @@ import { TeacherList } from '../../actions/teacherList.actions';
     providers: [ AppointmentService, StudentDashboardService, AdvancedSearchService, TeacherList],
     styles: [`
         .filter-input: {
-            
+          color: blue;
         }
     `],
     template: `
         <div class="container" >
             <div class="input-field col s12">
               <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=debounce() size="35">
-              <button pButton class="btn btn-default" (click)="sendToParent(query)" label="Submit"></button>
+              
             </div>
             <div class="suggestions" *ngIf="filteredList.length > 0">
                 <div *ngFor="#item of filteredList" >
