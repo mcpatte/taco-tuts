@@ -45,8 +45,6 @@ export function sessionReducer(
       case SESSION_ACTIONS.SET_SESSION_DATA:
         return Object.assign({}, state, action.data);
 
-
-
       default:
         return state;
   }

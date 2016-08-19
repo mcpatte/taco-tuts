@@ -54,7 +54,7 @@ export class SocketService {
       this.router.navigate(['/session']);
     });
 
-    this.onSessionMessage(({ role, data }) => {
+    this.onSessionMessage(({ data }) => {
       this.sessionActions.addMessageDispatch(data);
     });
 
