@@ -68,7 +68,6 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
 </div>
 `,
   styles: [`
-
     .advanced-search {
       font-family: 'Roboto', sans-serif;
       color: #33495f;
@@ -97,6 +96,7 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
       padding: 10px;
       color:  #33495f;
     }
+
   `]
 })
 export class AdvancedSearchComponent {
@@ -140,5 +140,5 @@ export class AdvancedSearchComponent {
     return this.clicked && !this.results.length;
   }
 
-}
 
+}
