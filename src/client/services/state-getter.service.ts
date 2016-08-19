@@ -8,10 +8,6 @@ export class StateGetterService {
     private ngRedux: NgRedux<IAppState>
   ) {}
 
-  private readState(path: string[]) {
-    return path.reduce((result, prop) => result[prop], this.ngRedux.getState());
-  }
-
   public getUserName() {
     return this.readState(['login', 'userData', 'name']);
   }
@@ -36,5 +32,8 @@ export class StateGetterService {
   }
   public getSessionStudentID() {
     return this.readState(['session', 'studentID']);
+  }
+  private readState(path: string[]) {
+    return path.reduce((result, prop) => result[prop], this.ngRedux.getState());
   }
 }
