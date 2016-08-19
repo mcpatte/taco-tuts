@@ -8,21 +8,25 @@ var outputDir = path.join(srcDir, 'dist');
 
 module.exports = {
   devtool: 'source-map',
+
   entry: [
     path.join(clientDir, 'vendor.ts'),
     path.join(clientDir, 'index.ts')
   ],
+
   output: {
     path: outputDir,
     filename: 'bundle.js',
     publicPath: '/'
   },
+
   plugins: [
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
       { from: path.join(clientDir, 'index.html') }, {from: path.join(clientDir, 'assets'), to: 'assets'}
     ])
   ],
+
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
   },
@@ -34,7 +38,12 @@ module.exports = {
       { test: /\.html$/, loader: 'html' }
     ]
   },
+
   noParse: [
     /rtts_assert\/src\/rtts_assert/
-  ]
+  ],
+
+  htmlLoader: {
+    attrs: []
+  }
 };
