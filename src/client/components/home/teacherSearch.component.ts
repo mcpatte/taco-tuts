@@ -4,13 +4,14 @@ import { IAppState } from '../../store/index';
 import { AppointmentService } from '../../services/appointment.service';
 import { StudentDashboardService } from '../../services/studentDashboard.service';
 import { Button } from 'primeng/primeng';
-
-
+import { debounce } from 'lodash';
+import { AdvancedSearchService } from '../../services/advanced-search.service';
+import { TeacherList } from '../../actions/teacherList.actions';
 
 @Component({
     selector: 'teacherSearch',
     directives: [Button],
-    providers: [ AppointmentService, StudentDashboardService ],
+    providers: [ AppointmentService, StudentDashboardService, AdvancedSearchService, TeacherList],
     styles: [`
         .filter-input: {
             
@@ -19,7 +20,7 @@ import { Button } from 'primeng/primeng';
     template: `
         <div class="container" >
             <div class="input-field col s12">
-              <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=filter() size="35">
+              <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=debounce() size="35">
               <button pButton class="btn btn-default" (click)="sendToParent(query)" label="Submit"></button>
             </div>
             <div class="suggestions" *ngIf="filteredList.length > 0">
@@ -36,6 +37,7 @@ export class TeacherSearchComponent implements OnInit {
   public filteredList = [];
   private studentid: number;
   private fullSubjects = [];
+  private debounce: Function;
 @Input()  query: string;
 @Output() onClicked = new EventEmitter<string>();
   sendToParent(stuff: string) {
@@ -46,12 +48,15 @@ export class TeacherSearchComponent implements OnInit {
   constructor(
       private ngRedux: NgRedux<IAppState>,
       private appointmentService: AppointmentService,
-      private studentDashboardServices: StudentDashboardService
+      private studentDashboardServices: StudentDashboardService,
+      private advancedSearch: AdvancedSearchService,
+      private teacherList: TeacherList
   ) {}
 
   ngOnInit() {
       this.getSubjects();
       this.getStudentID();
+      this.debounce = debounce(this.filter.bind(this), 500);
   }
 
   getSubjects() {
@@ -80,11 +85,14 @@ export class TeacherSearchComponent implements OnInit {
 
   filter() {
     if (this.query !== '') {
-        this.filteredList = this.subjects.filter(function(el){
-            return el.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        }.bind(this));
+        console.log("++++++++");
+        this.advancedSearch.advancedSearch({subject: this.query})
+          .subscribe ( (data) => {
+            console.log(data);
+            this.teacherList.setTeacherListDispatch(data);
+          });
     } else {
-        this.filteredList = [];
+      this.filteredList = [];
     }
   }
 
@@ -101,4 +109,5 @@ export class TeacherSearchComponent implements OnInit {
         .subscribe( data => this.studentid = data[0].id);
     }
   }
+
 }

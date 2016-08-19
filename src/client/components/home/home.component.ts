@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
+import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { Auth } from '../../services/auth.service';
 import { HomeService } from '../../services/home.service';
@@ -9,6 +9,9 @@ import { SocketService } from '../../services/socket.service';
 import { Button, DataList, Rating } from 'primeng/primeng';
 import { TeacherSearchComponent } from './teacherSearch.component.ts';
 import { AcStars, AcStar } from '../rating';
+import { Observable } from 'rxjs/Observable';
+
+
 
 @Component({
   selector: 'home',
@@ -19,6 +22,7 @@ import { AcStars, AcStar } from '../rating';
 export class HomeComponent implements OnInit {
   // Selected observables to test async pipe model.
   // Members to test subscribe model.
+  @select(['teacherList', 'list'])teachers$: Observable<any>;
   public val = '5';
   private users = [];
   private subjects = [];
@@ -27,6 +31,7 @@ export class HomeComponent implements OnInit {
   private userParams: Object = {
     rating: 0
   };
+  
   constructor(
     private userService: UserService,
     private auth: Auth,
@@ -35,7 +40,14 @@ export class HomeComponent implements OnInit {
     private loginActions: LoginActions,
     private sessionRequestActions: SessionRequestActions,
     private socket: SocketService
-  ) {}
+  ) {
+    this.teachers$.subscribe(
+      (list) => {
+        console.log(list)
+        this.teachers = list;
+      }
+    );
+  }
 
   ngOnInit() {
     this.getSubjects();

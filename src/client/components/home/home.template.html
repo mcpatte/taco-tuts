@@ -1,5 +1,7 @@
   <button pButton (click)="getTeachers()" label="Show All Teachers"></button>
+
   <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
+
   <h4>Teachers</h4>
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5">
     <template let-teacher>
@@ -24,13 +26,13 @@
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">Rating: </div>
                             <div class="ui-grid-col-10">
-                              <ac-stars></ac-stars>           
+                              <ac-stars [rating]="teacher.rating"></ac-stars>           
                             </div>       
 
                         </div>
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">Availability: </div>
-                            <div class="ui-grid-col-2">{{teacherAvailibility(teacher.id)}}</div>
+                            <div class="ui-grid-col-10">{{teacherAvailibility(teacher.id)}}</div>
                         </div>
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">Email: </div>
