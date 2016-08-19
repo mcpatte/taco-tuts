@@ -1,10 +1,11 @@
-  <button pButton (click)="getTeachers()" label="Show All Teachers"></button> <br />
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-        <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
+
+  
+  <div class= "container">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+          <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
+      </div>
     </div>
-  </div>
-  <h4>Teachers</h4>
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5">
     <template let-teacher>
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
@@ -46,4 +47,5 @@
         </div>
     </template>
   </p-dataList>
+  </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>

@@ -100,16 +100,11 @@ export class TeacherSearchComponent implements OnInit {
   }
 
   filter() {
-    if (this.query !== '') {
-        console.log("++++++++");
         this.advancedSearch.advancedSearch({subject: this.query})
           .subscribe ( (data) => {
             console.log(data);
             this.teacherList.setTeacherListDispatch(data);
           });
-    } else {
-      this.filteredList = [];
-    }
   }
 
   select(item){

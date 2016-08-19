@@ -17,7 +17,13 @@ import { Observable } from 'rxjs/Observable';
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService ],
   directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars, AcStar],
-  template: require('./home.template.html')
+  template: require('./home.template.html'),
+  styles: [`
+    div {
+          margin: 0;
+          padding: 0;
+        }
+    `]
 })
 export class HomeComponent implements OnInit {
   // Selected observables to test async pipe model.
