@@ -1,7 +1,9 @@
-  <button pButton (click)="getTeachers()" label="Show All Teachers"></button>
-
-  <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
-
+  <button pButton (click)="getTeachers()" label="Show All Teachers"></button> <br />
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+        <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
+    </div>
+  </div>
   <h4>Teachers</h4>
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5">
     <template let-teacher>

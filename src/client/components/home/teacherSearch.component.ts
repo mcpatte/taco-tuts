@@ -14,20 +14,36 @@ import { TeacherList } from '../../actions/teacherList.actions';
     providers: [ AppointmentService, StudentDashboardService, AdvancedSearchService, TeacherList],
     styles: [`
         .filter-input: {
-          color: blue;
+          
+        }
+        input[type=text] {
+          width: 100%;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          padding: 12px 5px 10px 10px;
+          -webkit-transition: width 0.4s ease-in-out;
+          transition: width 0.4s ease-in-out;
+        }
+        div {
+          margin: 0;
+          padding: 0;
+        }
+
+        input[type=text]:focus {
+            width: 200%;
         }
     `],
     template: `
-        <div class="container" >
-            <div class="input-field col s12">
-              <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=debounce() size="35">
-              
-            </div>
-            <div class="suggestions" *ngIf="filteredList.length > 0">
-                <div *ngFor="#item of filteredList" >
-                        <button pButton (click)="select(item)" label={{item}}> </button>
-                </div>
-            </div>
+        <br />
+        <div class="container-fluid" >
+
+            <input id="subject" type="text" class="validate filter-input" placeholder="Filter teachers by subject..." [(ngModel)]=query (keyup)=debounce()>
+
         </div>  	
         `
 })
