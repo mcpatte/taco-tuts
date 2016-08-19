@@ -30,4 +30,4 @@ module.exports = {
   respondWithData: respondWithData,
   postData: postData,
   catchError: catchError
-}
+};
