@@ -7,21 +7,35 @@ import { Observable } from 'rxjs/Observable';
 import { ProfileComponent } from '../profile/profile.component'; 
 import { AppointmentComponent } from '../appointments/appointment.component';
 import { SubjectSearchComponent } from '../autocomplete/autocomplete.component';
+import { ProgressBar, TabView, TabPanel, InputText, Button, Calendar } from 'primeng/primeng';
 
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
-  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent],
+  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, ProgressBar, TabView, TabPanel, InputText, Button, Calendar],
+  template: require('./studentDashboard.component.html'),
   styles: [`
     .subject {
-      background-color: lightblue;
       width: 40%;
       margin: 5px;
       padding: 5px;
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
     }
-  `],
-  template: require('./studentDashboard.component.html')
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+     label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+    }
+  `]
 })
 export class StudentDashboardComponent {
   date2 = '2016-08-09';
@@ -64,6 +78,25 @@ export class StudentDashboardComponent {
         .subscribe(
           response => console.log(response)
         );
+    }
+
+    levelUp(subjectid, userid, progress) {
+      let model = {
+        userID: userid,
+        subjectID: subjectid
+      }
+      if(progress <= 90) {  
+        this.studentDashboardService.levelUp(model)
+          .subscribe(
+            response => {
+               this.getSubjectByStudent()
+               console.log(response)
+            }
+          )
+      }  else {
+        alert("You have completed this subject");
+      }
+      
     }
 
 

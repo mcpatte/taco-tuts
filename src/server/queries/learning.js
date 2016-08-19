@@ -19,7 +19,7 @@ function learningSubject(req, res, next){
 
 function findSubjectsByUser(req, res, next){
     var userID = req.params.id;
-  db.any('select users.name, learning.subjectID, subjects.name from users inner join learning on users.id = learning.userID inner join subjects on learning.subjectID = subjects.id WHERE users.authid = $1', [userID])
+  db.any('select users.name, learning.subjectID, learning.progress, learning.userID, subjects.name from users inner join learning on users.id = learning.userID inner join subjects on learning.subjectID = subjects.id WHERE users.authid = $1', [userID])
     .then(respondWithData(res, `Retrieved all subjects that ${req.body.name} wants to learn`))
     .catch(catchError(next));
 };
@@ -32,9 +32,16 @@ function removeSubjectByUser(req, res, next){
     .catch(catchError(next));
 };
 
+function levelUp(req, res, next) {
+ db.any('UPDATE learning SET progress = progress + 10 WHERE userid = ${userID} AND subjectid = ${subjectID}', req.body)
+      .then(respondWithData(res, "Added 10"))
+      .catch(catchError)
+};
+
 module.exports = {
   getLearning: getLearning,
   learningSubject: learningSubject,
   findSubjectsByUser: findSubjectsByUser,
-  removeSubjectByUser: removeSubjectByUser
+  removeSubjectByUser: removeSubjectByUser,
+  levelUp: levelUp
 };

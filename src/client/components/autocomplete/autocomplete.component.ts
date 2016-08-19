@@ -4,23 +4,37 @@ import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService } from '../../services/appointment.service';
 import { StudentDashboardService } from '../../services/studentDashboard.service';
-
+import { InputText, Button } from 'primeng/primeng';
 
 
 
 @Component({
     selector: 'subjectSearch',
+    directives: [InputText, Button],
     providers: [ AppointmentService, StudentDashboardService ],
     styles: [`
-        .filter-input: {
-            
-        }
+    .subjectSearch {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+    }
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+     label {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;
+    }
     `],
     template: `
-        <div class="container" >
+        <div class="subjectSearch" >
             <div class="input-field col s12">
               <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=filter() size="35">
-              <button class="btn btn-default" (click)="addSubject(query)">Add Subject</button>
+              <button class="btn btn-default" label="Add Subject" (click)="addSubject(query)">Add Subject</button>
             </div>
             <div class="suggestions" *ngIf="filteredList.length > 0">
                 <ul *ngFor="#item of filteredList" >
@@ -44,7 +58,7 @@ export class SubjectSearchComponent {
 constructor(
      private ngRedux: NgRedux<IAppState>,    
      private appointmentService: AppointmentService,
-     private studentDashboardServices: StudentDashboardService
+     private studentDashboardService: StudentDashboardService
 ) {}
 
  ngOnInit() {
@@ -71,10 +85,18 @@ addSubject(subject) {
        userID: this.studentid,
        subjectID: subjectObj[0].id
    }
-    this.studentDashboardServices.addSubjectForStudent(model)
-        .subscribe(data => console.log(data))
-    
+    this.studentDashboardService.addSubjectForStudent(model)
+        .subscribe(
+            data => console.log(data))
 }
+
+ getSubjectByStudent() {
+      let authID = this.ngRedux.getState().login['userData'].authid
+      this.studentDashboardService.findSubjectsByUser(authID)
+        .subscribe(
+          data => this.subjects = data
+        );
+    }
     
  filter() {
     if (this.query !== ""){
@@ -94,10 +116,10 @@ select(item){
  getStudentID(){
         let userData = this.ngRedux.getState().login['userData']
         if(userData){
-          let authID = userData.authID;
+          let authID = userData.authid;
           this.appointmentService.getUserID(authID)
             .subscribe( data => this.studentid = data[0].id);
-        }
-    }   
+        } 
+     }
 
 }

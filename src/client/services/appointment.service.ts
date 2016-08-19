@@ -31,50 +31,34 @@ export class AppointmentService {
   addAppointment(apptModel: Object) {
     this.apptData2 = apptModel;
     return this.http.post('/api/sessions', apptModel)
-      .map((res) => {
-        let sessionid = res.json().data[0].id;
-        this.addTeacherAppointment(sessionid, apptModel);
-        this.addStudentAppointment(sessionid, apptModel);
-      })
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
-  addTeacherAppointment(sessionid, apptModel) {
-    let model = {
-          sessionID: sessionid,
-          userID: apptModel.teacherid,
-          isTeacher: true
-        };
-        console.log("addTeacherCalled heres the model", model);
-    return this.http.post('api/sessions/' + sessionid, model)
-            .subscribe(data => console.log(data));
-  }
-
-  addStudentAppointment(sessionid, apptModel) {
-      let model = {
-          sessionID: sessionid,
-          userID: apptModel.studentid,
-          isTeacher: false
-        };
-        console.log("addStudentCalled heres the model", model);
-    return this.http.post('api/sessions/' + sessionid, model)
-            .subscribe(data => console.log(data));
-
-  }
-
-  getAppointmentsByUser(userid) {
-    return this.http.get('api/sessions/'+ userid)
+  getAppointmentsByStudent(userid) {
+    return this.http.get('api/sessions/student/'+ userid)
       .map(this.extractData);
   }
 
-  getAppointmentTutor(sessionid) {
-    return this.http.get('api/sessions/tutor/' + sessionid)
+  getAppointmentsByTeacher(userid) {
+    return this.http.get('api/sessions/teacher/'+ userid)
       .map(this.extractData);
   }
 
+  getUserID(authid) { 
+    return this.http.get('api/users/' + authid )
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
 
-  getUserID(authid) {
-    return this.http.get('/api/users/' + authid )
+  confirmAppt(sessionid) {
+    return this.http.put('api/sessions/' + sessionid, null)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
+  removeAppt(sessionid) {
+    return this.http.delete('api/sessions/' + sessionid)
       .map(this.extractData)
       .catch(this.handleError);
   }

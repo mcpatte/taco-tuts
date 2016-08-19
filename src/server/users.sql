@@ -1,8 +1,8 @@
 -- --to run this file and update your local db run: psql -f users.sql
-DROP DATABASE IF EXISTS tacobase2;
-CREATE DATABASE tacobase2;
+DROP DATABASE IF EXISTS tacobase4;
+CREATE DATABASE tacobase4;
 
-\c tacobase2;
+\c tacobase4;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
@@ -28,9 +28,12 @@ CREATE TABLE subjects (
 
 CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
+  studentID integer references users(id) ON DELETE CASCADE, 
+  teacherID integer references users(id) ON DELETE CASCADE, 
   start TIMESTAMP,
   ending TIMESTAMP,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID integer references subjects(id) ON DELETE CASCADE, 
+  confirmed BOOLEAN
 );
 
 CREATE TABLE instantSessionRequests (
@@ -40,15 +43,10 @@ CREATE TABLE instantSessionRequests (
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 
-CREATE TABLE sessionsToUsers (
-  userID integer references users(id) ON DELETE CASCADE,
-  sessionID integer references sessions(id) ON DELETE CASCADE,
-  isTeacher BOOLEAN
-);
-
 CREATE TABLE learning (
   userID integer references users(id) ON DELETE CASCADE,
-  subjectID integer references subjects(id) ON DELETE CASCADE
+  subjectID integer references subjects(id) ON DELETE CASCADE,
+  progress integer default 0
 );
 
 CREATE TABLE teaching (
@@ -67,6 +65,9 @@ INSERT INTO teachers (isAvailable, favorite, rating)
 
 INSERT INTO teachers (isAvailable, favorite, rating)
   VALUES (true, false, 4);
+
+INSERT INTO teachers (isAvailable, favorite, rating)
+  VALUES (true, false, 5);
 
 INSERT INTO teachers (isAvailable, favorite, rating)
   VALUES (true, false, 5);
@@ -95,6 +96,13 @@ INSERT INTO users (email, authid, username, name, teacher, teacherID)
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('deathwatcher@crazy.com', 'auth0|57b2805971c16ce874b94fe0', 'crazy person', 'Luna Lovegood', false);
 
+INSERT INTO users (email, authid, username, name, teacher, teacherID)
+  VALUES ('e@e.com', 'auth0|57b2818451f9235564a6f698', 'halfbloodprince', 'Severus Snape', true, 6);
+  
+INSERT INTO users (email, authid, username, name, teacher)
+  VALUES ('q@q.com', 'auth0|57b2817951f9235564a6f697', 'chosen one', 'Harry Potter', false);
+
+
 INSERT INTO subjects (name)
   VALUES ('Potions');
 
@@ -114,16 +122,13 @@ INSERT INTO teaching (userID, subjectID)
   VALUES (1, 1);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (4, 2);
+  VALUES (1, 2);
 
 INSERT INTO teaching (userID, subjectID)
-  VALUES (5, 2);
+  VALUES (1, 3);
 
-INSERT INTO teaching (userID, subjectID)
-  VALUES (6, 2);
-
-INSERT INTO teaching (userID, subjectID)
-  VALUES (3, 3);
+INSERT INTO learning (userID, subjectID)
+  VALUES (2, 1);
 
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 4);

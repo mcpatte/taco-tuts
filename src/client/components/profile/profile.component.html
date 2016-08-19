@@ -1,9 +1,11 @@
-<button class="btn btn-default"
+<!--<button 
+        class="btn btn-default"
+        label="Update Profile"
         *ngIf="isAuthenticated()"
         (click)="profileFormOpen = !profileFormOpen"
-        >Update Profile</button>
+        >Update Profile</button>-->
 
-<div *ngIf="profileFormOpen === true" class="container">
+<div class="container profile">
     <h1>Update Profile</h1>
     <form> 
         <div class="form-group">
@@ -37,19 +39,22 @@
                 [(ngModel)] = "userData.teacher"
                 type="checkbox" 
                 name="vehicle" 
-                value="true">
+                value="true"
+               >
         </div>
         <button 
             *ngIf="isTeacher()"
             type="submit" 
             class="btn btn-default"
             (click)="updateUser({teacher: false}); profileFormOpen=false"
+            label="Stop Teaching"
             >Stop Teaching</button>
 
         <button 
                 type="submit" 
                 class="btn btn-default"
                 (click)="updateUser(userData); profileFormOpen=false"
+                label="Update Profile"
                 >Update Profile</button>
     </form>
 </div>

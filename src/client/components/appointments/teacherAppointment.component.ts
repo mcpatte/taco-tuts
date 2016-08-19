@@ -3,15 +3,14 @@ import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../store/index';
 import { AppointmentService  } from '../../services/appointment.service';
 import { FilterDatePipe } from './pipes/appointment.date-pipe';
-import { ConfirmedStudentPipe } from './pipes/appointment.confirmedStudent-pipe';
-import {  InputText, Button, DataList } from 'primeng/primeng';
+import { ConfirmedTeacherPipe } from './pipes/appoinment.confirmedTeacher-pipe';
+
 
 @Component({
-    selector: 'appointment',
+    selector: 'teacher-appointment',
     providers: [ AppointmentService ],
-    directives: [InputText, Button, DataList ],
-    pipes: [ FilterDatePipe, ConfirmedStudentPipe ],
-    template: require('./appointment.component.html'),
+    pipes: [ FilterDatePipe, ConfirmedTeacherPipe ],
+    template: require('./teacherAppointment.component.html'),
     styles: [`
     .appointments {
       font-family: 'Roboto', sans-serif;
@@ -32,7 +31,7 @@ import {  InputText, Button, DataList } from 'primeng/primeng';
     `]
 })    
 
-export class AppointmentComponent {
+export class TeacherAppointmentComponent {
     private subjects = [];
     private teachers = [];
     private studentid: Number; 
@@ -46,7 +45,9 @@ export class AppointmentComponent {
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
-        private appointmentService: AppointmentService) {}
+        private appointmentService: AppointmentService) { 
+
+        }
 
 
      ngOnInit() {
@@ -59,7 +60,7 @@ export class AppointmentComponent {
         this.appointmentService.getSubjects()
             .subscribe(
                 data => this.subjects = data
-            )
+            );
     }
 
 
@@ -71,18 +72,15 @@ export class AppointmentComponent {
         console.log(subjectid); 
     }
 
-
-    addAppointment(apptModel) {
-        apptModel.confirmed = false;
-        apptModel.studentid = this.studentid;
-        apptModel.datetime = apptModel.date + ' ' + apptModel.time
-        console.log("appt Model from add appointment", apptModel)
-        this.appointmentService.addAppointment(apptModel)
-            .subscribe(data => {
-                console.log("heres the data", data)
-                this.getAppointments()  
-            })
-    }
+    confirmAppt(sessionid){
+        console.log("appt confirm", sessionid);
+        this.appointmentService.confirmAppt(sessionid)
+            .subscribe(
+                data => { console.log(data)
+                        this.getAppointments()
+                }
+            )
+    } 
 
     removeAppt(sessionid){
         console.log("appt remove", sessionid);
@@ -95,9 +93,19 @@ export class AppointmentComponent {
     } 
 
 
+    // addAppointment(apptModel) {
+    //     apptModel.confirmed = false;
+    //     apptModel.studentid = this.studentid;
+    //     apptModel.datetime = apptModel.date + ' ' + apptModel.time
+    //     console.log("appt Model from add appointment", apptModel)
+    //     this.appointmentService.addAppointment(apptModel)
+    //         .subscribe(data => console.log("heres the data", data))
+    // }
+
+
     getAppointments(){
         console.log("get appointments called with student id", this.studentid)
-        this.appointmentService.getAppointmentsByStudent(this.studentid)
+        this.appointmentService.getAppointmentsByTeacher(this.studentid)
             .subscribe(data => this.appointments = data);
     }
     

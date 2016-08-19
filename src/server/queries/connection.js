@@ -12,7 +12,7 @@ if (process.env.DATABASE_URL) {
 } else if (process.env.NODE_ENV === 'test') {
   connectionString = 'postgres://localhost:5432/tacotest';
 } else {
-  connectionString = 'postgres://localhost:5432/tacobase2';
+  connectionString = 'postgres://localhost:5432/tacobase4';
 }
 
 var db = pgp(connectionString);
