@@ -116,10 +116,10 @@ select(item){
  getStudentID(){
         let userData = this.ngRedux.getState().login['userData']
         if(userData){
-          let authID = userData.authID;
+          let authID = userData.authid;
           this.appointmentService.getUserID(authID)
             .subscribe( data => this.studentid = data[0].id);
-        }
-    }   
+        } 
+     }
 
 }
