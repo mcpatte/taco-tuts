@@ -1,4 +1,4 @@
-<h1>Student Dashboard</h1>
+<h1 class="student-dash">Student Dashboard</h1>
     <!--<button type="submit"   
         class="btn btn-default btn-primary" 
         (click)="getSubjectByStudent()"
@@ -23,13 +23,12 @@
         </div>
     </div>-->
 
-<p-tabView>
+<p-tabView class="subject">
     <p-tabPanel header="List Subjects">
         <div class="subject" 
             *ngFor="let subject of subjects; let i = index" >
             <h3>Subject: {{ subject.name }}</h3>
-            <h4>Progress:</h4>
-            <!--<progress value={{subject.progress}} max="100"></progress>-->
+            <h4>Progress: {{subject.progress}}%</h4>
             <p-progressBar value={{subject.progress}} ></p-progressBar>
         
             <div> 
@@ -57,6 +56,10 @@
     </p-tabPanel>
     
 </p-tabView>
+
+
+
+
 
 
 <!--<subjectSearch></subjectSearch>-->

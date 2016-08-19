@@ -14,14 +14,16 @@ import { ProgressBar, TabView, TabPanel, InputText, Button, Calendar } from 'pri
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
   directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, ProgressBar, TabView, TabPanel, InputText, Button, Calendar],
+  template: require('./studentDashboard.component.html'),
   styles: [`
     .subject {
       width: 40%;
       margin: 5px;
       padding: 5px;
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
     }
-  `],
-  template: require('./studentDashboard.component.html')
+  `]
 })
 export class StudentDashboardComponent {
   date2 = '2016-08-09';
