@@ -8,7 +8,9 @@ CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
   isAvailable BOOLEAN,
   favorite BOOLEAN,
-  rating INT
+  rating REAL,
+  ratingCount INT DEFAULT 0
+
 );
 
 CREATE TABLE users (
