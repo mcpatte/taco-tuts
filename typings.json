@@ -6,5 +6,8 @@
     "node": "registry:dt/node#6.0.0+20160602155235",
     "socket.io-client": "registry:dt/socket.io-client#1.4.4+20160317120654"
   },
-  "resolution": "src/client/typings"
+  "resolution": "src/client/typings",
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160723033700"
+  }
 }

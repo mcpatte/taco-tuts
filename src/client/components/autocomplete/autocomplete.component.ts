@@ -92,9 +92,12 @@ select(item){
 }
 
  getStudentID(){
-        let authID = this.ngRedux.getState().login['userData'].authid;
-        this.appointmentService.getUserID(authID)
+        let userData = this.ngRedux.getState().login['userData']
+        if(userData){
+          let authID = userData.authID;
+          this.appointmentService.getUserID(authID)
             .subscribe( data => this.studentid = data[0].id);
+        }
     }   
 
 }

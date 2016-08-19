@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS learning;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS subjects CASCADE;
 DROP TABLE IF EXISTS teachers CASCADE;
+DROP TABLE IF EXISTS sessions CASCADE;
+DROP TABLE IF EXISTS instantSessionRequests CASCADE;
 
 CREATE TABLE teachers (
   ID SERIAL PRIMARY KEY,
@@ -32,6 +34,13 @@ CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
   start TIMESTAMP, 
   ending TIMESTAMP,
+  subjectID integer references subjects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE instantSessionRequests (
+  ID SERIAL PRIMARY KEY,
+  studentAuthID text,
+  teacherAuthID text,
   subjectID integer references subjects(id) ON DELETE CASCADE
 );
 

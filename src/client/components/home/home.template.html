@@ -1,32 +1,47 @@
-<h3>Filter teachers by subject</h3>
-<button pButton type="button" (click)="getTeachers()" label="Click"></button>
-<table>
-  <tr>
-  Subjects:
-      <td *ngFor="let subject of subjects">
-        <button pButton type="button" (click)="getTeaching(subject.id)" label={{subject.name}}>
-        </button>
-      </td>
-  </tr>
-</table>
-<ul >
-  <div *ngFor="let teacher of teachers">
-  <li *ngIf="teacher.isavailable === true">
-    <strong>{{teacher.name}}</strong>
+  <button pButton (click)="getTeachers()" label="Show All Teachers"></button>
 
-    <div *ngIf="!hasPendingRequest(teacher)">
-      <button pButton (click)="requestSession(teacher)" label="request session">
-      </button>
-    </div>
+  <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
 
-    <div *ngIf="hasPendingRequest(teacher)">
-      <button pButton (click)="cancelRequest(teacher)" label="cancel session">
-      </button>
-    </div>
+  <h4>Teachers</h4>
+  <p-dataList [value]="teachers" [paginator]="true" [rows]="5">
+    <template let-teacher>
+        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3" style="text-align:center"><i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i><img src="/assets/profilepics/{{teacher.username}}.jpg"></div>
+                <div class="ui-grid-col-9">
+                    <div class="ui-grid ui-grid-responsive ui-fluid">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">Name: </div>
+                            <div class="ui-grid-col-10">{{teacher.name}}</div>
+                                <div *ngIf="!hasPendingRequest(teacher)">
+                                  <button pButton (click)="requestSession(teacher)" label="request session">
+                                  </button>
+                                </div>
 
-    <br>
-    {{teacher.username}}
-  </li>
-  </div>
-</ul>
+                                <div *ngIf="hasPendingRequest(teacher)">
+                                  <button pButton (click)="cancelRequest(teacher)" label="cancel session">
+                                  </button>
+                                </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">Rating: </div>
+                            <div class="ui-grid-col-10">
+                              <ac-stars [rating]="teacher.rating"></ac-stars>           
+                            </div>       
+
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">Availability: </div>
+                            <div class="ui-grid-col-10">{{teacherAvailibility(teacher.id)}}</div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">Email: </div>
+                            <div class="ui-grid-col-8">{{teacher.email}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+  </p-dataList>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
