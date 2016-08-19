@@ -42,7 +42,8 @@ import { TeacherList } from '../../actions/teacherList.actions';
         <br />
         <div class="container-fluid" >
             <input id="subject" type="text" class="validate filter-input" placeholder="Filter teachers by subject..." [(ngModel)]=query (keyup)=debounce()>
-        </div>  	
+        </div> 
+        <br />	
         `
 })
 
@@ -105,7 +106,7 @@ export class TeacherSearchComponent implements OnInit {
           });
   }
 
-  select(item){
+  select(item) {
     this.query = item;
     this.filteredList = [];
   }
