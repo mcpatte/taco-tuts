@@ -10,7 +10,6 @@ CREATE TABLE teachers (
   favorite BOOLEAN,
   rating REAL,
   ratingCount INT DEFAULT 0
-
 );
 
 CREATE TABLE users (
