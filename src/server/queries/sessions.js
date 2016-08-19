@@ -45,7 +45,6 @@ function removeAppt(req, res, next) {
 
 module.exports = {
   addAppointment: addAppointment,
-  // addSessionsToUsers: addSessionsToUsers,
   getAppointmentsByStudent: getAppointmentsByStudent,
   getAppointmentsByTeacher: getAppointmentsByTeacher,
   confirmAppt: confirmAppt,

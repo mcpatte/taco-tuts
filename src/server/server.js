@@ -66,12 +66,9 @@ app.post('/api/reviews', db.addReview);
 
 // ******************** SESSIONS ******************* //
 
-app.get('/api/sessions/:id', db.getAppointmentsByUser);
 app.get('/api/sessions/student/:id', db.getAppointmentsByStudent);
 app.get('/api/sessions/teacher/:id', db.getAppointmentsByTeacher);
-app.get('/api/sessions/tutor/:sessionid', db.getAppointmentTutor);
 app.post('/api/sessions', db.addAppointment);
-app.post('/api/sessions/:sessionid', db.addSessionsToUsers);
 app.put('/api/sessions/:sessionid', db.confirmAppt);
 app.delete('/api/sessions/:sessionid', db.removeAppt);
 
