@@ -14,8 +14,12 @@ Session.prototype.addTeacher = function(teacher) {
   this.teachers.push(teacher);
 };
 
-Session.prototype.start = function() {
-  const data = { sessionID: this.id };
+Session.prototype.start = function(teacherID, studentID) {
+  const data = { 
+    sessionID: this.id,
+    teacherID: teacherID,
+    studentID: studentID
+  };
   this.emitToAll('session-start', data);
 };
 
