@@ -35,7 +35,13 @@ module.exports = {
     loaders: [
       { test: /\.ts$/,  loader: 'ts-loader', exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
-      { test: /\.html$/, loader: 'html' }
+      { test: /\.html$/, loader: 'html' }, 
+      { test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [ 
+            'file?hash=sha512&digest=hex&name=[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
+      }
     ]
   },
 
