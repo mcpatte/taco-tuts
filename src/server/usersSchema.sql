@@ -35,8 +35,8 @@ CREATE TABLE subjects (
 
 CREATE TABLE sessions (
   ID SERIAL PRIMARY KEY,
-  studentID integer references users(id) ON DELETE CASCADE, 
-  teacherID integer references users(id) ON DELETE CASCADE, 
+  studentID integer references users(id) ON DELETE CASCADE,
+  teacherID integer references users(id) ON DELETE CASCADE,
   start TIMESTAMP,
   ending TIMESTAMP,
   confirmed BOOLEAN,
@@ -113,7 +113,7 @@ INSERT INTO users (email, authid, username, name, teacher)
 
 INSERT INTO users (email, authid, username, name, teacher, teacherID)
   VALUES ('e@e.com', 'auth0|57b2818451f9235564a6f698', 'halfbloodprince', 'Severus Snape', true, 6);
-  
+
 INSERT INTO users (email, authid, username, name, teacher)
   VALUES ('q@q.com', 'auth0|57b2817951f9235564a6f697', 'chosen one', 'Harry Potter', false);
 
@@ -142,11 +142,26 @@ INSERT INTO teaching (userID, subjectID)
 INSERT INTO teaching (userID, subjectID)
   VALUES (1, 3);
 
-INSERT INTO learning (userID, subjectID)
+INSERT INTO teaching (userID, subjectID)
+  VALUES (3, 1);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (3, 4);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (4, 5);
+
+INSERT INTO teaching (userID, subjectID)
   VALUES (2, 1);
 
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 4);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (6, 5);
+
+INSERT INTO teaching (userID, subjectID)
+  VALUES (6, 4);
 
 INSERT INTO teaching (userID, subjectID)
   VALUES (7, 5);

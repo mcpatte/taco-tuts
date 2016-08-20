@@ -10,13 +10,14 @@ import { Button, DataList, Rating } from 'primeng/primeng';
 import { TeacherSearchComponent } from './teacherSearch.component.ts';
 import { AcStars, AcStar } from '../rating';
 import { Observable } from 'rxjs/Observable';
-
-
+import { AdvancedSearchComponent } from '../advanced-search';
+import { StateGetterService } from '../../services/state-getter.service';
 
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService ],
-  directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars, AcStar],
+  directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars,
+    AcStar, AdvancedSearchComponent],
   template: require('./home.template.html'),
   styles: [`
     div {
@@ -34,12 +35,73 @@ import { Observable } from 'rxjs/Observable';
       background-color: #f3f3f3;
       margin: 6px 5px 0px 0px;
     }
-    .pStyle {
-      width: 75%;
+
+
+    .available {
+      background-color: #52d68a;
+      color: white;
+      border-radius: 5px;
+      font-weight: 800;
+      font-size: .7em;
+      padding: 3px;
     }
-    `]
+    .btn-session {
+      width: 75%;
+      background-color: #33495f;
+      border: 0;
+      color: white;
+      font-weight: 800;
+      margin-top: 10px;
+    }
+    .btn-session:active {
+      background-color: #33495f;
+      font-weight: 800;
+      color: #ff9f4f;
+      border: 0;
+    }
+    .btn-session-cancel {
+      background-color: #ff9f4f;
+    }
+    .btn-session-cancel:hover {
+      color: white;
+    }
+    .btn-session-cancel:active {
+      background-color: #ff9f4f;
+      color: white;
+    }
+    button {
+      color: #33495f;
+      background-color: white;
+      border: 1px solid #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      cursor: pointer;
+    }
+    .filters {
+      padding: 10px;
+    }
+    .img-container {
+      overflow: hidden;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin: auto;
+    }
+    .teacher-info {
+      font-size:16px;
+      font-family:'Roboto',sans-serif;
+      padding:20px;
+      color:#33495f;
+      border-bottom:1px solid #D5D5D5;
+    }
+    .teacher-name {
+      font-weight: 800;
+      font-size: 1.2em;
+    }
+  `]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   // Selected observables to test async pipe model.
   // Members to test subscribe model.
   @select(['teacherList', 'list'])teachers$: Observable<any>;
@@ -52,7 +114,8 @@ export class HomeComponent implements OnInit {
   private userParams: Object = {
     rating: 0
   };
-  
+  private showAdvancedSearch: boolean = false;
+
   constructor(
     private userService: UserService,
     private auth: Auth,
@@ -60,21 +123,11 @@ export class HomeComponent implements OnInit {
     private homeService: HomeService,
     private loginActions: LoginActions,
     private sessionRequestActions: SessionRequestActions,
+    private state: StateGetterService,
     private socket: SocketService
   ) {
-    this.teachers$.subscribe(
-      (list) => {
-        console.log(list)
-        this.teachers = list;
-      }
-    );
+    this.teachers$.subscribe(list => this.teachers = list);
   }
-
-  ngOnInit() {
-    this.getSubjects();
-    this.getUsers();
-    this.getTeachers();
-  };
 
   getSubjectIDByName(name){
     for(let i = 0; i < this.subjects.length; i++) {
@@ -133,7 +186,6 @@ export class HomeComponent implements OnInit {
       teacherID,
       2
     );
-    // this.socket.requestSession(teacherID, student);
   }
 
   hasPendingRequest(teacher) {
@@ -170,4 +222,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  toggleAdvancedSearch() {
+    this.showAdvancedSearch = !this.showAdvancedSearch;
+  }
+
+  noResults() {
+    return !this.state.getTeacherList().length;
+  }
 }
