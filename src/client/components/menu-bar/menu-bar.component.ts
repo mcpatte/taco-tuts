@@ -1,7 +1,7 @@
 import { Component }          from '@angular/core';
 import { NgRedux }            from 'ng2-redux';
 import { IAppState }          from '../../store/index';
-import { ROUTER_DIRECTIVES }  from '@angular/router';
+import { ROUTER_DIRECTIVES, Router }  from '@angular/router';
 import { Auth }               from '../../services/auth.service';
 import { LogoutActions }      from '../../actions/logout.actions';
 import { StateGetterService } from '../../services/state-getter.service';
@@ -9,7 +9,7 @@ import { StateGetterService } from '../../services/state-getter.service';
 @Component({
   selector: 'menu-bar',
   directives: [ ROUTER_DIRECTIVES ],
-  providers: [ LogoutActions, StateGetterService ],
+  providers: [ LogoutActions ],
   styles: [`
     .menu {
       background-color: #33495f;
@@ -69,38 +69,14 @@ import { StateGetterService } from '../../services/state-getter.service';
     }
 
   `],
-  template: `
-  <nav class="menu">
-    <div class='logo'><img class='logoImg' src='../assets/logo/rocket-logo.svg' /></div>
-    <button class="menuItem" *ngIf="isAuthenticated()">
-      <a routerLink="#" routerLinkActive="active" (click)="logout()" >Log Out</a>
-    </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isInSession()">
-      <a routerLink="/session" routerLinkActive="active" >Session</a>
-    </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="!isAuthenticated()">
-      <a routerLink="/login" routerLinkActive="active" >Log In</a>
-    </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']">
-      <a routerLink="/advanced-search" routerLinkActive="active" >Advanced Search</a>
-    </button>
-    <button class="menuItem" *ngIf="isTeacher()" [routerLinkActive]="['menuItemActive']">
-      <a routerLink="/teacher-dash" routerLinkActive="active" >Teacher Dashboard</a>
-    </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isAuthenticated() && !isTeacher()">
-      <a routerLink="/student-dash" routerLinkActive="active" >Student Dashboard</a>
-    </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']">
-      <a routerLink="/home" routerLinkActive="active">Home</a>
-    </button>
-  </nav>
-  `
+  template: require('./menu-bar.template.html')
 })
 export class MenuBarComponent {
   constructor(
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private logoutActions: LogoutActions,
+    private router: Router,
     private state: StateGetterService
   ) { }
 
@@ -122,5 +98,9 @@ export class MenuBarComponent {
 
   isInSession() {
     return !!this.ngRedux.getState().session.sessionID;
+  }
+
+  navigate(path) {
+    this.router.navigate([path]);
   }
 }
