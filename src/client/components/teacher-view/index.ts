@@ -1,0 +1,1 @@
+export { TeacherViewComponent } from './teacher-view.component'; 
