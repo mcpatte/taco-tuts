@@ -31,7 +31,8 @@ export class SessionComponent {
     return this.state.getRole() === 'teacher';
   }
 
-  endSession() {
+  leaveSession() {
+    this.actions.leaveSessionDispatch();
     this.router.navigate(['/session-end']);
   }
 
