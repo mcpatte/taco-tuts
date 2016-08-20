@@ -1,15 +1,15 @@
 import { Component }          from '@angular/core';
 import { NgRedux }            from 'ng2-redux';
-import { IAppState }          from '../store/index';
+import { IAppState }          from '../../store/index';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
-import { Auth }               from '../services/auth.service';
-import { LogoutActions }      from '../actions/logout.actions';
-
+import { Auth }               from '../../services/auth.service';
+import { LogoutActions }      from '../../actions/logout.actions';
+import { StateGetterService } from '../../services/state-getter.service';
 
 @Component({
   selector: 'menu-bar',
   directives: [ ROUTER_DIRECTIVES ],
-  providers: [ LogoutActions ],
+  providers: [ LogoutActions, StateGetterService ],
   styles: [`
     .menu {
       background-color: #33495f;
@@ -84,10 +84,10 @@ import { LogoutActions }      from '../actions/logout.actions';
     <button class="menuItem" [routerLinkActive]="['menuItemActive']">
       <a routerLink="/advanced-search" routerLinkActive="active" >Advanced Search</a>
     </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isTeacher()">
+    <button class="menuItem" *ngIf="isTeacher()" [routerLinkActive]="['menuItemActive']">
       <a routerLink="/teacher-dash" routerLinkActive="active" >Teacher Dashboard</a>
     </button>
-    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isAuthenticated()">
+    <button class="menuItem" [routerLinkActive]="['menuItemActive']" *ngIf="isAuthenticated() && !isTeacher()">
       <a routerLink="/student-dash" routerLinkActive="active" >Student Dashboard</a>
     </button>
     <button class="menuItem" [routerLinkActive]="['menuItemActive']">
@@ -100,7 +100,8 @@ export class MenuBarComponent {
   constructor(
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
-    private logoutActions: LogoutActions
+    private logoutActions: LogoutActions,
+    private state: StateGetterService
   ) { }
 
   isAuthenticated() {
@@ -108,10 +109,9 @@ export class MenuBarComponent {
   }
 
   isTeacher() {
-    if (this.ngRedux.getState()['login']['userData'] !== undefined) {
-      return this.auth.isTeacher();
+    if (this.isAuthenticated()){
+      return this.state.isTeacher();
     }
-    return false;
   }
 
   logout () {

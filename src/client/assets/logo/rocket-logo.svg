@@ -22,7 +22,7 @@
    sodipodi:docname="rocket-logo.svg"><metadata
      id="metadata3035"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
      id="defs3033" /><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -32,17 +32,17 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1190"
-     inkscape:window-height="729"
+     inkscape:window-width="1217"
+     inkscape:window-height="704"
      id="namedview3031"
      showgrid="false"
-     inkscape:zoom="1.2080766"
-     inkscape:cx="19.05492"
-     inkscape:cy="92.838433"
+     inkscape:zoom="0.86258134"
+     inkscape:cx="99.518118"
+     inkscape:cy="108.29384"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="text3996"
+     inkscape:current-layer="layer2"
      showguides="true"
      inkscape:guide-bbox="true"><sodipodi:guide
        orientation="1,0"
@@ -189,6 +189,6 @@
          x="30.6472"
          y="39.564144"
          style="fill:#ffffff"><tspan
-   style="fill:#ff9f4f;fill-opacity:1"
+   style="fill:#ef770c;fill-opacity:1;font-style:normal"
    id="tspan3972">A</tspan>CE</tspan></text>
 </g></svg>

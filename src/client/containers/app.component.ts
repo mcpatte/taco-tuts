@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { NgRedux, DevToolsExtension } from 'ng2-redux';
-import { MenuBarComponent } from '../components/menuBar.component';
+import { MenuBarComponent } from '../components/menu-bar';
 import { IAppState } from '../store/index';
 import { ConfigureStoreService } from '../services/configure-store.service.ts';
 import { Auth } from '../services/auth.service';
