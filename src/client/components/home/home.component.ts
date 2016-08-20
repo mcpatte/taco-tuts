@@ -11,6 +11,7 @@ import { TeacherSearchComponent } from './teacherSearch.component.ts';
 import { AcStars, AcStar } from '../rating';
 import { Observable } from 'rxjs/Observable';
 import { AdvancedSearchComponent } from '../advanced-search';
+import { StateGetterService } from '../../services/state-getter.service';
 
 @Component({
   selector: 'home',
@@ -74,6 +75,7 @@ export class HomeComponent {
     private homeService: HomeService,
     private loginActions: LoginActions,
     private sessionRequestActions: SessionRequestActions,
+    private state: StateGetterService,
     private socket: SocketService
   ) {
     this.teachers$.subscribe(list => this.teachers = list);
@@ -176,4 +178,7 @@ export class HomeComponent {
     this.showAdvancedSearch = !this.showAdvancedSearch;
   }
 
+  noResults() {
+    return !this.state.getTeacherList().length;
+  }
 }

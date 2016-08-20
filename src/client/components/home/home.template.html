@@ -10,6 +10,9 @@
     <div class="filters" *ngIf="showAdvancedSearch">
       <advanced-search></advanced-search>
     </div>
+    <div *ngIf="noResults()">
+        <h3>Sorry, there were no results for your search.</h3>
+    </div>
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5" styleClass="pStyle">
     <template let-teacher >
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
