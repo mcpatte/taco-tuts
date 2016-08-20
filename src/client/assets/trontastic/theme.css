@@ -22,7 +22,7 @@
 .ui-widget-content a { color: #ffffff; }
 .ui-widget-header { border: 1px solid #000000; background: #9fda58 url(images/ui-bg_gloss-wave_85_9fda58_500x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
 .ui-widget-header a { color: #222222; }
-
+.pStyle { width: 75%;}
 /* Interaction states
 ----------------------------------*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #1b1613; background: #0a0a0a url(images/ui-bg_glass_40_0a0a0a_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #b8ec79; }
