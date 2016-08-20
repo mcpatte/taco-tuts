@@ -53,37 +53,37 @@ export class TeacherSearchComponent implements OnInit {
   private studentid: number;
   private fullSubjects = [];
   private debounce: Function;
-@Input()  query: string;
-@Output() onClicked = new EventEmitter<string>();
+  @Input()  query: string;
+  @Output() onClicked = new EventEmitter<string>();
   sendToParent(stuff: string) {
     console.log(stuff);
     this.onClicked.emit(stuff);
   }
 
   constructor(
-      private ngRedux: NgRedux<IAppState>,
-      private appointmentService: AppointmentService,
-      private studentDashboardServices: StudentDashboardService,
-      private advancedSearch: AdvancedSearchService,
-      private teacherList: TeacherListActions
+    private ngRedux: NgRedux<IAppState>,
+    private appointmentService: AppointmentService,
+    private studentDashboardServices: StudentDashboardService,
+    private advancedSearch: AdvancedSearchService,
+    private teacherList: TeacherListActions
   ) {}
 
   ngOnInit() {
-      this.getSubjects();
-      this.getStudentID();
-      this.debounce = debounce(this.filter.bind(this), 500);
+    this.getSubjects();
+    this.getStudentID();
+    this.debounce = debounce(this.filter.bind(this), 500);
+    this.filter();
   }
 
   getSubjects() {
-        this.appointmentService.getSubjects()
-            .subscribe(
-                data =>
-                data.forEach(el => {
-                    this.fullSubjects.push(el)
-                    this.subjects.push(el.name)
-                })
-            );
-    }
+    this.appointmentService.getSubjects()
+      .subscribe(
+        data => data.forEach(el => {
+          this.fullSubjects.push(el)
+          this.subjects.push(el.name)
+        })
+      );
+  }
 
   addSubject(subject) {
     let subjectObj = this.fullSubjects.filter( (el) => {

@@ -52,7 +52,7 @@ import { AdvancedSearchComponent } from '../advanced-search';
     }
   `]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   // Selected observables to test async pipe model.
   // Members to test subscribe model.
   @select(['teacherList', 'list'])teachers$: Observable<any>;
@@ -78,10 +78,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.teachers$.subscribe(list => this.teachers = list);
   }
-
-  ngOnInit() {
-    this.getTeachers();
-  };
 
   getSubjectIDByName(name){
     for(let i = 0; i < this.subjects.length; i++) {
