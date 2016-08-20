@@ -35,9 +35,7 @@ import { StateGetterService } from '../../services/state-getter.service';
       background-color: #f3f3f3;
       margin: 6px 5px 0px 0px;
     }
-    .pStyle {
-      width: 75%;
-    }
+
 
     .available {
       background-color: #52d68a;
@@ -89,6 +87,17 @@ import { StateGetterService } from '../../services/state-getter.service';
       width: 80px;
       height: 80px;
       margin: auto;
+    }
+    .teacher-info {
+      font-size:16px;
+      font-family:'Roboto',sans-serif;
+      padding:20px;
+      color:#33495f;
+      border-bottom:1px solid #D5D5D5;
+    }
+    .teacher-name {
+      font-weight: 800;
+      font-size: 1.2em;
     }
   `]
 })
