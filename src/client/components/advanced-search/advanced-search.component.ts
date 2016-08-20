@@ -8,67 +8,7 @@ import { StateGetterService } from '../../services/state-getter.service';
 @Component({
   selector: 'advanced-search',
   providers: [ AdvancedSearchService ],
-  template: `
-  <div class = "container">
-    <h1 class='advanced-search'>Advanced Search</h1>
-    <form>
-        <div class="form-group">
-            <label for="name">Teacher Name</label>
-            <input
-                type="text"
-                class="form-control"
-                [(ngModel)] = "userParams.name"
-            >
-        </div>
-        <div class="form-group">
-          <label for="username">Subject</label>
-            <input
-                type="select"
-                class="form-control"
-                [(ngModel)] = "userParams.subject"
-            >
-        </div>
-        <div class="form-group">
-          <label for="username">Rating</label>
-            <input
-                type="select"
-                class="form-control"
-                [(ngModel)] = "userParams.rating"
-            >
-        </div>
-        <div class="form-group">
-          <label for="username">Currently Available</label>
-            <input
-                type="checkbox"
-                class="form-control"
-                [(ngModel)] = "userParams.currentlyAvailable"
-            >
-        </div>
-
-        <button
-            type="submit"
-            class="btn btn-default"
-            (click)="search(userParams)"
-            >Search</button>
-
-    </form>
-        <div *ngIf="results.length">
-            <ul *ngFor="#teacher of results" >
-                <div class = 'result' (click)="chooseTeacher(teacher)">
-                    <h3 class='name'>{{teacher.name}}</h3>
-                    <h5 *ngIf="!!teacher.rating"><img *ngFor="#star of getStars(teacher.rating)" src="../../assets/logo/star.svg"/></h5>
-                    <h5 *ngIf="!teacher.rating">Rating: no ratings yet!</h5>
-                    <h5>Email: {{teacher.email}}</h5>
-                    <h5 *ngIf="teacher.subjectname">Teaches: {{teacher.subjectname}}</h5>
-                    <h5 *ngIf="teacher.isAvailable">Available now!</h5>
-                </div>
-            </ul>
-        </div>
-        <div *ngIf="noResults()">
-            <h3>Sorry, there were no results for your search.</h3>
-        </div>
-</div>
-`,
+  template: require('./advanced-search.template.html'),
   styles: [`
     .advanced-search {
       font-family: 'Roboto', sans-serif;
