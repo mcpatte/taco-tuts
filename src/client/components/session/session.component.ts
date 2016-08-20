@@ -34,6 +34,7 @@ export class SessionComponent {
   leaveSession() {
     this.actions.leaveSessionDispatch();
     this.router.navigate(['/session-end']);
+    this.socket.leaveSession();
   }
 
   onKeypress(e) {

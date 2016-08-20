@@ -7,6 +7,7 @@ import {
   TeacherActions
 } from '../actions';
 import { Router } from '@angular/router';
+import { StateGetterService } from './state-getter.service';
 
 @Injectable()
 export class SocketService {
@@ -25,7 +26,8 @@ export class SocketService {
     private sessionActions: SessionActions,
     private teacherActions: TeacherActions,
     private sessionRequestActions: SessionRequestActions,
-    private router: Router
+    private router: Router,
+    private state: StateGetterService
   ) { }
 
   connect(userID) {
@@ -73,6 +75,14 @@ export class SocketService {
 
   acceptSession(teacherID, studentID) {
     this.socket.emit('session-accept', { teacherID, studentID });
+  }
+
+  leaveSession() {
+    this.socket.emit('session-leave', {
+      sessionID: this.state.getSessionID(),
+      userID: this.state.getAuthID(),
+      name: this.state.getUserName()
+    });
   }
 
   sendSessionMessage(sessionID, message, from) {
