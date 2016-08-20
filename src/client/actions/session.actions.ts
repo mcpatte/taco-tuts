@@ -5,7 +5,8 @@ export const SESSION_ACTIONS = {
   ADD_MESSAGE: 'ADD_MESSAGE',
   SET_ROLE: 'SET_ROLE',
   SET_SESSION_ID: 'SET_SESSION_ID',
-  SET_SESSION_DATA: 'SET_SESSION_DATA'
+  SET_SESSION_DATA: 'SET_SESSION_DATA',
+  LEAVE_SESSION: 'LEAVE_SESSION'
 };
 
 @Injectable()
@@ -24,8 +25,13 @@ export class SessionActions {
   setSessionIDDispatch(sessionID) {
     this.ngRedux.dispatch(this.setSessionID(sessionID));
   }
+
   setSessionDataDispatch(data) {
     this.ngRedux.dispatch(this.setSessionData(data));
+  }
+
+  leaveSessionDispatch() {
+    this.ngRedux.dispatch(this.leaveSession());
   }
 
   addMessage(message, from) {
@@ -49,10 +55,17 @@ export class SessionActions {
       sessionID
     };
   }
+
   setSessionData(data) {
     return {
       type: SESSION_ACTIONS.SET_SESSION_DATA,
       data
+    };
+  }
+
+  leaveSession() {
+    return {
+      type: SESSION_ACTIONS.LEAVE_SESSION
     };
   }
 }
