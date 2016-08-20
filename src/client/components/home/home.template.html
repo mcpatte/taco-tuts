@@ -18,7 +18,7 @@
         <div class="ui-grid-row">
           <div class="ui-grid-col-3" style="text-align:center">
             <div class="img-container">
-              <img src="/assets/profilepics/{{teacher.username}}.jpg">
+              <img src="{{teacher.imageurl}}" style="width: auto; height: auto; max-width: 120px; max-height:120px">
             </div>
 
             <div *ngIf="!hasPendingRequest(teacher)">
@@ -60,6 +60,9 @@
                     <p class="subjectsClass">{{subject}}</p>
                   </div>
                 </div>
+              </div>
+              <div class="ui-grid-row">
+                <p class="rate">Hourly Rate: ${{teacher.rate}}</p>
               </div>
             </div>
           </div>

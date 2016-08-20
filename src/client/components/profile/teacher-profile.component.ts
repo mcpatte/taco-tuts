@@ -35,6 +35,13 @@ import { InputText, Button, Checkbox } from 'primeng/primeng';
      width: 20%;
      background: orange;  
     }
+    .img-container {
+      overflow: hidden;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin: auto;
+    }
     `]
 })
 
@@ -42,8 +49,10 @@ import { InputText, Button, Checkbox } from 'primeng/primeng';
 export class TeacherProfileComponent {
   private authID: string;
   private profileFormOpen: boolean = false;
-  private userData: Object = {teacher: false};
+  private userData: Object = {imageURL: ''
+                            };
   private hourlyRate: number = 15;
+  private validURL: boolean = true;
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
@@ -82,7 +91,14 @@ export class TeacherProfileComponent {
         
     }
 
+    validateURL():boolean {
+     var valid = /^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)$/;
+        return valid.test(this.userData["imageURL"]);
+    }
+
+
     updateUser(userData: Object){
+        console.log("updating user from teacher profile component", userData)
         this.profileService.updateUser(userData, this.getID())
         .subscribe(
             response => {
