@@ -39,6 +39,14 @@ import { StateGetterService } from '../../services/state-getter.service';
       width: 75%;
     }
 
+    .available {
+      background-color: #52d68a;
+      color: white;
+      border-radius: 5px;
+      font-weight: 800;
+      font-size: .7em;
+      padding: 3px;
+    }
     button {
       color: #33495f;
       background-color: white;
@@ -50,6 +58,13 @@ import { StateGetterService } from '../../services/state-getter.service';
     }
     .filters {
       padding: 10px;
+    }
+    .img-container {
+      overflow: hidden;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin: auto;
     }
   `]
 })
