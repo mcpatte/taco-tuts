@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output,} from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
+import { Router } from '@angular/router';
 import { IAppState } from '../../store/index';
 import { Auth } from '../../services/auth.service';
 import { HomeService } from '../../services/home.service';
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { AdvancedSearchComponent } from '../advanced-search';
 import { StateGetterService } from '../../services/state-getter.service';
 import { VideoChatComponent } from '../video-chat/videoChat.component';
+import { TeacherListActions } from '../../actions';
 
 @Component({
   selector: 'home',
@@ -124,9 +126,12 @@ export class HomeComponent {
     private loginActions: LoginActions,
     private sessionRequestActions: SessionRequestActions,
     private state: StateGetterService,
-    private socket: SocketService
+    private socket: SocketService,
+    private router: Router,
+    private teacherListActions: TeacherListActions
   ) {
     this.teachers$.subscribe(list => this.teachers = list);
+    //console.log("WTF IS THIS", Somethin);
   }
 
   requestSession(teacher) {
@@ -157,4 +162,15 @@ export class HomeComponent {
   noResults() {
     return !this.state.getTeacherList().length;
   }
+  
+  viewProfile() {
+    this.router.navigate(['/teacher-view'])
+  }
+  selectTeacher(authID) {
+    this.teacherListActions.selectedTeacherDispatch(authID)
+    .subscribe(() => {
+        this.viewProfile();
+      }
+    )
+   }
 }
