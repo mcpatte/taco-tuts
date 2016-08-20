@@ -7,8 +7,8 @@ var postData = helpers.postData;
 
 function advancedSearch(req, res, next){
   let userParams = req.body;
-  let qs1 = `select users.username, users.name, users.email, users.authid,
-             teachers.isAvailable, teachers.rating`;
+  let qs1 = `select users.username, users.name, users.email, users.authid, users.imageURL,
+             teachers.isAvailable, teachers.rating, teachers.rate`;
   let qs2 = `, array_agg(subjects.name) as subjects `;
   let qs3 = 'inner join subjects on subjects.id=teaching.subjectid ';
   let qs4 = `inner join teachers on users.teacherid=teachers.id
