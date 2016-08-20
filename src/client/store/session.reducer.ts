@@ -42,8 +42,12 @@ export function sessionReducer(
         return Object.assign({}, state, {
           sessionID: action.sessionID
         });
+
       case SESSION_ACTIONS.SET_SESSION_DATA:
         return Object.assign({}, state, action.data);
+
+      case SESSION_ACTIONS.LEAVE_SESSION:
+        return INIT_STATE;
 
       default:
         return state;

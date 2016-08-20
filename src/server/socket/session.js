@@ -1,7 +1,9 @@
+var _ = require('lodash');
+
 // teacher and student are the relevant sockets
 function Session(id) {
   this.id = id;
-  this.teachers= [];
+  this.teachers = [];
   this.students = [];
   this.messages = [];
 }
@@ -14,8 +16,20 @@ Session.prototype.addTeacher = function(teacher) {
   this.teachers.push(teacher);
 };
 
+Session.prototype.leave = function(socket) {
+  this.students = _.difference(this.students, [socket]);
+  this.teachers = _.difference(this.teachers, [socket]);
+};
+
+Session.prototype.reconnect = function(oldSocket, newSocket) {
+  var replacer = socket => socket === oldSocket ? newSocket : socket;
+
+  this.students = _.map(this.students, replacer);
+  this.teachers = _.map(this.teachers, replacer);
+};
+
 Session.prototype.start = function(teacherID, studentID) {
-  const data = { 
+  var data = {
     sessionID: this.id,
     teacherID: teacherID,
     studentID: studentID

@@ -47,6 +47,21 @@ ConnectionManager.prototype.onSessionMessage = function(data) {
   session.emitMessage(message);
 };
 
+ConnectionManager.prototype.onSessionLeave = function(data) {
+  var { sessionID, userID, name } = data;
+
+  var session = this.sessions[sessionID];
+  var leavingSocket = this.connections[userID];
+  var message = {
+    from: 'System',
+    message: `${name} has left the session.`,
+    announce: true
+  };
+
+  session.leave(leavingSocket);
+  session.emitMessage(message);
+};
+
 ConnectionManager.prototype.syncTeacherSessionRequests = function(teacherID) {
   var socket = this.connections[teacherID]
   if (socket) socket.emit('session-requests-teacher-sync', teacherID);

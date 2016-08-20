@@ -1,5 +1,4 @@
 <div>
-  your role: {{ role$ | async }}
   <session-widgets *ngIf="isTeacher()"></session-widgets>
   <br><br>
   <div>
@@ -11,5 +10,5 @@
       <div> {{ message.from }}: {{ message.message }} </div>
     </div>
   </div>
-  <button (click)="endSession()">End Session</button>
+  <button (click)="leaveSession()">Leave Session</button>
 </div>
