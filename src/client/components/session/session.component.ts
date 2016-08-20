@@ -32,9 +32,14 @@ export class SessionComponent {
   }
 
   leaveSession() {
+    this.socket.leaveSession(
+      this.state.getSessionID(),
+      this.state.getAuthID(),
+      this.state.getUserName()
+    );
+
     this.actions.leaveSessionDispatch();
     this.router.navigate(['/session-end']);
-    this.socket.leaveSession();
   }
 
   onKeypress(e) {
