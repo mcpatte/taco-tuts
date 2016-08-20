@@ -6,15 +6,15 @@ import { StudentDashboardService } from '../../services/studentDashboard.service
 import { Button } from 'primeng/primeng';
 import { debounce } from 'lodash';
 import { AdvancedSearchService } from '../../services/advanced-search.service';
-import { TeacherList } from '../../actions/teacherList.actions';
+import { TeacherListActions } from '../../actions';
 
 @Component({
     selector: 'teacherSearch',
     directives: [Button],
-    providers: [ AppointmentService, StudentDashboardService, AdvancedSearchService, TeacherList],
+    providers: [ AppointmentService, StudentDashboardService, AdvancedSearchService, TeacherListActions],
     styles: [`
         .filter-input: {
-          
+
         }
         input[type=text] {
           width: 100%;
@@ -42,8 +42,8 @@ import { TeacherList } from '../../actions/teacherList.actions';
         <br />
         <div class="container-fluid" >
             <input id="subject" type="text" class="validate filter-input" placeholder="Filter teachers by subject..." [(ngModel)]=query (keyup)=debounce()>
-        </div> 
-        <br />	
+        </div>
+        <br />
         `
 })
 
@@ -65,7 +65,7 @@ export class TeacherSearchComponent implements OnInit {
       private appointmentService: AppointmentService,
       private studentDashboardServices: StudentDashboardService,
       private advancedSearch: AdvancedSearchService,
-      private teacherList: TeacherList
+      private teacherList: TeacherListActions
   ) {}
 
   ngOnInit() {
@@ -86,7 +86,7 @@ export class TeacherSearchComponent implements OnInit {
     }
 
   addSubject(subject) {
-    let subjectObj = this.fullSubjects.filter( (el) => { 
+    let subjectObj = this.fullSubjects.filter( (el) => {
         return el.name === subject;
     });
     let model = {
@@ -99,11 +99,11 @@ export class TeacherSearchComponent implements OnInit {
   }
 
   filter() {
-        this.advancedSearch.advancedSearch({subject: this.query})
-          .subscribe ( (data) => {
-            console.log(data);
-            this.teacherList.setTeacherListDispatch(data);
-          });
+    this.advancedSearch.advancedSearch({subject: this.query})
+      .subscribe ( (data) => {
+        console.log(data);
+        this.teacherList.setTeacherListDispatch(data);
+      });
   }
 
   select(item) {

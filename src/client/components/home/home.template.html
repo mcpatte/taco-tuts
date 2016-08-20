@@ -1,11 +1,12 @@
 
-  
+
   <div class= "container">
     <div class="ui-grid-row">
       <div class="ui-grid-col-2">
           <teacherSearch (onClicked)="getTeaching(getSubjectIDByName($event))"> </teacherSearch>
       </div>
     </div>
+    <advanced-search></advanced-search>
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5" styleClass="pStyle">
     <template let-teacher >
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
@@ -15,8 +16,8 @@
                     <div class="ui-grid ui-grid-responsive ui-fluid">
                         <div class="ui-grid-row">
 
-                            <div class="ui-grid-col-10">{{teacher.name}} 
-                              <ac-stars [teacher]="teacher"></ac-stars>  
+                            <div class="ui-grid-col-10">{{teacher.name}}
+                              <ac-stars [teacher]="teacher"></ac-stars>
                             </div>
 
                                 <div *ngIf="!hasPendingRequest(teacher)">

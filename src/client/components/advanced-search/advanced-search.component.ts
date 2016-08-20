@@ -2,6 +2,7 @@ import { Component }              from '@angular/core';
 import { NgRedux }                from 'ng2-redux';
 import { IAppState }              from '../../store/index';
 import { AdvancedSearchService }  from '../../services/advanced-search.service';
+import { TeacherListActions } from '../../actions';
 
 @Component({
   selector: 'advanced-search',
@@ -113,8 +114,9 @@ export class AdvancedSearchComponent {
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private advSearch: AdvancedSearchService
-    ) { }
+    private advSearch: AdvancedSearchService,
+    private teacherListActions: TeacherListActions
+  ) { }
 
   search(userParams: Object) {
     this.clicked = true;
@@ -123,9 +125,9 @@ export class AdvancedSearchComponent {
     this.advSearch.advancedSearch(userParams)
       .subscribe(
         response => {
-          this.results = response;
+          this.teacherListActions.setTeacherListDispatch(response);
         }
-      )
+      );
   }
 
   chooseTeacher(teacher) {

@@ -10,13 +10,13 @@ import { Button, DataList, Rating } from 'primeng/primeng';
 import { TeacherSearchComponent } from './teacherSearch.component.ts';
 import { AcStars, AcStar } from '../rating';
 import { Observable } from 'rxjs/Observable';
-
-
+import { AdvancedSearchComponent } from '../advanced-search';
 
 @Component({
   selector: 'home',
   providers: [ HomeService, LoginActions, UserService ],
-  directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars, AcStar],
+  directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars,
+    AcStar, AdvancedSearchComponent],
   template: require('./home.template.html'),
   styles: [`
     div {
@@ -37,7 +37,7 @@ import { Observable } from 'rxjs/Observable';
     .pStyle {
       width: 75%;
     }
-    `]
+  `]
 })
 export class HomeComponent implements OnInit {
   // Selected observables to test async pipe model.
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   private userParams: Object = {
     rating: 0
   };
-  
+
   constructor(
     private userService: UserService,
     private auth: Auth,
@@ -62,17 +62,10 @@ export class HomeComponent implements OnInit {
     private sessionRequestActions: SessionRequestActions,
     private socket: SocketService
   ) {
-    this.teachers$.subscribe(
-      (list) => {
-        console.log(list)
-        this.teachers = list;
-      }
-    );
+    this.teachers$.subscribe(list => this.teachers = list);
   }
 
   ngOnInit() {
-    this.getSubjects();
-    this.getUsers();
     this.getTeachers();
   };
 
@@ -133,7 +126,6 @@ export class HomeComponent implements OnInit {
       teacherID,
       2
     );
-    // this.socket.requestSession(teacherID, student);
   }
 
   hasPendingRequest(teacher) {
