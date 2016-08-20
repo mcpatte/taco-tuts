@@ -131,7 +131,6 @@ export class HomeComponent {
     private teacherListActions: TeacherListActions
   ) {
     this.teachers$.subscribe(list => this.teachers = list);
-    //console.log("WTF IS THIS", Somethin);
   }
 
   requestSession(teacher) {
