@@ -29,7 +29,7 @@ export class SessionRequestActions {
 
   cancelAllRequestsDispatch(studentID) {
     return this.http.delete('/api/instantsessions/' + studentID)
-      .do(() => this.syncStudentRequestsDispatch(studentID));
+      .subscribe(() => this.syncStudentRequestsDispatch(studentID));
   }
 
   syncStudentRequestsDispatch(authid) {

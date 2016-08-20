@@ -51,6 +51,11 @@ export class SocketService {
     this.onStartedSession(({ role, data }) => {
       this.sessionActions.setRoleDispatch(role);
       this.sessionActions.setSessionDataDispatch(data);
+
+      if (role === 'student') {
+        this.sessionRequestActions.cancelAllRequestsDispatch(userID)
+      }
+
       this.router.navigate(['/session']);
     });
 
