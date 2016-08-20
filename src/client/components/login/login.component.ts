@@ -20,11 +20,16 @@ import { UserService }    from '../../services/user.service';
     }
     button {
       color: #33495f;
+      height: 50px;
+      width: 50%;
     }
     button:hover {
       color: #ff9f4f;
       background-color: white;
       cursor: pointer;
+    }
+    .google {
+      max-height: 25px;
     }
     h1 {
       font-family: 'Roboto', sans-serif;
@@ -33,14 +38,32 @@ import { UserService }    from '../../services/user.service';
     }
     h4 {
       font-family: 'Roboto', sans-serif;
-      color: #33495f;   
+      color: #33495f;
+      padding: 10px 0;
+    }
+    h5 {
+      font-family: 'Roboto', sans-serif;
+      color: #ff9f4f;    
     }
     label {
       font-family: 'Roboto', sans-serif;
       color: #ff9f4f;
+      text-align: left;
+      font-weight: 800;
     }
-    .sign-up a{
+    .log-in {
+      max-width: 400px;
+      padding-bottom: 25px;
+    }
+    .sign-up {
+      background-color: #ff9f4f;
+      width: 75%;
+      color: white;
+      border: 0;
+    }
+    .sign-up:hover{
       color: #ff9f4f;
+      border: 1px solid #33495f;
     }
 
   `],
