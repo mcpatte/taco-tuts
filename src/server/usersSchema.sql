@@ -15,7 +15,9 @@ CREATE TABLE teachers (
   isAvailable BOOLEAN,
   favorite BOOLEAN,
   rating REAL,
-  ratingCount INT DEFAULT 0
+  ratingCount INT DEFAULT 0,
+  rate INT
+
 );
 
 CREATE TABLE users (
