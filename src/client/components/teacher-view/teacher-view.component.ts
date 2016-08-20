@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store/index';
+import { StateGetterService } from '../../services/state-getter.service'
 
 @Component({
   selector: 'teacher-view',
@@ -68,14 +69,17 @@ import { IAppState } from '../../store/index';
       font-size: 1.2em;
     }
   `],
-  template: require('./teacher-dashboard.template.html')
+  template: require('./teacher-view.template.html')
 })
 export class TeacherViewComponent {
 
-  constructor(
-    private ngRedux: NgRedux<IAppState>
-  ) { }
+  teacher: Object;
 
-  //maybe put selected teacher on state, and then just render the selected teacher
-  
+  constructor(
+    private ngRedux: NgRedux<IAppState>,
+    private state: StateGetterService
+  ) {
+    this.teacher = this.state.getSelectedTeacher();
+   }
+ 
 }
