@@ -37,7 +37,7 @@ export class StateGetterService {
     return this.readState(['session', 'studentID']);
   }
   public isTeacher() {
-    return this.readState(['login', 'userData', 'teacher'])
+    return this.readState(['login', 'userData', 'teacher']);
   }
   private readState(path: string[]): any {
     return path.reduce((result, prop) => result[prop], this.ngRedux.getState());
