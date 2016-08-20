@@ -23,6 +23,9 @@ export class StateGetterService {
   public getSessionID() {
     return this.readState(['session', 'sessionID']);
   }
+  public getTeacherList(): any[] {
+    return this.readState(['teacherList', 'list']);
+  }
 
   public getAvailability() {
     return this.readState(['teacher', 'available']);
@@ -36,7 +39,7 @@ export class StateGetterService {
   public isTeacher() {
     return this.readState(['login', 'userData', 'teacher'])
   }
-  private readState(path: string[]) {
+  private readState(path: string[]): any {
     return path.reduce((result, prop) => result[prop], this.ngRedux.getState());
   }
 }

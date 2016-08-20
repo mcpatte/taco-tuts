@@ -3,6 +3,7 @@ import { NgRedux }                from 'ng2-redux';
 import { IAppState }              from '../../store/index';
 import { AdvancedSearchService }  from '../../services/advanced-search.service';
 import { TeacherListActions } from '../../actions';
+import { StateGetterService } from '../../services/state-getter.service';
 
 @Component({
   selector: 'advanced-search',
@@ -115,6 +116,7 @@ export class AdvancedSearchComponent {
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private advSearch: AdvancedSearchService,
+    private state: StateGetterService,
     private teacherListActions: TeacherListActions
   ) { }
 
@@ -139,7 +141,7 @@ export class AdvancedSearchComponent {
   }
 
   noResults() {
-    return this.clicked && !this.results.length;
+    return !this.state.getTeacherList().length;
   }
 
 
