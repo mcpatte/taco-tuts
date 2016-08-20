@@ -28,13 +28,6 @@
   <button
     class="menuItem"
     [routerLinkActive]="['menuItemActive']"
-    (click)="navigate('/advanced-search')"
-  >
-    <a>Advanced Search</a>
-  </button>
-  <button
-    class="menuItem"
-    [routerLinkActive]="['menuItemActive']"
     *ngIf="isTeacher()"
     (click)="navigate('/teacher-dash')"
   >
