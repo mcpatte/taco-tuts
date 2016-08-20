@@ -7,6 +7,8 @@ import { HomeComponent } from './home';
 import { TeacherDashboardComponent } from './teacher-dashboard';
 import { SessionComponent } from './session';
 import { SessionEndComponent } from './session-end';
+import { TeacherViewComponent } from './teacher-view';
+
 
 const routes: RouterConfig = [
   { path: 'login',  component: LoginComponent },
@@ -17,6 +19,7 @@ const routes: RouterConfig = [
   { path: 'session', component: SessionComponent },
   { path: 'session-end', component: SessionEndComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'teacher-view', component: TeacherViewComponent },
   { path: '**', redirectTo: '/home' }
 ];
 
