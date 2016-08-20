@@ -47,15 +47,15 @@
                             <div class="ui-grid-col-10">{{teacher.name}}
                               <ac-stars [teacher]="teacher"></ac-stars>
                             </div>
-
-
-                        </div>
-
-                        <div class="ui-grid-row">
-                            <div *ngIf="teacher.isavailable">
-                              <div class="available">Available now!</div>
+                            <div class="ui-grid-row">
+                                <div *ngIf="teacher.isavailable">
+                                  <div class="available">Available now!</div>
+                                </div>
                             </div>
+
                         </div>
+
+
 
                         <div class="ui-grid-row">
                             <div *ngFor="let subject of teacher.subjects">
