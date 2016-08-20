@@ -43,7 +43,7 @@
   <button
     class="menuItem"
     [routerLinkActive]="['menuItemActive']"
-    *ngIf="isAuthenticated()"
+    *ngIf="isAuthenticated() && !isTeacher()"
     (click)="navigate('/student-dash')"
   >
     <a>Student Dashboard</a>

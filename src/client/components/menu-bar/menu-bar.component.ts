@@ -4,7 +4,7 @@ import { IAppState }          from '../../store/index';
 import { ROUTER_DIRECTIVES, Router }  from '@angular/router';
 import { Auth }               from '../../services/auth.service';
 import { LogoutActions }      from '../../actions/logout.actions';
-
+import { StateGetterService } from '../../services/state-getter.service';
 
 @Component({
   selector: 'menu-bar',
@@ -76,7 +76,8 @@ export class MenuBarComponent {
     private auth: Auth,
     private ngRedux: NgRedux<IAppState>,
     private logoutActions: LogoutActions,
-    private router: Router
+    private router: Router,
+    private state: StateGetterService
   ) { }
 
   isAuthenticated() {
@@ -84,10 +85,9 @@ export class MenuBarComponent {
   }
 
   isTeacher() {
-    if (this.ngRedux.getState()['login']['userData'] !== undefined) {
-      return this.auth.isTeacher();
+    if (this.isAuthenticated()){
+      return this.state.isTeacher();
     }
-    return false;
   }
 
   logout () {
