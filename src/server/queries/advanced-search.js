@@ -16,6 +16,7 @@ function advancedSearch(req, res, next){
   let fromUsers = 'from users ';
   let queryWhere = 'where ';
   let groupBy = ' group by users.id, teachers.id';
+  let orderBy = ' order by teachers.rating desc';
 
   let qs = qs1 + qs2 + fromUsers + qs4 + qs3;
 
@@ -47,7 +48,7 @@ function advancedSearch(req, res, next){
     queryWhere += where4;
   }
   if (queryWhere.length > 6) {
-    qs += queryWhere + groupBy;
+    qs += queryWhere + groupBy + orderBy;
   }
   console.log('---------->QUERY------------>',qs);
   db.any(qs)
