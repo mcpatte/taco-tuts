@@ -37,6 +37,19 @@ import { AdvancedSearchComponent } from '../advanced-search';
     .pStyle {
       width: 75%;
     }
+
+    button {
+      color: #33495f;
+      background-color: white;
+      border: 1px solid #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      cursor: pointer;
+    }
+    .filters {
+      padding: 10px;
+    }
   `]
 })
 export class HomeComponent implements OnInit {
@@ -52,6 +65,7 @@ export class HomeComponent implements OnInit {
   private userParams: Object = {
     rating: 0
   };
+  private showAdvancedSearch: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -160,6 +174,10 @@ export class HomeComponent implements OnInit {
           return 'Available now!';
       }
     }
+  }
+
+  toggleAdvancedSearch() {
+    this.showAdvancedSearch = !this.showAdvancedSearch;
   }
 
 }

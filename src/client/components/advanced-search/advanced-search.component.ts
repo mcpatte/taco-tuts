@@ -23,6 +23,9 @@ import { StateGetterService } from '../../services/state-getter.service';
       background-color: white;
       cursor: pointer;
     }
+    input[type="checkbox"] {
+      width: 100px;
+    }
     label {
       font-family: 'Roboto', sans-serif;
       color: #ff9f4f;
