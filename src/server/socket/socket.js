@@ -11,6 +11,7 @@ function initSocket(io) {
     socket.on('session-request', connectionManager.onSessionRequest);
     socket.on('session-accept', connectionManager.onSessionAccept);
     socket.on('session-message', connectionManager.onSessionMessage);
+    socket.on('session-leave', connectionManager.onSessionLeave);
 
     // tell the client to update their requests
     socket.emit('session-requests-student-sync', userID);
