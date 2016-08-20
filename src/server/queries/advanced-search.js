@@ -21,6 +21,7 @@ function advancedSearch(req, res, next){
   let qs = qs1 + qs2 + fromUsers + qs4 + qs3;
 
   if (!!userParams['name']) {
+    console.log("saw name", userParams['name'])
     let where1 = "lower(users.name) like lower('%" + userParams['name'] + "%') ";
     queryWhere += where1;
   }
@@ -48,6 +49,7 @@ function advancedSearch(req, res, next){
     queryWhere += where4;
   }
   if (queryWhere.length > 6) {
+    console.log('querywhere length > 6', queryWhere)
     qs += queryWhere + groupBy + orderBy;
   }
   console.log('---------->QUERY------------>',qs);

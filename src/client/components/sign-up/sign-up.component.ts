@@ -10,17 +10,38 @@ import { Router,
 import { Auth } from '../../services/auth.service';
 
 @Component({
-  selector: 'user-form',
+  selector: 'sign-up',
   providers: [ NewUserService ],
-  template: require('./user-form.component.html'),
+  template: require('./sign-up.template.html'),
   styles: [`
+    button {
+      color: #33495f;
+    }
+    button:hover {
+      color: #ff9f4f;
+      background-color: white;
+      cursor: pointer;
+    }
+    .create {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+      text-align: center;
+    }
     .error {
       color: #FF0000;
     }
+    label {
+      color: #ff9f4f;
+      font-family: 'Roboto', sans-serif;
+    }
+    .sign-up {
+      max-width: 400px;
+    }
+    
   `],
   directives: []
 })
-export class UserFormComponent {
+export class SignUpComponent {
 
   constructor(
     private newUserService: NewUserService,

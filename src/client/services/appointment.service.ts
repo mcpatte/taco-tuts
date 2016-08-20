@@ -45,16 +45,16 @@ export class AppointmentService {
       .map(this.extractData);
   }
 
-  getUserID(authid) { 
+  getUserID(authid) {
     return this.http.get('api/users/' + authid )
       .map(this.extractData)
-      .catch(this.handleError)
+      .catch(this.handleError);
   }
 
   confirmAppt(sessionid) {
     return this.http.put('api/sessions/' + sessionid, null)
       .map(this.extractData)
-      .catch(this.handleError)
+      .catch(this.handleError);
   }
 
   removeAppt(sessionid) {
