@@ -6,7 +6,7 @@ export const TEACHER_LIST_ACTIONS = {
 };
 
 @Injectable()
-export class TeacherList {
+export class TeacherListActions {
 
   constructor(
     private ngRedux: NgRedux<any>

@@ -10,7 +10,8 @@ import { appRouterProviders } from './components/app.routes';
 import {
   SessionActions,
   LoginActions,
-  SessionRequestActions
+  SessionRequestActions,
+  TeacherListActions
 } from './actions';
 import { StateGetterService } from './services/state-getter.service';
 
@@ -22,5 +23,6 @@ bootstrap(AppComponent, [
   SessionActions,
   LoginActions,
   SessionRequestActions,
+  TeacherListActions,
   StateGetterService
 ]);
