@@ -47,6 +47,30 @@ import { StateGetterService } from '../../services/state-getter.service';
       font-size: .7em;
       padding: 3px;
     }
+    .btn-session {
+      width: 75%;
+      background-color: #33495f;
+      border: 0;
+      color: white;
+      font-weight: 800;
+      margin-top: 10px;
+    }
+    .btn-session:active {
+      background-color: #33495f;
+      font-weight: 800;
+      color: #ff9f4f;
+      border: 0;
+    }
+    .btn-session-cancel {
+      background-color: #ff9f4f;
+    }
+    .btn-session-cancel:hover {
+      color: white;
+    }
+    .btn-session-cancel:active {
+      background-color: #ff9f4f;
+      color: white;
+    }
     button {
       color: #33495f;
       background-color: white;

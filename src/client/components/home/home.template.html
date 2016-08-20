@@ -18,9 +18,26 @@
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;font-family:'Roboto',sans-serif;padding:20px;color:#33495f;border-bottom:1px solid #D5D5D5;">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-3" style="text-align:center">
-                  <i class="fa fa-search" style="cursor:pointer;float:left;margin-top:40px"></i>
                   <div class="img-container">
                     <img src="/assets/profilepics/{{teacher.username}}.jpg">
+                  </div>
+
+                  <div *ngIf="!hasPendingRequest(teacher)">
+                    <button
+                      pButton
+                      class="btn-session"
+                      (click)="requestSession(teacher)"
+                      label="request session"
+                    ></button>
+                  </div>
+
+                  <div *ngIf="hasPendingRequest(teacher)">
+                    <button
+                      pButton
+                      class="btn-session btn-session-cancel"
+                      (click)="cancelRequest(teacher)"
+                      label="cancel session"
+                    ></button>
                   </div>
                 </div>
                 <div class="ui-grid-col-9">
@@ -31,15 +48,7 @@
                               <ac-stars [teacher]="teacher"></ac-stars>
                             </div>
 
-                                <div *ngIf="!hasPendingRequest(teacher)">
-                                  <button pButton (click)="requestSession(teacher)" label="request session">
-                                  </button>
-                                </div>
 
-                                <div *ngIf="hasPendingRequest(teacher)">
-                                  <button pButton (click)="cancelRequest(teacher)" label="cancel session">
-                                  </button>
-                                </div>
                         </div>
 
                         <div class="ui-grid-row">
