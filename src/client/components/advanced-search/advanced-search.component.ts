@@ -9,10 +9,10 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
   template: `
   <div class = "container">
     <h1 class='advanced-search'>Advanced Search</h1>
-    <form> 
+    <form>
         <div class="form-group">
             <label for="name">Teacher Name</label>
-            <input 
+            <input
                 type="text"
                 class="form-control"
                 [(ngModel)] = "userParams.name"
@@ -20,7 +20,7 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
         </div>
         <div class="form-group">
           <label for="username">Subject</label>
-            <input 
+            <input
                 type="select"
                 class="form-control"
                 [(ngModel)] = "userParams.subject"
@@ -28,7 +28,7 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
         </div>
         <div class="form-group">
           <label for="username">Rating</label>
-            <input 
+            <input
                 type="select"
                 class="form-control"
                 [(ngModel)] = "userParams.rating"
@@ -36,15 +36,15 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
         </div>
         <div class="form-group">
           <label for="username">Currently Available</label>
-            <input 
+            <input
                 type="checkbox"
                 class="form-control"
                 [(ngModel)] = "userParams.currentlyAvailable"
             >
         </div>
 
-        <button 
-            type="submit" 
+        <button
+            type="submit"
             class="btn btn-default"
             (click)="search(userParams)"
             >Search</button>
@@ -58,7 +58,7 @@ import { AdvancedSearchService }  from '../../services/advanced-search.service';
                     <h5 *ngIf="!teacher.rating">Rating: no ratings yet!</h5>
                     <h5>Email: {{teacher.email}}</h5>
                     <h5 *ngIf="teacher.subjectname">Teaches: {{teacher.subjectname}}</h5>
-                    <h5 *ngIf="teacher.isAvailable">Available now!</h5>      
+                    <h5 *ngIf="teacher.isAvailable">Available now!</h5>
                 </div>
             </ul>
         </div>
@@ -115,7 +115,7 @@ export class AdvancedSearchComponent {
     private ngRedux: NgRedux<IAppState>,
     private advSearch: AdvancedSearchService
     ) { }
-    
+
   search(userParams: Object) {
     this.clicked = true;
     window.scrollTo(500, 0);
