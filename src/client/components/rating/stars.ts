@@ -5,7 +5,7 @@ import { HomeService } from '../../services/home.service.ts';
   selector: 'ac-stars',
   providers: [HomeService],
   template: `
-    <div class="stars">
+    <span class="stars">
       <ac-star
         *ngFor="let star of stars"
         [active]="star <= _rating"
@@ -13,7 +13,7 @@ import { HomeService } from '../../services/home.service.ts';
         [position]="star"
       >
       </ac-star>
-    </div>
+    </span>
   `,
   directives: [AcStar]
 })
@@ -21,7 +21,7 @@ export class AcStars implements OnInit {
   @Input() starCount: number;
   @Input() teacher;
   @Input() rating: number;
-  // @Output() rate = new EventEmitter();
+  @Output() rate = new EventEmitter();
   stars:number[] = [1,2,3,4,5];
 
   _rating = this.rating;
@@ -35,12 +35,12 @@ export class AcStars implements OnInit {
     const count = this.starCount < 0 ? 5 : this.starCount;
   }
 
-  // onRate(star) {
-  //   this.rate.emit(star);
-  //   this._rating = star;
-  // }
+  onRate(star) {
+    this.rate.emit(star);
+    this._rating = star;
+  }
 
   setStar = function (num: Number) {
     this._rating = num;
-  }
+  };
 };

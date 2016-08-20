@@ -24,7 +24,18 @@ import { Observable } from 'rxjs/Observable';
       padding: 0;
     }
     .container {
-      margin: 25px 60px 75px;
+      margin: 25px 65px 75px;
+    }
+    .subjectsClass {
+      font-size: .7em;
+    }
+    .theContainer {
+      padding: 0px 5px 0px 5px;
+      background-color: #f3f3f3;
+      margin: 6px 5px 0px 0px;
+    }
+    .pStyle {
+      width: 75%;
     }
     `]
 })
@@ -37,6 +48,7 @@ export class HomeComponent implements OnInit {
   private subjects = [];
   private errorMessage: string;
   private teachers = [];
+  private subjectsForTeacher = [];
   private userParams: Object = {
     rating: 0
   };
@@ -92,6 +104,15 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           this.teachers = data;
+        },
+        error =>  this.errorMessage = <any>error
+      );
+  }
+    getSubjectsForTeacher(userID) {
+    this.homeService.getTeaching(userID)
+      .subscribe(
+        data => {
+          this.subjectsForTeacher = data;
         },
         error =>  this.errorMessage = <any>error
       );
