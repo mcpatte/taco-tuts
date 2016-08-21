@@ -21,22 +21,24 @@
               <img src="{{teacher.imageurl}}" style="width: auto; height: auto; max-width: 120px; max-height:120px">
             </div>
 
-            <div *ngIf="!hasPendingRequest(teacher)">
-              <button
-                pButton
-                class="btn-session"
-                (click)="requestSession(teacher)"
-                label="request session"
-              ></button>
-            </div>
+            <div *ngIf="teacher.isavailable">
+              <div *ngIf="!hasPendingRequest(teacher)">
+                <button
+                  pButton
+                  class="btn-session"
+                  (click)="requestSession(teacher)"
+                  label="request session"
+                ></button>
+              </div>
 
-            <div *ngIf="hasPendingRequest(teacher)">
-              <button
-                pButton
-                class="btn-session btn-session-cancel"
-                (click)="cancelRequest(teacher)"
-                label="cancel session"
-              ></button>
+              <div *ngIf="hasPendingRequest(teacher)">
+                <button
+                  pButton
+                  class="btn-session btn-session-cancel"
+                  (click)="cancelRequest(teacher)"
+                  label="cancel session"
+                ></button>
+              </div>
             </div>
           </div>
 
