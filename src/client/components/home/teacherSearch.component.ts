@@ -9,7 +9,7 @@ import { AdvancedSearchService } from '../../services/advanced-search.service';
 import { TeacherListActions } from '../../actions';
 
 @Component({
-    selector: 'teacherSearch',
+    selector: 'teacher-search',
     directives: [Button],
     providers: [ AppointmentService, StudentDashboardService, AdvancedSearchService, TeacherListActions],
     styles: [`
