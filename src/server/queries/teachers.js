@@ -8,9 +8,13 @@ var postData = helpers.postData;
 
 
 function getTeachersInfo(req, res, next){
-  var teacherID = parseInt(req.params.id);
-  db.any('select * from teachers JOIN users on users.teacherID = teachers.ID WHERE users.teacherID = $1 ', [teacherID])
-    .then(respondWithData(res, "Retrieved all teacher info for user given user"))
+  var userID = req.params.authid;
+  db.one(`select array_agg(subjects.name) as subjects, users.*, teachers.* 
+          from teachers JOIN users on users.teacherID = teachers.ID 
+          join teaching on users.id = teaching.userID 
+          join subjects on teaching.subjectID = subjects.id 
+          where users.authid = $1 group by users.id, teachers.id`, [userID])
+    .then(respondWithData(res, "Here's yo teacher"))
     .catch(catchError(next));
 }
 
