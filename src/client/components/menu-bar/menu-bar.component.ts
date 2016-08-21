@@ -91,7 +91,7 @@ export class MenuBarComponent {
   }
 
   logout () {
-    localStorage.clear();
+    localStorage.removeItem('id_token');
     this.auth.logout();
     this.logoutActions.setLogoutDispatch();
   }

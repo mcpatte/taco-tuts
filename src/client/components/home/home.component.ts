@@ -106,11 +106,8 @@ export class HomeComponent {
   // Members to test subscribe model.
   @select(['teacherList', 'list'])teachers$: Observable<any>;
   public val = '5';
-  private users = [];
-  private subjects = [];
   private errorMessage: string;
   private teachers = [];
-  private subjectsForTeacher = [];
   private userParams: Object = {
     rating: 0
   };
@@ -129,67 +126,15 @@ export class HomeComponent {
     this.teachers$.subscribe(list => this.teachers = list);
   }
 
-  getSubjectIDByName(name){
-    for(let i = 0; i < this.subjects.length; i++) {
-      let subject = this.subjects[i];
-      if(subject.name === name) {
-        return subject.id;
-      }
-    }
-  }
-
-  getUsers() {
-    this.homeService.getUsers()
-      .subscribe(
-        data => this.users = data,
-        error =>  this.errorMessage = <any>error
-      );
-  }
-  getSubjects() {
-    this.homeService.getSubjects()
-      .subscribe(
-        data => this.subjects = data,
-        error =>  this.errorMessage = <any>error
-      );
-  }
-  getTeaching(subjectID) {
-    this.homeService.getTeaching(subjectID)
-      .subscribe(
-        data => {
-          this.teachers = data;
-        },
-        error =>  this.errorMessage = <any>error
-      );
-  }
-    getSubjectsForTeacher(userID) {
-    this.homeService.getTeaching(userID)
-      .subscribe(
-        data => {
-          this.subjectsForTeacher = data;
-        },
-        error =>  this.errorMessage = <any>error
-      );
-  }
-
   requestSession(teacher) {
     const teacherID = teacher.authid;
-    const studentID = this.ngRedux.getState().login.userData.authid;
+    const studentID = this.state.getAuthID();
 
-    const student = {
-      // TODO: replace with method on auth service
-      userID: studentID,
-      name: 'harambe'
-    };
-
-    this.sessionRequestActions.addRequestDispatch(
-      studentID,
-      teacherID,
-      2
-    );
+    this.sessionRequestActions.addRequestDispatch(studentID, teacherID, 2);
   }
 
   hasPendingRequest(teacher) {
-    const teachers = this.ngRedux.getState().sessionRequest.requests
+    const teachers = this.state.getSessionRequests()
       .map(request => request.teacherauthid);
 
     return teachers.indexOf(teacher.authid) > -1;
@@ -197,29 +142,9 @@ export class HomeComponent {
 
   cancelRequest(teacher) {
     const teacherID = teacher.authid;
-    const studentID = this.ngRedux.getState().login.userData.authid;
+    const studentID = this.state.getAuthID()
 
     this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
-  }
-
-  getTeachers() {
-    this.homeService.getTeachers()
-      .subscribe(
-        data => {
-          this.teachers = data;
-          console.log(data);
-        },
-        error => this.errorMessage = <any>error
-      );
-  }
-
-  teacherAvailibility(userID) {
-    for(let i = 0; i < this.teachers.length; i++) {
-      let teacher = this.teachers[i];
-      if(teacher.id === userID && teacher.isavailable) {
-          return 'Available now!';
-      }
-    }
   }
 
   toggleAdvancedSearch() {

@@ -37,15 +37,15 @@ function advancedSearch(req, res, next){
     : 'teachers.rating=' + userParams['rating'] + ' ';
     queryWhere += where3;
   }
-  if (!!userParams['isAvailable']) {
+  if (!!userParams['currentlyAvailable']) {
     let where4 = queryWhere.length > 6 ?
     'and teachers.isAvailable=' + userParams['currentlyAvailable'] + ' '
     : 'teachers.isAvailable=' + userParams['currentlyAvailable'];
     queryWhere += where4;
   } else {
     let where4 = queryWhere.length > 6 ?
-      'and teachers.isavailable=true or teachers.isavailable=false '
-      : 'teachers.isavailable=true or teachers.isavailable=false ';
+      'and (teachers.isavailable=true or teachers.isavailable=false) '
+      : '(teachers.isavailable=true or teachers.isavailable=false) ';
     queryWhere += where4;
   }
   if (queryWhere.length > 6) {
