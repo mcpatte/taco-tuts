@@ -1,3 +1,15 @@
-<div class='container'>
-  <h1>Well looky here, it's a teacher profile</h1>
+<div class="container-fluid">
+  <div class='separator'></div>
+  <div class='teacher-info'>
+  <div class = 'img-container'>
+    <img class='teacher-image' src={{teacher.imageurl}} />
+  </div>
+    <h2 class="teacher-name">{{teacher.name}}</h2>
+    <div class="subjects">
+      <p *ngFor="#subject of teacher.subjects" class="subject" >{{subject}}</p>
+    </div>
+  </div>
 </div>
+
+
+
