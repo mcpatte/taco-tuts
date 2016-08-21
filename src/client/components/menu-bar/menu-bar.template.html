@@ -1,61 +1,61 @@
-  <nav class="menu">
-    <div class='logo'>
-      <img class='logoImg' src='../assets/logo/rocket-logo.svg' />
-    </div>
-    <button 
-      class="menuItem" 
-      *ngIf="isAuthenticated()">
-      <a 
-        routerLink="#" 
-        routerLinkActive="active" 
-        (click)="logout()"
-      >Log Out</a>
-    </button>
-    <button 
-      class="menuItem" 
-      [routerLinkActive]="['menuItemActive']" 
-      *ngIf="isInSession()">
-      <a 
-        routerLink="/session" 
-        routerLinkActive="active" 
-      >Session</a>
-    </button>
-    <button 
-      class="menuItem" 
-      [routerLinkActive]="['menuItemActive']" 
-      *ngIf="!isAuthenticated()">
-      <a 
-        routerLink="/login" 
-        routerLinkActive="active" 
-      >Log In</a>
-    </button>
-    <button 
-      class="menuItem" 
-      [routerLinkActive]="['menuItemActive']" 
-      *ngIf="isTeacher()"
-      (click)="navigate('/teacher-dash')">
-      <a 
-        routerLink="/teacher-dash" 
-        routerLinkActive="active" 
-      >Teacher Dashboard</a>
-    </button>
-    <button 
-      class="menuItem" 
-      [routerLinkActive]="['menuItemActive']" 
-      *ngIf="isAuthenticated()"
-      (click)="navigate('/student-dash')">
-      <a 
-        routerLink="/student-dash" 
-        routerLinkActive="active"
-      >Student Dashboard</a>
-    </button>
-    <button 
-      class="menuItem" 
-      [routerLinkActive]="['menuItemActive']"
-      (click)="navigate('/home')">
-      <a 
-        routerLink="/home" 
-        routerLinkActive="active"
-      >Home</a>
-    </button>
-  </nav>
+<nav class="menu">
+  <div class='logo'>
+    <img class='logoImg' src='../assets/logo/rocket-logo.svg' />
+  </div>
+  <button 
+    class="menuItem" 
+    *ngIf="isAuthenticated()">
+    <a 
+      routerLink="#" 
+      routerLinkActive="active" 
+      (click)="logout()"
+    >Log Out</a>
+  </button>
+  <button 
+    class="menuItem" 
+    [routerLinkActive]="['menuItemActive']" 
+    *ngIf="isInSession()">
+    <a 
+      routerLink="/session" 
+      routerLinkActive="active" 
+    >Session</a>
+  </button>
+  <button 
+    class="menuItem" 
+    [routerLinkActive]="['menuItemActive']" 
+    *ngIf="!isAuthenticated()">
+    <a 
+      routerLink="/login" 
+      routerLinkActive="active" 
+    >Log In</a>
+  </button>
+  <button 
+    class="menuItem" 
+    [routerLinkActive]="['menuItemActive']" 
+    *ngIf="isTeacher()"
+    (click)="navigate('/teacher-dash')">
+    <a 
+      routerLink="/teacher-dash" 
+      routerLinkActive="active" 
+    >Teacher Dashboard</a>
+  </button>
+  <button 
+    class="menuItem" 
+    [routerLinkActive]="['menuItemActive']" 
+    *ngIf="isAuthenticated()"
+    (click)="navigate('/student-dash')">
+    <a 
+      routerLink="/student-dash" 
+      routerLinkActive="active"
+    >Student Dashboard</a>
+  </button>
+  <button 
+    class="menuItem" 
+    [routerLinkActive]="['menuItemActive']"
+    (click)="navigate('/home')">
+    <a 
+      routerLink="/home" 
+      routerLinkActive="active"
+    >Home</a>
+  </button>
+</nav>
