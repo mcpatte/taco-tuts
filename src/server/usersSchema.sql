@@ -1,4 +1,4 @@
--- --to run this file and update your local db run: psql -f users.sql
+-- --to run this file and update your local db run: psql -f localSchema.sql
 DROP TABLE IF EXISTS teaching;
 DROP TABLE IF EXISTS learning;
 DROP TABLE IF EXISTS users CASCADE;
@@ -16,7 +16,8 @@ CREATE TABLE teachers (
   favorite BOOLEAN,
   rating REAL,
   ratingCount INT DEFAULT 0,
-  rate INT
+  rate INT,
+  summary TEXT
 
 );
 
