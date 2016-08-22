@@ -114,9 +114,6 @@ export class HomeComponent {
   };
   private subjectsForTeacher = [];
 
-  private userParams: Object = {
-    rating: 0
-  };
   private showAdvancedSearch: boolean = false;
 
   constructor(
