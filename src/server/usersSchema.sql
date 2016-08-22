@@ -177,3 +177,21 @@ INSERT INTO instantSessionRequests (studentAuthID, teacherAuthID, subjectID)
 
 INSERT INTO instantSessionRequests (studentAuthID, teacherAuthID, subjectID)
   VALUES ('auth0|57b27e4e51f9235564a6f68b', 'auth0|57b27e8a71c16ce874b94fd0', 3);
+
+INSERT INTO reviews (teacherAuthID, studentAuthID, rating, review)
+  VALUES ('auth0|57b27e8a71c16ce874b94fd0', 'auth0|57b27fa071c16ce874b94fd8auth4', 3, 'Hagrid is a great teacher, but his classes tend to be either really boring or really scary. I wish he would pick a nice middle ground.');
+
+INSERT INTO reviews (teacherAuthID, studentAuthID, rating, review)
+  VALUES ('auth0|57b27f3971c16ce874b94fd6', 'auth0|57b27fa071c16ce874b94fd8auth4', 4, 'Moody is probably the best DADA teacher we have had in a long time. Minus one star for being a death eater in disguise.');
+
+INSERT INTO reviews (teacherAuthID, studentAuthID, rating, review)
+  VALUES ('auth0|57b2801371c16ce874b94fdd', 'auth0|57b27e4e51f9235564a6f68b', 5, 'Dumbledore is one of those teachers who gives you guidance but lets you figure it out mostly by yourself. I wish he didnt die. Oops, spoiler alert.');
+
+INSERT INTO reviews (teacherAuthID, studentAuthID, rating, review)
+  VALUES ('auth0|57b686db71f98d48132d9aad', 'auth0|57b27e4e51f9235564a6f68b', 1, 'Snape is a big jerk smelly face oil slick who was into my mom.');
+
+INSERT INTO reviews (teacherAuthID, studentAuthID, rating, review)
+  VALUES ('auth0|57b686db71f98d48132d9aad', 'auth0|57b27fa071c16ce874b94fd8auth4', 1, 'I agree with the previous reviewer, total jerk!!!');
+
+INSERT INTO reviews (teacherAuthID, studentAuthID, rating, review)
+  VALUES ('auth0|57b27fd771c16ce874b94fda', 'auth0|57b2805971c16ce874b94fe0', 3, 'Great wizard, but can get a little murder-y if you piss him off. Bring up Horcruxes to put him in a good mood.');
