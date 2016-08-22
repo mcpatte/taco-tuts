@@ -96,6 +96,11 @@ import { StateGetterService } from '../../services/state-getter.service'
       margin-left: 90px;
       position: absolute;
     }
+    .stars {
+      float: right;
+      padding-right: 10px;
+      margin-top: -35px;
+    }
     .subjects {
       padding-top: 85;
       padding-left: 107;
@@ -125,5 +130,23 @@ export class TeacherViewComponent {
   ) { 
       this.teacher = this.state.getSelectedTeacher();
     }
+
+  getStars(stars) {
+    return Array(stars).fill(1);
+  }
+
+  hasPendingRequest(teacher) {
+    // const teachers = this.ngRedux.getState().sessionRequest.requests
+    //   .map(request => request.teacherauthid);
+
+    // return teachers.indexOf(teacher.authid) > -1;
+  }
+
+  cancelRequest(teacher) {
+    // const teacherID = teacher.authid;
+    // const studentID = this.state.login.userData.authid;
+
+    // this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
+  }
 
 }

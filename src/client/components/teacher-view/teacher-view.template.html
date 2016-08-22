@@ -1,13 +1,33 @@
 <div class="container-fluid">
   <div class='separator'></div>
   <div class='teacher-info'>
-  <div class = 'img-container'>
-    <img class='teacher-image' src={{teacher.imageurl}} />
-  </div>
-    <h2 class="teacher-name">{{teacher.name}}</h2>
-    <div class="subjects">
-      <p *ngFor="#subject of teacher.subjects" class="subject" >{{subject}}</p>
+    <div class = 'img-container'>
+      <img class='teacher-image' src={{teacher.imageurl}} />
     </div>
+      <h2 class="teacher-name">{{teacher.name}}</h2>
+      <div class="subjects">
+        <p *ngFor="#subject of teacher.subjects" class="subject" >{{subject}}</p>
+      </div>
+      <div class='stars'>
+        <img *ngFor="#star of getStars(teacher.rating)" src="assets/logo/star.svg"/>
+      </div>
+      <div *ngIf="!hasPendingRequest(teacher)">
+        <button
+          pButton
+          class="btn-session"
+          (click)="requestSession(teacher)"
+          label="request session"
+        ></button>
+      </div>
+
+      <div *ngIf="hasPendingRequest(teacher)">
+        <button
+          pButton
+          class="btn-session btn-session-cancel"
+          (click)="cancelRequest(teacher)"
+          label="cancel session"
+        ></button>
+      </div>
   </div>
 </div>
 
