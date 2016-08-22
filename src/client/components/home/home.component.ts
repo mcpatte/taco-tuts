@@ -12,10 +12,11 @@ import { AcStars, AcStar } from '../rating';
 import { Observable } from 'rxjs/Observable';
 import { AdvancedSearchComponent } from '../advanced-search';
 import { StateGetterService } from '../../services/state-getter.service';
+import { VideoChatComponent } from '../video-chat/videoChat.component';
 
 @Component({
   selector: 'home',
-  providers: [ HomeService, LoginActions, UserService ],
+  providers: [ HomeService, LoginActions, UserService, VideoChatComponent ],
   directives: [ Button, DataList, TeacherSearchComponent, Rating, AcStars,
     AcStar, AdvancedSearchComponent],
   template: require('./home.template.html'),
@@ -111,6 +112,7 @@ export class HomeComponent {
   private userParams: Object = {
     rating: 0
   };
+  private subjectsForTeacher = [];
   private showAdvancedSearch: boolean = false;
 
   constructor(
