@@ -3,32 +3,49 @@
   <div>
     <center>
       <h4>Are you available now?</h4>
-      <button class ='toggle btn' [class.available]="availability" [class.notAvailable]="!availability" (click)="actions.toggleAvailabilityDispatch(); isAvailable()">
-        {{ available$ | async }}
-      </button>
-    </center>
-  </div>
-  <div>
-    <ul *ngFor="let session of sessions$ | async">
-      <li> {{ session.studentname }} </li>
       <button
-        (click)="teacherSocket.acceptSession(session)"
-      >
-        start session
-      </button>
-    </ul>
+        pButton
+        [class.available]="availability"
+        [class.notAvailable]="!availability"
+        (click)="actions.toggleAvailabilityDispatch(); isAvailable()"
+        label="{{ available$ | async }}"
+      ></button>
+    </center>
   </div>
 </div>
 
 <p-tabView class="teacherdash">
-    <p-tabPanel header="Subjects">
-      <teacherSubject></teacherSubject>
-    </p-tabPanel>
-    <p-tabPanel header="Profile">
-      <teacherProfile></teacherProfile>
-    </p-tabPanel>
-    <p-tabPanel header="Appointments">
-      <teacher-appointment></teacher-appointment>
-    </p-tabPanel>
+  <p-tabPanel header="Subjects">
+    <teacherSubject></teacherSubject>
+  </p-tabPanel>
+  <p-tabPanel header="Profile">
+    <teacherProfile></teacherProfile>
+  </p-tabPanel>
+  <p-tabPanel header="Appointments">
+    <teacher-appointment></teacher-appointment>
+  </p-tabPanel>
+  <p-tabPanel header="Session Requests ({{(sessions$ | async).length}})">
+    <div>
+      <ul *ngFor="let session of sessions$ | async">
+        <li>
+          {{ session.studentname }}
+          <button
+            pButton
+            (click)="teacherSocket.acceptSession(session)"
+            label="accept"
+            class="instant-session-button"
+          ></button>
+          <button
+            pButton
+            (click)="teacherSocket.acceptSession(session)"
+            label="deny"
+            class="instant-session-button"
+          ></button>
+
+        </li>
+
+      </ul>
+    </div>
+  </p-tabPanel>
 </p-tabView>
 
