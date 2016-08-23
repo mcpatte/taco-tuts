@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from 'ng2-redux';
 import { IAppState } from '../../store/index';
@@ -73,16 +74,24 @@ export class TeacherDashboardComponent {
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private actions: TeacherActions,
-    private teacherSocket: TeacherSocketService
+    private teacherSocket: TeacherSocketService,
+    private http: Http
   ) { }
 
   acceptSession(session) {
     this.teacherSocket.acceptSession(session);
   }
+
   isAvailable() {
     setTimeout(function(){
       this.availability = !!this.ngRedux.getState()['teacher']['available'];
     }.bind(this), 100)
   }
 
+  denySession(session) {
+    const { studentauthid, teacherauthid } = session;
+
+    this.http.delete('/api/instantsessions/' + studentauthid + '/' + teacherauthid)
+      .subscribe(() => {});
+  }
 }

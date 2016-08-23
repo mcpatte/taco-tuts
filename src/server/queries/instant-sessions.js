@@ -54,6 +54,7 @@ function cancelStudentRequest(req, res, next) {
     .then(respondWithData(res, 'Cancelled instant session request'))
     .then(function() {
       req.connectionManager.syncTeacherSessionRequests(teacherID);
+      req.connectionManager.syncStudentSessionRequests(studentID);
     })
     .catch(catchError(next));
 }
