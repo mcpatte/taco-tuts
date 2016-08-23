@@ -1,31 +1,18 @@
-  <div class='container'>
-    <h3>Welcome to the Teacher Dashboard!</h3>
-  <div>
-    <center>
-      <h4>Are you available now?</h4>
-      <button
-        pButton
-        [class.available]="available$ | async"
-        [class.notAvailable]="!(available$ | async)"
-        (click)="actions.toggleAvailabilityDispatch()"
-        label="{{ available$ | async }}"
-      ></button>
-    </center>
-  </div>
-</div>
-
 <p-tabView class="teacherdash">
-  <p-tabPanel header="Subjects">
-    <teacherSubject></teacherSubject>
-  </p-tabPanel>
-  <p-tabPanel header="Profile">
-    <teacherProfile></teacherProfile>
-  </p-tabPanel>
-  <p-tabPanel header="Appointments">
-    <teacher-appointment></teacher-appointment>
-  </p-tabPanel>
   <p-tabPanel header="Session Requests ({{(sessions$ | async).length}})">
     <div>
+      <div>
+        <center>
+          <button
+            pButton
+            [class.available]="available$ | async"
+            [class.notAvailable]="!(available$ | async)"
+            (click)="actions.toggleAvailabilityDispatch()"
+            label="{{(available$ | async)  ? 'Available': 'Unavailable'}}"
+          ></button>
+        </center>
+      </div>
+
       <ul *ngFor="let session of sessions$ | async">
         <li>
           {{ session.studentname }}
@@ -41,11 +28,18 @@
             label="deny"
             class="instant-session-button"
           ></button>
-
         </li>
-
       </ul>
     </div>
+  </p-tabPanel>
+  <p-tabPanel header="Subjects">
+    <teacherSubject></teacherSubject>
+  </p-tabPanel>
+  <p-tabPanel header="Profile">
+    <teacherProfile></teacherProfile>
+  </p-tabPanel>
+  <p-tabPanel header="Appointments">
+    <teacher-appointment></teacher-appointment>
   </p-tabPanel>
 </p-tabView>
 

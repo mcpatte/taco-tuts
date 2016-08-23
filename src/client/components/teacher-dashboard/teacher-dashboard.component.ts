@@ -35,12 +35,22 @@ import { Button } from 'primeng/primeng';
     }
     .available {
       background-color: green;
+      color: white;
+    }
+    .available:active {
+      background-color: green;
+      color: white;
     }
     .instant-session-button {
       margin-left: 8px;
     }
     .notAvailable {
       background-color: red;
+      color: white;
+    }
+    .notAvailable:active {
+      background-color: red;
+      color: white;
     }
     .teacherdash {
       width: 40%;
