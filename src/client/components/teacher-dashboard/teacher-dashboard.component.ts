@@ -69,8 +69,6 @@ export class TeacherDashboardComponent {
     'sessions'
   ]) sessions$: Observable<any[]>;
 
-  private availability = this.isAvailable();
-
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private actions: TeacherActions,
@@ -80,12 +78,6 @@ export class TeacherDashboardComponent {
 
   acceptSession(session) {
     this.teacherSocket.acceptSession(session);
-  }
-
-  isAvailable() {
-    setTimeout(function(){
-      this.availability = !!this.ngRedux.getState()['teacher']['available'];
-    }.bind(this), 100)
   }
 
   denySession(session) {

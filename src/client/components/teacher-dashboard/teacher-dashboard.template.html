@@ -5,9 +5,9 @@
       <h4>Are you available now?</h4>
       <button
         pButton
-        [class.available]="availability"
-        [class.notAvailable]="!availability"
-        (click)="actions.toggleAvailabilityDispatch(); isAvailable()"
+        [class.available]="available$ | async"
+        [class.notAvailable]="!(available$ | async)"
+        (click)="actions.toggleAvailabilityDispatch()"
         label="{{ available$ | async }}"
       ></button>
     </center>
@@ -31,7 +31,7 @@
           {{ session.studentname }}
           <button
             pButton
-            (click)="teacherSocket.acceptSession(session)"
+            (click)="acceptSession(session)"
             label="accept"
             class="instant-session-button"
           ></button>
