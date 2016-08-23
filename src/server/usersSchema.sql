@@ -41,8 +41,10 @@ CREATE TABLE sessions (
   studentID integer references users(id) ON DELETE CASCADE,
   teacherID integer references users(id) ON DELETE CASCADE,
   start TIMESTAMP,
-  ending TIMESTAMP,
+  duration INT,
   confirmed BOOLEAN,
+  price INT,
+  paid BOOLEAN,
   subjectID INT references subjects(id) ON DELETE CASCADE
 );
 
@@ -72,23 +74,23 @@ CREATE TABLE teaching (
   subjectID INT references subjects(id) ON DELETE CASCADE
 );
 
-INSERT INTO teachers (isAvailable, favorite, rating)
-  VALUES (true, false, 1);
+INSERT INTO teachers (isAvailable, favorite, rating, rate)
+  VALUES (true, false, 1, 25);
 
-INSERT INTO teachers (isAvailable, favorite, rating)
-  VALUES (true, false, 2);
+INSERT INTO teachers (isAvailable, favorite, rating, rate)
+  VALUES (true, false, 2, 30);
 
-INSERT INTO teachers (isAvailable, favorite, rating)
-  VALUES (true, false, 3);
+INSERT INTO teachers (isAvailable, favorite, rating, rate)
+  VALUES (true, false, 3, 10);
 
-INSERT INTO teachers (isAvailable, favorite, rating)
-  VALUES (true, false, 4);
+INSERT INTO teachers (isAvailable, favorite, rating, rate)
+  VALUES (true, false, 4, 15);
 
-INSERT INTO teachers (isAvailable, favorite, rating)
-  VALUES (true, false, 5);
+INSERT INTO teachers (isAvailable, favorite, rating, rate)
+  VALUES (true, false, 5, 18);
 
-INSERT INTO teachers (isAvailable, favorite, rating)
-  VALUES (true, false, 5);
+INSERT INTO teachers (isAvailable, favorite, rating, rate)
+  VALUES (true, false, 5, 20);
 
 INSERT INTO users (email, authid, username, name, teacher, teacherID, imageURL)
   VALUES ('hbp@hogwarts.com', 'auth0|57b686db71f98d48132d9aad', 'halfbloodprince', 'Severus Snape', true, 1, 'http://i.imgur.com/LJGZmw4.jpg');
