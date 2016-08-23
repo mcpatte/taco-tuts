@@ -39,7 +39,8 @@ export class AppComponent {
     private configureStore: ConfigureStoreService,
     private socket: SocketService,
     private teacherSocket: TeacherSocketService,
-    private loginActions: LoginActions
+    private loginActions: LoginActions,
+    private teacherActions: TeacherActions
   ) {
     configureStore.configure(ngRedux);
 
@@ -50,6 +51,11 @@ export class AppComponent {
     this.loginActions.setDataDispatch(userData);
 
     this.socket.connect(userData.authid);
+
+    // this is horrifying
+    if (userData.isavailable) {
+      this.ngRedux.dispatch(this.teacherActions.toggleAvailability());
+    }
   }
 
   getID() {
