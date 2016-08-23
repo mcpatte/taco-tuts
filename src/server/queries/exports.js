@@ -10,6 +10,7 @@ var teachers = require('./teachers');
 var advSearch = require('./advanced-search');
 var instantSessions = require('./instant-sessions');
 var reviews = require('./reviews');
+var payment = require('./payment');
 
 
 module.exports = _.assign({},
@@ -22,5 +23,6 @@ module.exports = _.assign({},
   teachers,
   advSearch,
   instantSessions,
-  reviews
+  reviews,
+  payment
 );
