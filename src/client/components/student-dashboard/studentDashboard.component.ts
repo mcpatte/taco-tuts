@@ -8,12 +8,15 @@ import { ProfileComponent } from '../profile/profile.component';
 import { AppointmentComponent } from '../appointments/appointment.component';
 import { SubjectSearchComponent } from '../autocomplete/autocomplete.component';
 import { ProgressBar, TabView, TabPanel, InputText, Button, Calendar } from 'primeng/primeng';
+import { StripeFormComponent } from '../checkout/checkout.component';
+import { ArraySortPipe } from './subjects.pipe';
 
 
 @Component({
   selector: 'student-dashboard',
   providers: [ StudentDashboardService ],
-  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, ProgressBar, TabView, TabPanel, InputText, Button, Calendar],
+  pipes: [ArraySortPipe],
+  directives: [ProfileComponent, AppointmentComponent, SubjectSearchComponent, StripeFormComponent, ProgressBar, TabView, TabPanel, InputText, Button, Calendar],
   template: require('./studentDashboard.component.html'),
   styles: [`
     .subject {
