@@ -63,6 +63,12 @@ export class AppointmentService {
       .catch(this.handleError);
   }
 
+  apptPaid(sessionid) {
+    return this.http.put('api/sessions/paid/' + sessionid, null)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     console.log('response', res);
     let body = res.json();
