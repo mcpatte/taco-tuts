@@ -1,7 +1,7 @@
-<p-tabView class="subject">
+<p-tabView class="subject" (onChange)="getSubjectByStudent()">
     <p-tabPanel header="List Subjects">
         <div class="result" 
-            *ngFor="let subject of subjects; let i = index" >
+            *ngFor="let subject of subjects | sort; let i = index" >
             <h3>Subject: {{ subject.name }}</h3>
             <h4>Progress: {{subject.progress}}%</h4>
             <p-progressBar value={{subject.progress}} ></p-progressBar>
@@ -32,6 +32,9 @@
     </p-tabPanel>
      <p-tabPanel header="Appointments">
         <appointment></appointment>
+    </p-tabPanel>
+    <p-tabPanel header="Payment">
+        <sd-stripe-form></sd-stripe-form>
     </p-tabPanel>
     
 </p-tabView>
