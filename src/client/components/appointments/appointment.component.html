@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label for="teacher">Teacher</label>
-            <select [(ngModel)] = "apptModel.teacherid">
+            <select (change)="getRate($event.target.value)" [(ngModel)] = "apptModel.teacherid">
                 <option *ngFor="let teacher of teachers" [value]="teacher.userid">{{teacher.name}}</option>
             </select>
         </div>
@@ -25,12 +25,20 @@
                 [(ngModel)]="apptModel.date"
                 type="date">
         </div>
+      
         <div class="form-group">
              <label for="time">Time</label>
             <input 
                 [(ngModel)]="apptModel.time"
                 type="time">
         </div>
+        <div class="form-group">
+            <label for="duration">Duration</label>
+            <select (change)="getApptCost($event.target.value)" [(ngModel)] = "apptModel.duration">
+                <option *ngFor="let time of times" [value]="time.time">{{time.label}}</option>
+            </select>
+        </div>
+        <label *ngIf="apptCost > 0">Estimated Appointment Cost: ${{apptCost}}</label>
         <div class ="form-group">
             <button  
                     class="btn btn-default"
@@ -52,8 +60,9 @@
         <div class="filtered" *ngIf="filter === true">
             <div class="appointments"  *ngFor="let appointment of appointments | filterdate:inputDate | confirmedStudent:true">
                     <h3>Subject: {{ appointment.name }}</h3>
-                    <p>Date: {{ appointment.start | date:'fullDate'  }}
-                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}</p>
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}</p>
+                    <p>Duration: {{appointment.duration}} minutes</p>
                     <p>Tutor: {{ appointment.username }}</p>
                     <button  class="btn btn-default"  label="Remove" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
@@ -61,8 +70,9 @@
         <div class="showAll" *ngIf="filter === false">
             <div class="appointments"  *ngFor="let appointment of appointments | confirmedStudent:true">
                     <h3>Subject: {{ appointment.name }}</h3>
-                    <p>Date: {{ appointment.start | date:'fullDate'  }}
-                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}</p>
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}</p>
+                    <p>Duration: {{appointment.duration}} minutes</p>
                     <p>Tutor: {{ appointment.username }}</p>
                     <button class="btn btn-default" label="Remove" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
@@ -71,8 +81,9 @@
         <div class="showAll">
             <div class="appointments"  *ngFor="let appointment of appointments | confirmedStudent:false">
                     <h3>Subject: {{ appointment.name }}</h3>
-                    <p>Date: {{ appointment.start | date:'fullDate'  }}
-                    <p>Time: {{ appointment.start | date: 'shortTime' }}
+                    <p>Date: {{ appointment.start | date:'fullDate'  }}</p>
+                    <p>Time: {{ appointment.start | date: 'shortTime' }}</p>
+                    <p>Duration: {{appointment.duration}} minutes</p>
                     <p>Tutor: {{ appointment.username }}</p>
                     <button  class="btn btn-default" label="Remove" (click)="removeAppt(appointment.id)">Remove</button>
             </div>
