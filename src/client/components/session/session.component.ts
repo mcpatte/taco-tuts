@@ -9,10 +9,39 @@ import { SocketService } from '../../services/socket.service';
 import { StateGetterService } from '../../services/state-getter.service';
 import { Router } from '@angular/router';
 import { VideoChatComponent } from '../video-chat/videoChat.component';
+import { Button } from 'primeng/primeng';
 
 @Component({
   selector: 'session',
-  directives: [SessionWidgetsComponent, VideoChatComponent],
+  styles: [`
+    .module {
+  width: 300px;
+  position: relative;
+  left: 20;
+  top: 0;
+}
+
+.discussion {
+  list-style: none;
+  background: white;
+  margin: 0;
+  padding: 0 0 5px 0;
+}
+.discussion li {
+  padding: 0.5rem;
+  overflow: hidden;
+  display: flex;
+}
+
+.messages {
+  background: snow;
+  padding: 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+  `],
+  directives: [SessionWidgetsComponent, VideoChatComponent, Button],
   providers: [StateGetterService],
   template: require('./session.template.html')
 })
@@ -29,7 +58,7 @@ export class SessionComponent {
   ) {}
 
   isTeacher() {
-    return this.state.getRole() === 'teacher';
+    return this.state.isTeacher();
   }
 
   leaveSession() {

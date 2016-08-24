@@ -2,16 +2,22 @@
   <session-widgets *ngIf="isTeacher()"></session-widgets>
   <br><br>
   <div>
-    <input (keypress)="onKeypress($event)">
+    <input type="text" (keypress)="onKeypress($event)">
   </div>
   <br><br>
-  <div>
-    <div *ngFor="let message of messages$ | async">
-      <div> {{ message.from }}: {{ message.message }} </div>
-    </div>
-    <span class="vid">
-      <video-chat></video-chat>
-    </span>
-  </div>
-  <button (click)="leaveSession()">Leave Session</button>
+  <button pButton (click)="leaveSession()" label="Leave Session" style="position: fixed; bottom:0; right:25; z-index: 2;"></button>
 </div>
+
+<span class="vid">
+  <video-chat></video-chat>
+</span>
+
+<section class="module">
+  <ul class="discussion" *ngFor="let message of messages$ | async">
+    <li class="other">
+      <div class="messages">
+        <div>{{ message.from }}: {{ message.message }}</div>
+      </div>
+    </li>
+  </ul>
+</section>
