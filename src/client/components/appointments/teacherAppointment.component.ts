@@ -4,6 +4,7 @@ import { IAppState } from '../../store/index';
 import { AppointmentService  } from '../../services/appointment.service';
 import { FilterDatePipe } from './pipes/appointment.date-pipe';
 import { ConfirmedTeacherPipe } from './pipes/appoinment.confirmedTeacher-pipe';
+import { StateGetterService } from '../../services/state-getter.service';
 
 
 @Component({
@@ -52,7 +53,8 @@ export class TeacherAppointmentComponent {
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
-        private appointmentService: AppointmentService) { 
+        private appointmentService: AppointmentService,
+        private state: StateGetterService) { 
 
         }
 
@@ -106,16 +108,14 @@ export class TeacherAppointmentComponent {
     }
     
 
-     getStudentID(){
-        let authID = this.ngRedux.getState().login['userData'].authid;
-        this.appointmentService.getUserID(authID)
-            .subscribe( data => {
-                                this.studentid = data[0].id
-                                this.getAppointments()
-                        }
-            );
+    getStudentID(){
+        if (this.state.getAuthID()){
+            let authID = this.state.getAuthID();
+            this.appointmentService.getUserID(authID)
+                .subscribe( data => {
+                    this.studentid = data[0].id
+                    this.getAppointments()
+            });
+        } 
     }    
-    
-
 }
-
