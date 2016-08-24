@@ -5,13 +5,15 @@ import { ProfileService }   from '../../services/profile.service';
 import { Auth }             from '../../services/auth.service';
 import { LoginActions }     from '../../actions/login.actions';
 import { UserService }      from '../../services/user.service';
+import { AppointmentService } from '../../services/appointment.service';
 import { InputText, Button, Checkbox } from 'primeng/primeng';
+
 
 
 @Component({
   selector: 'teacherProfile',
   directives: [ InputText, Button ],
-  providers: [ ProfileService, UserService ],
+  providers: [ ProfileService, UserService, AppointmentService ],
   template: require('./teacher-profile.component.html'),
   styles: [`
     .profile {
@@ -51,12 +53,14 @@ export class TeacherProfileComponent {
   private profileFormOpen: boolean = false;
   private userData: Object = {imageURL: ''
                             };
-  private hourlyRate: number = 15;
+  private hourlyRate: number;
   private validURL: boolean = true;
+  private userID: number;
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private profileService: ProfileService,
+    private appointmentService: AppointmentService,
     private auth: Auth,
     private loginActions: LoginActions,
     private userService: UserService) { }
@@ -64,6 +68,7 @@ export class TeacherProfileComponent {
     ngOnInit() {
         this.authID = this.getID();
         this.isTeacher()
+        this.getUserID()
     };
 
     getID() {
@@ -79,6 +84,11 @@ export class TeacherProfileComponent {
     }
     isAuthenticated() {
         return this.auth.isAuthenticated();
+    }
+
+    getRate() {
+        this.profileService.getTeacherInfo(this.userID)
+            .subscribe(data => this.hourlyRate = data[0].rate)
     }
 
     updateRate() {
@@ -117,4 +127,13 @@ export class TeacherProfileComponent {
             }
         )
     }
+
+     getUserID(){
+        this.appointmentService.getUserID(this.authID)
+            .subscribe( data => {
+                this.userID = data[0].id
+                this.getRate();
+         
+        })
+    }; 
 }
