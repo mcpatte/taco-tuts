@@ -9,10 +9,11 @@ import { SocketService } from '../../services/socket.service';
 import { StateGetterService } from '../../services/state-getter.service';
 import { Router } from '@angular/router';
 import { VideoChatComponent } from '../video-chat/videoChat.component';
+import { Button } from 'primeng/primeng';
 
 @Component({
   selector: 'session',
-  directives: [SessionWidgetsComponent, VideoChatComponent],
+  directives: [SessionWidgetsComponent, VideoChatComponent, Button],
   providers: [StateGetterService],
   template: require('./session.template.html')
 })
