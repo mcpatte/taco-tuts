@@ -16,15 +16,6 @@ function getAllUsers(req, res, next) {
 function getSingleUser(req, res, next){
   var authID = req.params.authID;
   db.any('select * from users where authID = $1', [authID])
-    .then(function(data) {
-      return !data[0].teacher ?
-        data :
-        db.any(`
-          SELECT * FROM users INNER JOIN teachers
-          ON teachers.id = users.teacherid
-          WHERE users.authid = $1
-        `, [authID]);
-    })
     .then(respondWithData(res, `Retrieved single user`))
     .catch(catchError(next));
 }
