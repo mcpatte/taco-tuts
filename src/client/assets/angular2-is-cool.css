@@ -2,3 +2,25 @@
   max-width: 750px;
   margin: auto;
 }
+
+.videoContainer {
+    position: absolute;
+    right: 20px;
+    border: 3px solid #8AC007;
+    width: 200px;
+    height: 150px;
+}
+.videoContainer video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.localVideo {
+  position: absolute;
+  right: 20px;
+  border: 3px solid #8AC007;
+  width: 75px;
+  height: 75px;
+  z-index: 2;
+}
