@@ -11,7 +11,7 @@
       <div class='stars'>
         <img *ngFor="let star of getStars(teacher.rating)" src="assets/logo/star.svg"/>
       </div>
-      <div *ngIf="!hasPendingRequest(teacher)">
+      <div *ngIf="!hasPendingRequest(teacher) && isAuthenticated()">
         <button
           class="btn btn-session"
           (click)="requestSession(teacher)"
@@ -19,7 +19,7 @@
         >Request Session</button>
       </div>
 
-      <div *ngIf="hasPendingRequest(teacher)">
+      <div *ngIf="hasPendingRequest(teacher) && isAuthenticated()">
         <button
           class="btn btn-session btn-session-cancel"
           (click)="cancelRequest(teacher)"

@@ -23,7 +23,7 @@
               <img src="{{teacher.imageurl}}" style="width: auto; height: auto; max-width: 120px; max-height:120px">
             </div>
 
-            <div *ngIf="teacher.isavailable">
+            <div *ngIf="teacher.isavailable && isAuthenticated()">
               <div *ngIf="!hasPendingRequest(teacher)">
                 <button
                   pButton
@@ -33,7 +33,7 @@
                 ></button>
               </div>
 
-              <div *ngIf="hasPendingRequest(teacher)">
+              <div *ngIf="hasPendingRequest(teacher) && isAuthenticated()">
                 <button
                   pButton
                   class="btn-session btn-session-cancel"
