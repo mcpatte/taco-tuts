@@ -17,13 +17,17 @@ import { StateGetterService } from '../../services/state-getter.service'
       font-size: .7em;
       padding: 3px;
     }
+    body {
+      background-color: #f2f2f2;
+    }
     .btn-session {
-      width: 75%;
-      background-color: #33495f;
+      width: 25%;
+      background-color: white;
       border: 0;
-      color: white;
+      color: #33495f;
       font-weight: 800;
-      margin-top: 10px;
+      float: right;
+      margin-right: 10px;
     }
     .btn-session:active {
       background-color: #33495f;
@@ -64,10 +68,54 @@ import { StateGetterService } from '../../services/state-getter.service'
       margin-top: 50px;
       margin-left: 10px;
     }
+    .review {
+      border-radius: 5px;
+      border: 1px solid #33495f;
+      width: 75%;
+      margin: 10px auto;
+      padding: 23px;
+    }
+    .review-body {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+    }
+    .review-user {
+      font-family: 'Roboto', sans-serif;
+      color: #33495f;
+      font-weight: 800;
+      font-size: 1.2em;
+      padding-bottom: 10px;
+      clear: left;
+    }
     .separator {
       background-color: #ff9f4f;
       width: 100%;
       height: 10px;
+    }
+    .stars {
+      float: right;
+      padding-right: 10px;
+      margin-top: -35px;
+    }
+    .stars-review {
+      float: left;
+      padding-bottom: 10px;
+      clear: right;
+    }
+    .subjects {
+      padding-top: 85;
+      padding-left: 107;
+    }
+    .subject {
+      background-color: snow;
+      display: inline-block;
+      float: left;
+      padding: 2px;
+      margin-top: 90;
+      font-family: 'Roboto', sans-serif;
+      margin: 5px;
+      font-size: .7em;
+      border-radius: 5px;
     }
     .teacher-image {
       height: auto;
@@ -95,25 +143,6 @@ import { StateGetterService } from '../../services/state-getter.service'
       margin-top: 28;
       margin-left: 90px;
       position: absolute;
-    }
-    .stars {
-      float: right;
-      padding-right: 10px;
-      margin-top: -35px;
-    }
-    .subjects {
-      padding-top: 85;
-      padding-left: 107;
-    }
-    .subject {
-      background-color: snow;
-      display: inline-block;
-      float: left;
-      padding: 2px;
-      margin-top: 90;
-      font-family: 'Roboto', sans-serif;
-      margin: 5px;
-      font-size: .7em;
     }
 }
 
