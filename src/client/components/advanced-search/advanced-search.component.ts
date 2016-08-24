@@ -22,6 +22,10 @@ import { TeacherListActions } from '../../actions';
       background-color: white;
       cursor: pointer;
     }
+    .filters {
+      max-width: 750px;
+      margin: 0 auto;
+    }
     input[type="checkbox"] {
       width: 100px;
     }

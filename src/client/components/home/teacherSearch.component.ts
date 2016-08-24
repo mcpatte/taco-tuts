@@ -17,7 +17,7 @@ import { TeacherListActions } from '../../actions';
 
         }
         input[type=text] {
-          width: 100%;
+          width: 50%;
           box-sizing: border-box;
           border: 2px solid #ccc;
           border-radius: 4px;
@@ -35,12 +35,16 @@ import { TeacherListActions } from '../../actions';
         }
 
         input[type=text]:focus {
-            width: 200%;
+          width: 100%;
+        }
+        .search {
+          max-width: 750px;
+          margin: auto;
         }
     `],
     template: `
         <br />
-        <div class="container-fluid" >
+        <div class="search" >
             <input id="subject" type="text" class="validate filter-input" placeholder="Filter teachers by subject..." [(ngModel)]=query (keyup)=debounce()>
         </div>
         <br />

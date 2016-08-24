@@ -81,8 +81,10 @@ import { TeacherListActions } from '../../actions';
       color: #ff9f4f;
       cursor: pointer;
     }
-    .filters {
-      padding: 10px;
+    .filter-button {
+      padding-bottom: 10px;
+      max-width: 750px;
+      margin: auto;
     }
     .img-container {
       overflow: hidden;
