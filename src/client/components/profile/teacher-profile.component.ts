@@ -67,8 +67,8 @@ export class TeacherProfileComponent {
 
     ngOnInit() {
         this.authID = this.getID();
-        this.isTeacher()
-        this.getUserID()
+        this.isTeacher();
+        this.getRate();
     };
 
     getID() {
@@ -87,8 +87,9 @@ export class TeacherProfileComponent {
     }
 
     getRate() {
-        this.profileService.getTeacherInfo(this.userID)
-            .subscribe(data => this.hourlyRate = data[0].rate)
+        let authid = this.ngRedux.getState().login['userData'].authid;
+        this.profileService.getTeacherInfo(authid)
+            .subscribe(data => this.hourlyRate = data.rate)
     }
 
     updateRate() {
@@ -127,13 +128,4 @@ export class TeacherProfileComponent {
             }
         )
     }
-
-     getUserID(){
-        this.appointmentService.getUserID(this.authID)
-            .subscribe( data => {
-                this.userID = data[0].id
-                this.getRate();
-         
-        })
-    }; 
 }
