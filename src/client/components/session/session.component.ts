@@ -38,8 +38,6 @@ export class SessionComponent {
       this.state.getAuthID(),
       this.state.getUserName()
     );
-
-    this.actions.leaveSessionDispatch();
     this.router.navigate(['/session-end']);
   }
 
