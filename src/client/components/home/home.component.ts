@@ -190,5 +190,8 @@ export class HomeComponent {
         this.viewProfile();
       }
     )
-   }
+  }
+  isAuthenticated() {
+    return !!this.state.getAuthID();
+  }
 }
