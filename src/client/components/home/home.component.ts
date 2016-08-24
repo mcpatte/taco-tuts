@@ -102,6 +102,23 @@ import { TeacherListActions } from '../../actions';
       font-weight: 800;
       font-size: 1.2em;
     }
+    .view-profile {
+      width: 75%;
+      background-color: #33495f;
+      border: 0;
+      color: white;
+      font-weight: 800;
+      margin-top: 10px;
+      border: 1px solid #33495f;
+    }
+    .view-profile:active {
+      color: white;
+    }
+    .view-profile:hover {
+      background-color: white;
+      color: #33495f;
+      border: 1px solid #33495f;
+    }
   `]
 })
 export class HomeComponent {
