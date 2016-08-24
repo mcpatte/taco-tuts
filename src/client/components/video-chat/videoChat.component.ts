@@ -1,12 +1,12 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 declare var SimpleWebRTC: any;
 
 @Component({
   selector: 'video-chat',
   template: require('./videoChat.template.html')
 })
-export class VideoChatComponent implements AfterViewInit {
-  ngAfterViewInit() {
+export class VideoChatComponent {
+  constructor() {
     var webrtc = new SimpleWebRTC({
     // the id/element dom element that will hold "our" video
     localVideoEl: 'localVideo',
@@ -35,6 +35,14 @@ export class VideoChatComponent implements AfterViewInit {
           video.oncontextmenu = function () { return false; };
 
           remotes.appendChild(container);
+      }
+    });
+    webrtc.on('videoRemoved', function (video, peer) {
+      console.log('video removed ', peer);
+      var remotes = document.getElementById('remotes');
+      var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer');
+      if (remotes && el) {
+          remotes.removeChild(el);
       }
     });
   }

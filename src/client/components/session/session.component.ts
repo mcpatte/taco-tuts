@@ -13,6 +13,34 @@ import { Button } from 'primeng/primeng';
 
 @Component({
   selector: 'session',
+  styles: [`
+    .module {
+  width: 300px;
+  position: absolute;
+  left: 20;
+  top: 250;
+}
+
+.discussion {
+  list-style: none;
+  background: white;
+  margin: 0;
+  padding: 0 0 5px 0;
+}
+.discussion li {
+  padding: 0.5rem;
+  overflow: hidden;
+  display: flex;
+}
+
+.messages {
+  background: snow;
+  padding: 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+  `],
   directives: [SessionWidgetsComponent, VideoChatComponent, Button],
   providers: [StateGetterService],
   template: require('./session.template.html')
