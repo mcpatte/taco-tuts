@@ -16,9 +16,9 @@ import { Button } from 'primeng/primeng';
   styles: [`
     .module {
   width: 300px;
-  position: absolute;
+  position: relative;
   left: 20;
-  top: 250;
+  top: 0;
 }
 
 .discussion {
