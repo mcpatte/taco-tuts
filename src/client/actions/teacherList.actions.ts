@@ -22,20 +22,19 @@ export class TeacherListActions {
     });
   }
   public selectedTeacherDispatch(authID: string) {
-    console.log("selected teacher dispatch")
     return this.getProfile(authID)
-      .do (        
+      .do (
         profile => {
           this.ngRedux.dispatch({
             type: TEACHER_LIST_ACTIONS.SET_TEACHER,
             teacher: profile
-          })
+          });
         }
-      )
+      );
   }
   public getProfile(authID) {
     return this.http.get('/api/teachers/' + authID)
-      .map(this.extractData)
+      .map(this.extractData);
   }
   private extractData(res) {
     let body = res.json();
