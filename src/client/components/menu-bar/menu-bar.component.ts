@@ -17,6 +17,8 @@ import { StateGetterService } from '../../services/state-getter.service';
       height: 150px;
       font-size: 1.3em;
       color: #ffffff;
+      padding:0;
+      margin:0;
     }
     .menuItem {
       background-color: #33495f;
@@ -94,6 +96,7 @@ export class MenuBarComponent {
     localStorage.removeItem('id_token');
     this.auth.logout();
     this.logoutActions.setLogoutDispatch();
+    this.navigate('/home');
   }
 
   isInSession() {

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class='separator'></div>
+  <div class='teacher-info'>
+    <div class = 'img-container'>
+      <img class='teacher-image' src={{teacher.imageurl}} />
+    </div>
+      <h2 class="teacher-name">{{teacher.name}}</h2>
+      <div class="subjects">
+        <p *ngFor="let subject of teacher.subjects" class="subject" >{{subject}}</p>
+      </div>
+      <div class='stars'>
+        <img *ngFor="let star of getStars(teacher.rating)" src="assets/logo/star.svg"/>
+      </div>
+      <div *ngIf="!hasPendingRequest(teacher)">
+        <button
+          class="btn btn-session"
+          (click)="requestSession(teacher)"
+          label="request session"
+        >Request Session</button>
+      </div>
+
+      <div *ngIf="hasPendingRequest(teacher)">
+        <button
+          class="btn btn-session btn-session-cancel"
+          (click)="cancelRequest(teacher)"
+          label="cancel session"
+        >Cancel Session</button>
+      </div>
+  </div>
+  <div class="review" *ngFor="let review of reviews">
+    <div class="stars-review">
+      <img *ngFor="let star of getStars(review.rating)" src="assets/logo/star.svg"/>
+    </div>
+    <div class="review-user">{{review.studentname}}</div>
+    <div class="review-body">{{review.review}}</div>
+  </div>
+</div>
+
+
+

@@ -16,8 +16,11 @@
   <p-dataList [value]="teachers" [paginator]="true" [rows]="5" styleClass="datalist-hack">
     <template let-teacher >
       <div class="ui-grid ui-grid-responsive ui-fluid teacher-info">
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-3" style="text-align:center">
+        <div 
+        class="ui-grid-row">
+          <div 
+            class="ui-grid-col-3" 
+            style="text-align:center">
             <div class="img-container">
               <img src="{{teacher.imageurl}}" style="width: auto; height: auto; max-width: 120px; max-height:120px">
             </div>
@@ -41,6 +44,11 @@
                 ></button>
               </div>
             </div>
+              <button
+                class="btn view-profile"
+                (click)="selectTeacher(teacher.authid)"
+                label="cancel session"
+              >View Profile</button>
           </div>
 
           <div class="ui-grid-col-9">

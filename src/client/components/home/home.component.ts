@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output,} from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
+import { Router } from '@angular/router';
 import { IAppState } from '../../store/index';
 import { Auth } from '../../services/auth.service';
 import { HomeService } from '../../services/home.service';
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { AdvancedSearchComponent } from '../advanced-search';
 import { StateGetterService } from '../../services/state-getter.service';
 import { VideoChatComponent } from '../video-chat/videoChat.component';
+import { TeacherListActions } from '../../actions';
 
 @Component({
   selector: 'home',
@@ -100,6 +102,23 @@ import { VideoChatComponent } from '../video-chat/videoChat.component';
       font-weight: 800;
       font-size: 1.2em;
     }
+    .view-profile {
+      width: 75%;
+      background-color: #33495f;
+      border: 0;
+      color: white;
+      font-weight: 800;
+      margin-top: 10px;
+      border: 1px solid #33495f;
+    }
+    .view-profile:active {
+      color: white;
+    }
+    .view-profile:hover {
+      background-color: white;
+      color: #33495f;
+      border: 1px solid #33495f;
+    }
   `]
 })
 export class HomeComponent {
@@ -124,7 +143,9 @@ export class HomeComponent {
     private loginActions: LoginActions,
     private sessionRequestActions: SessionRequestActions,
     private state: StateGetterService,
-    private socket: SocketService
+    private socket: SocketService,
+    private router: Router,
+    private teacherListActions: TeacherListActions
   ) {
     this.teachers$.subscribe(list => this.teachers = list);
   }
@@ -157,4 +178,15 @@ export class HomeComponent {
   noResults() {
     return !this.state.getTeacherList().length;
   }
+  
+  viewProfile() {
+    this.router.navigate(['/teacher-view'])
+  }
+  selectTeacher(authID) {
+    this.teacherListActions.selectedTeacherDispatch(authID)
+    .subscribe(() => {
+        this.viewProfile();
+      }
+    )
+   }
 }

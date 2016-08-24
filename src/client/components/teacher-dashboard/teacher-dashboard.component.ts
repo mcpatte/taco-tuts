@@ -34,12 +34,15 @@ import { Button } from 'primeng/primeng';
       text-align: center;
     }
     .available {
-      background-color: green;
+      background-color: #52d68a;
       color: white;
+      border: 1px solid #52d68a;
+      padding: 10px 20px;
     }
     .available:active {
-      background-color: green;
+      background-color: #52d68a;
       color: white;
+      border: 1px solid #52d68a;
     }
     .instant-session-button {
       margin-left: 8px;
@@ -47,10 +50,14 @@ import { Button } from 'primeng/primeng';
     .notAvailable {
       background-color: red;
       color: white;
+      border: 1px solid red;
+      padding: 10px 20px;
     }
     .notAvailable:active {
       background-color: red;
       color: white;
+      border: 1px solid red;
+      padding: 10px 20px;
     }
     .teacherdash {
       width: 40%;

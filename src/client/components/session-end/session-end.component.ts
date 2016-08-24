@@ -1,8 +1,10 @@
 import { Component }           from '@angular/core';
+import { Router }              from '@angular/router';
 import { IAppState }           from '../../store';
 import { SessionEndService }   from '../../services/session-end.service';
 import { NgRedux }             from 'ng2-redux';
 import { StateGetterService }  from '../../services/state-getter.service';
+import { SessionActions }      from '../../actions';
 
 @Component({
   selector: 'session-end',
@@ -73,16 +75,21 @@ export class SessionEndComponent {
   constructor(
     private sessionEndService: SessionEndService,
     private ngRedux: NgRedux<IAppState>,
-    private state: StateGetterService
+    private state: StateGetterService,
+    private actions: SessionActions,
+    private router: Router
   ) {}
 
   submitReview() {
     this.userReview.studentID = this.getStudentID();
     this.userReview.teacherID = this.getTeacherID();
-
+    console.log(this.userReview);
     this.sessionEndService.sendReview(this.userReview)
     .subscribe (
-      response => console.log(response)
+      response => {
+        this.actions.leaveSessionDispatch();
+        this.router.navigate(['/student-dash']);
+      }
     );
   }
     

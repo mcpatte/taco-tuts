@@ -10,6 +10,7 @@
     "postinstall": "typings install && webpack",
     "start": "node src/server/server.js",
     "dev": "webpack --watch",
+    "schema": "psql -f ./src/server/localSchema.sql",
     "lint": "tslint -e /node_modules/**/** -e src/client/typings/**/*.ts src/client/**/*.ts || exit 0",
     "test": "jasmine"
   },
