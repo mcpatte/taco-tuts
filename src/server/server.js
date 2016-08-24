@@ -63,6 +63,7 @@ app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
 
 // ********************* REVIEWS ******************* //
 
+app.get('/api/reviews/:authid', db.getReviews);
 app.post('/api/reviews', db.addReview);
 
 // ******************** SESSIONS ******************* //
