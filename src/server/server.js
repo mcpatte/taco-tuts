@@ -3,6 +3,7 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var db = require('./queries/exports');
 var path = require('path');
+var stripe = require("stripe")("sk_test_KG0NAu7nQPz1CBsEXGRzWAie");
 
 var PORT;
 
@@ -58,7 +59,6 @@ app.get('/api/learning', db.getLearning);
 app.get('/api/learning/:id', db.findSubjectsByUser);
 app.post('/api/learning', db.learningSubject);
 app.put('/api/learning', db.levelUp);
-app.put('/api/learning', db.levelUp);
 app.delete('/api/learning/:userID/:subjectID', db.removeSubjectByUser);
 
 // ********************* REVIEWS ******************* //
@@ -71,6 +71,7 @@ app.get('/api/sessions/student/:id', db.getAppointmentsByStudent);
 app.get('/api/sessions/teacher/:id', db.getAppointmentsByTeacher);
 app.post('/api/sessions', db.addAppointment);
 app.put('/api/sessions/:sessionid', db.confirmAppt);
+app.put('/api/sessions/paid/:sessionid', db.apptPaid);
 app.delete('/api/sessions/:sessionid', db.removeAppt);
 
 // ******************** SUBJECT ******************** //
@@ -101,6 +102,12 @@ app.post('/api/users', db.createUser);
 app.post('/api/users/:authID', db.setAuthID);
 app.put('/api/users/:authID', db.updateUser);
 app.delete('/api/users/:authID', db.removeUser);
+
+
+
+// ********************** CHECKOUT ********************* //
+app.post('/api/checkout', db.postToken); 
+
 
 // serve `index.html` to all unmatched routes as a failsafe, to account for
 // html5 pushstate. it would be better to only do this for valid routes

@@ -35,6 +35,7 @@ import {  InputText, Button, DataList } from 'primeng/primeng';
 export class AppointmentComponent {
     private subjects = [];
     private teachers = [];
+    private teacherid: number;
     private studentid: Number; 
     private apptModel = {};
     private apptFormOpen: boolean = false; 
@@ -42,7 +43,13 @@ export class AppointmentComponent {
     private inputDate: string;
     private filter: boolean = false;
     private apptListOpen: boolean = false;
-
+    private rate: number;
+    private apptCost: any;
+    private times = [{label: "15 Minutes", time: 15}, 
+                        {label: "30 Minutes", time: 30},
+                        {label: "45 Minutes", time: 45},
+                        {label: "60 Minutes", time: 60},]
+                    
 
     constructor(
         private ngRedux: NgRedux<IAppState>,
@@ -66,13 +73,27 @@ export class AppointmentComponent {
     filterTeachers(subjectid) {
         this.appointmentService.filterTeachers(subjectid)
             .subscribe(
-                data => this.teachers = data
+                data => {console.log("filterTeachers", data)
+                    this.teachers = data
+                }
             )
         console.log(subjectid); 
+    }
+    
+    getRate(target){
+       console.log("target", target)
+       this.teacherid = target;
+       this.rate = (this.teachers.filter(teacher =>  teacher.userid == this.teacherid))[0].rate;  
+    }          
+    
+    getApptCost(time){
+        this.apptCost = Number((time / 60) * this.rate).toFixed(2);
     }
 
 
     addAppointment(apptModel) {
+        apptModel.apptCost = this.apptCost * 100
+        apptModel.paid = false;
         apptModel.confirmed = false;
         apptModel.studentid = this.studentid;
         apptModel.datetime = apptModel.date + ' ' + apptModel.time

@@ -99,16 +99,6 @@ export class TeacherAppointmentComponent {
     } 
 
 
-    // addAppointment(apptModel) {
-    //     apptModel.confirmed = false;
-    //     apptModel.studentid = this.studentid;
-    //     apptModel.datetime = apptModel.date + ' ' + apptModel.time
-    //     console.log("appt Model from add appointment", apptModel)
-    //     this.appointmentService.addAppointment(apptModel)
-    //         .subscribe(data => console.log("heres the data", data))
-    // }
-
-
     getAppointments(){
         console.log("get appointments called with student id", this.studentid)
         this.appointmentService.getAppointmentsByTeacher(this.studentid)
