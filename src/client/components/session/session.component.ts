@@ -58,7 +58,7 @@ export class SessionComponent {
   ) {}
 
   isTeacher() {
-    return this.state.getRole() === 'teacher';
+    return this.state.isTeacher();
   }
 
   leaveSession() {
