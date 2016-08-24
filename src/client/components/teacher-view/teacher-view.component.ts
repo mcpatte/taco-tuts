@@ -195,5 +195,8 @@ export class TeacherViewComponent {
 
     this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
   }
+  isAuthenticated() {
+    return !!this.state.getAuthID();
+  }
 
 }
