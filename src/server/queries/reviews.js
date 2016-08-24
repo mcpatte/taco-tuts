@@ -28,6 +28,18 @@ function addRating(teacherID, rating) {
     })
 }
 
+
+function getReviews(req, res, next) {
+  var userID = req.params.authid;
+  db.any(`select reviews.*, student.name as studentname from users
+          inner join reviews on reviews.teacherauthid=users.authid
+          inner join users as student on reviews.studentauthid=student.authid 
+          where users.authid=$1;`, [userID])
+    .then(respondWithData(res, "Response from getReviews"))
+    .catch(catchError(next));
+}
+
 module.exports = {
-  addReview: addReview
+  addReview: addReview,
+  getReviews: getReviews
 };
