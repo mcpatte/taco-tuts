@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from 'ng2-redux';
+import { Http } from '@angular/http';
 import { IAppState } from '../../store/index';
-import { StateGetterService } from '../../services/state-getter.service'
+import { StateGetterService } from '../../services/state-getter.service';
+import { SessionRequestActions } from '../../actions/session-request.actions';
 
 @Component({
   selector: 'teacher-view',
   directives: [ ],
-  providers: [  ],
+  providers: [ SessionRequestActions ],
   styles: [`
      .available {
       background-color: #52d68a;
@@ -152,30 +154,46 @@ import { StateGetterService } from '../../services/state-getter.service'
 export class TeacherViewComponent {
 
   teacher: Object;
+  reviews: Object;
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private state: StateGetterService
+    private state: StateGetterService,
+    private sessionRequestActions: SessionRequestActions,
+    private http: Http
   ) { 
       this.teacher = this.state.getSelectedTeacher();
+      this.http.get('./api/reviews/' + this.teacher['authid'])
+        .subscribe (
+          response => {
+            this.reviews = response.json().data;
+          }
+        )
     }
 
   getStars(stars) {
     return Array(stars).fill(1);
   }
 
-  hasPendingRequest(teacher) {
-    // const teachers = this.ngRedux.getState().sessionRequest.requests
-    //   .map(request => request.teacherauthid);
+  requestSession(teacher) {
+    const teacherID = teacher.authid;
+    const studentID = this.state.getAuthID();
 
-    // return teachers.indexOf(teacher.authid) > -1;
+    this.sessionRequestActions.addRequestDispatch(studentID, teacherID, 2);
+  }
+
+  hasPendingRequest(teacher) {
+    const teachers = this.ngRedux.getState().sessionRequest.requests
+      .map(request => request.teacherauthid);
+
+    return teachers.indexOf(teacher.authid) > -1;
   }
 
   cancelRequest(teacher) {
-    // const teacherID = teacher.authid;
-    // const studentID = this.state.login.userData.authid;
+    const teacherID = teacher.authid;
+    const studentID = this.state.getAuthID();
 
-    // this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
+    this.sessionRequestActions.cancelRequestDispatch(studentID, teacherID);
   }
 
 }
