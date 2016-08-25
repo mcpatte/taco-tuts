@@ -76,8 +76,8 @@ Session.prototype.wrapData = function(role, data) {
 };
 
 Session.prototype.getSessionData = function(userID) {
-  var studentID = this.students[0].meta.getUserID();
-  var teacherID = this.teachers[0].meta.getUserID();
+  var studentID = this.students[0] && this.students[0].meta.getUserID();
+  var teacherID = this.teachers[0] && this.teachers[0].meta.getUserID();
 
   return {
     sessionID: this.id,
