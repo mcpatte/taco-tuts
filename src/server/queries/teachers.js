@@ -19,8 +19,12 @@ function getTeachersInfo(req, res, next){
 }
 
 function getAllTeachers(req, res, next){
-  db.any(`select array_agg(subjects.name) as subjects, users.*, teachers.* from teachers JOIN users on users.teacherID = teachers.ID join teaching on users.id = teaching.userID 
-  join subjects on teaching.subjectID = subjects.id WHERE users.teacher = true group by users.id, teachers.id`)
+  db.any(`select array_agg(subjects.name) as subjects, users.*, teachers.* 
+          from teachers 
+          JOIN users on users.teacherID = teachers.ID 
+          join teaching on users.id = teaching.userID 
+          join subjects on teaching.subjectID = subjects.id WHERE users.teacher = true 
+          group by users.id, teachers.id`)
     .then(respondWithData(res, "Retrieved all teacher info for user given user"))
     .catch(catchError(next));
 }

@@ -24,26 +24,11 @@
           [(ngModel)] = "userParams.currentlyAvailable"
       >
     </div>
-
     <button
       type="submit"
       class="btn btn-default"
       (click)="search(userParams)"
       >Search</button
     >
-
   </form>
 </div>
-
-<!-- <div *ngIf="results.length">
-      <ul *ngFor="#teacher of results" >
-        <div class = 'result' (click)="chooseTeacher(teacher)">
-          <h3 class='name'>{{teacher.name}}</h3>
-          <h5 *ngIf="!!teacher.rating"><img *ngFor="#star of getStars(teacher.rating)" src="../../assets/logo/star.svg"/></h5>
-          <h5 *ngIf="!teacher.rating">Rating: no ratings yet!</h5>
-          <h5>Email: {{teacher.email}}</h5>
-          <h5 *ngIf="teacher.subjectname">Teaches: {{teacher.subjectname}}</h5>
-          <h5 *ngIf="teacher.isAvailable">Available now!</h5>
-        </div>
-      </ul>
-    </div> -->

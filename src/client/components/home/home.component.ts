@@ -57,9 +57,9 @@ import { TeacherListActions } from '../../actions';
       margin-top: 10px;
     }
     .btn-session:active {
-      background-color: #33495f;
+      background-color: #ff9f4f;
       font-weight: 800;
-      color: #ff9f4f;
+      color: #33495f;
       border: 0;
     }
     .btn-session-cancel {
@@ -92,6 +92,10 @@ import { TeacherListActions } from '../../actions';
       width: 80px;
       height: 80px;
       margin: auto;
+    }
+    .no-results {
+      max-width: 750px;
+      margin: 0 auto;  
     }
     .teacher-info {
       font-size:16px;
