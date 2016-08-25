@@ -62,6 +62,12 @@ export class SocketService {
         this.sessionRequestActions.cancelAllRequestsDispatch(userID)
       }
 
+      // add introduction message
+      this.sessionActions.addMessageDispatch({
+        from: 'System',
+        message: 'Welcome to the session!'
+      });
+
       this.router.navigate(['/session']);
     });
 
