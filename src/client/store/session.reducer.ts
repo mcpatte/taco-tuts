@@ -1,4 +1,4 @@
-import { SESSION_ACTIONS } from '../actions/session.actions';
+import { SESSION_ACTIONS, LOGOUT_ACTIONS } from '../actions';
 
 export interface IMessageState {
   message: string;
@@ -51,6 +51,9 @@ export function sessionReducer(
         return Object.assign({}, state, action.data);
 
       case SESSION_ACTIONS.LEAVE_SESSION:
+        return INIT_STATE;
+
+      case LOGOUT_ACTIONS.LOGOUT:
         return INIT_STATE;
 
       default:

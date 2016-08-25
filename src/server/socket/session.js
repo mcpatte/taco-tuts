@@ -21,6 +21,10 @@ Session.prototype.leave = function(socket) {
   this.teachers = _.difference(this.teachers, [socket]);
 };
 
+Session.prototype.getUserCount = function() {
+  return this.students.length + this.teachers.length;
+};
+
 Session.prototype.reconnect = function(oldSocket, newSocket) {
   var userID = newSocket.meta.getUserID();
   var replacer = socket => socket === oldSocket ? newSocket : socket;

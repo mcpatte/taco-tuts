@@ -26,6 +26,10 @@ ConnectionManager.prototype.onConnect = function(socket) {
   this.setConnection(userID, socket);
 };
 
+ConnectionManager.prototype.deleteSession = function(sessionID) {
+  delete this.sessions[sessionID];
+};
+
 ConnectionManager.prototype.trySessionReconnect = function(newSocket) {
   var userID = newSocket.meta.getUserID();
 
@@ -92,7 +96,12 @@ ConnectionManager.prototype.onSessionLeave = function(data) {
 
   leavingSocket.meta.clearCurrentSessionID();
   session.leave(leavingSocket);
-  session.emitMessage(message);
+
+  if (session.getUserCount()) {
+    session.emitMessage(message);
+  } else {
+    this.deleteSession(sessionID);
+  }
 };
 
 ConnectionManager.prototype.syncTeacherSessionRequests = function(teacherID) {
