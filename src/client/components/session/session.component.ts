@@ -14,31 +14,73 @@ import { Button } from 'primeng/primeng';
 @Component({
   selector: 'session',
   styles: [`
-    .module {
-  width: 300px;
-  position: relative;
-  left: 20;
-  top: 0;
+
+.container{
+    position: absolute;
+    left: 0;
+    top: 275;
+}
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.discussion {
-  list-style: none;
-  background: white;
-  margin: 0;
-  padding: 0 0 5px 0;
-}
-.discussion li {
-  padding: 0.5rem;
-  overflow: hidden;
-  display: flex;
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
 }
 
-.messages {
-  background: snow;
-  padding: 10px;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+.chat li.left .chat-body
+{
+    margin-left: 60px;
 }
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+
 
   `],
   directives: [SessionWidgetsComponent, VideoChatComponent, Button],
@@ -88,4 +130,7 @@ export class SessionComponent {
       e.target.value = '';
     }
   }
+  setScroll(){
+
+  };
 }
