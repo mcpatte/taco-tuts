@@ -93,6 +93,10 @@ import { TeacherListActions } from '../../actions';
       height: 80px;
       margin: auto;
     }
+    .no-results {
+      max-width: 750px;
+      margin: 0 auto;  
+    }
     .teacher-info {
       font-size:16px;
       font-family:'Roboto',sans-serif;
