@@ -33,13 +33,13 @@ import { InputText, Button } from 'primeng/primeng';
     template: `
         <div class="subjectSearch" >
             <div class="input-field col s12">
-              <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]=query (keyup)=filter() size="35">
-              <button class="btn btn-default" label="Add Subject" (click)="addSubject(query)">Add Subject</button>
+              <input id="subject" type="text" class="validate filter-input" placeholder="What do you want to learn?" [(ngModel)]="query" (keyup)="filter(); validateInput()" size="35">
+              <button class="btn btn-default" label="Add Subject" *ngIf="validInput === true" (click)="addSubject(query)">Add Subject</button>
             </div>
             <div class="suggestions" *ngIf="filteredList.length > 0">
                 <ul *ngFor="#item of filteredList" >
                     <li >
-                        <a (click)="select(item)">{{item}}</a>
+                        <a (click)="select(item); validateInput()">{{item}}</a>
                     </li>
                 </ul>
             </div>
@@ -53,6 +53,7 @@ export class SubjectSearchComponent {
     public filteredList = [];
     private studentid: number; 
     private fullSubjects = [];
+    private validInput: boolean = false;
 
  
 constructor(
@@ -64,6 +65,10 @@ constructor(
  ngOnInit() {
      this.getSubjects()
      this.getStudentID()
+ }
+
+ validateInput() {
+     this.validInput = this.subjects.indexOf(this.query) !== - 1;
  }
 
  getSubjects() {
