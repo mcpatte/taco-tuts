@@ -69,6 +69,7 @@ export class SessionComponent {
     );
 
     if (this.state.isTeacher()) {
+      this.actions.leaveSessionDispatch();
       this.router.navigate(['/teacher-dash']);
     } else {
       this.router.navigate(['/session-end']);
