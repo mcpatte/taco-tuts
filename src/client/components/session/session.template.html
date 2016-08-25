@@ -1,17 +1,13 @@
 <div>
   <session-widgets *ngIf="isTeacher()"></session-widgets>
   <br><br>
-  <div>
-    <input type="text" (keypress)="onKeypress($event)">
-  </div>
-  <br><br>
   <button pButton (click)="leaveSession()" label="Leave Session" style="position: fixed; bottom:0; right:25; z-index: 2;"></button>
 </div>
 
 <span class="vid">
   <video-chat></video-chat>
 </span>
-
+<!--
 <section class="module">
   <ul class="discussion" *ngFor="let message of messages$ | async">
     <li class="other">
@@ -20,4 +16,43 @@
       </div>
     </li>
   </ul>
-</section>
+  <div>
+    <input type="text" (keypress)="onKeypress($event)">
+  </div>
+</section>-->
+
+<div class="container" >
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                </div>
+                <div class="panel-body" id="guy" >
+                    <ul class="chat" *ngFor="let message of messages$ | async">
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{message.from}}</strong>
+                                </div>
+                                <p>
+                                  {{message.message}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" (keypress)="onKeypress($event)" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

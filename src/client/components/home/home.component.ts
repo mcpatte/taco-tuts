@@ -37,9 +37,10 @@ import { TeacherListActions } from '../../actions';
       padding: 0px 5px 0px 5px;
       background-color: #f3f3f3;
       margin: 6px 5px 0px 0px;
+      position: relative;
+      left: 15;
+      top: 5;
     }
-
-
     .available {
       background-color: #52d68a;
       color: white;
